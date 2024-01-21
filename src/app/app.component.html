@@ -1,1 +1,17 @@
-<h5>Hello Fitness app</h5>
+<mat-toolbar class="toolbar-container">
+  <div class="toolbar-container-left">
+    <mat-label
+      (click)="onFitnessAppClick()"
+      class="fitness-app-label">Fitness app
+    </mat-label>
+  </div>
+
+  <div class="toolbar-container-right">
+    <button
+      (click)="onToggleAccountMenuClick()"
+      mat-icon-button
+      class="profile-details">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>

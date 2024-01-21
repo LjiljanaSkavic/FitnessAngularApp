@@ -1,0 +1,28 @@
+@import "src/app/shared/colors";
+
+body {
+  overflow: hidden;
+}
+
+.toolbar-container {
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 150;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 66, 121, 1) 29%, rgba(0, 212, 255, 1) 100%);
+}
+
+.toolbar-container-left {
+  display: flex;
+  align-items: center;
+  color: $color-blue-3;
+}
+
+.toolbar-container-right {
+}
+
+.fitness-app-label {
+  cursor: pointer;
+}

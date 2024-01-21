@@ -15,7 +15,15 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._rssFeed.getRssFeed().subscribe(res => console.log(res));
+    // this._rssFeed.getRssFeed().subscribe(res => console.log(res));
     this._exercisesService.getExercises().subscribe(res => console.log(res));
+  }
+
+  onToggleAccountMenuClick() {
+
+  }
+
+  onFitnessAppClick() {
+
   }
 }
