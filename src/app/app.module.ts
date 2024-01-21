@@ -13,13 +13,15 @@ import { ExerciseListComponent } from './components/exercise-list/exercise-list.
 import { LoginCardComponent } from './components/login-card/login-card.component';
 import { MatCardModule } from "@angular/material/card";
 import { ReactiveFormsModule } from "@angular/forms";
+import { MatDialogModule } from "@angular/material/dialog";
 
 export const ANGULAR_MATERIAL_MODULES = [
   MatIconModule,
   MatButtonModule,
   MatInputModule,
   MatToolbarModule,
-  MatCardModule
+  MatCardModule,
+  MatDialogModule
 ]
 
 @NgModule({
