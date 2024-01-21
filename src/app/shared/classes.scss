@@ -1,0 +1,26 @@
+@import "src/app/shared/colors";
+
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  gap: 16px;
+}
+
+.button-discard {
+  background-color: $color-red-1;
+  color: $color-white;
+
+  &:hover {
+    background-color: $color-red-2;
+  }
+}
+
+.button-save {
+  background-color: $color-blue-1;
+  color: $color-white;
+
+  &:hover {
+    background-color: $color-blue-3;
+  }
+}

@@ -1,0 +1,17 @@
+@import "src/app/shared/colors";
+@import "src/app/shared/classes";
+
+.login-card {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  max-width: 432px;
+  padding: 128px 32px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
