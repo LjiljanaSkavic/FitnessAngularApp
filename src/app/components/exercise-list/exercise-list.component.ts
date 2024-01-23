@@ -11,6 +11,7 @@ import { Exercise } from "../../models/exercise";
 export class ExerciseListComponent implements OnInit, OnDestroy {
   subs = new Subscription();
   exercises: Exercise[] = [];
+  isLoading = false;
 
   constructor(private _exercisesService: ExercisesService,) {
   }

@@ -1,8 +1,13 @@
 <mat-toolbar class="toolbar-container">
   <div class="toolbar-container-left">
+    <button
+      (click)="drawer.toggle()"
+      mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
     <mat-label
       (click)="onFitnessAppClick()"
-      class="fitness-app-label">Fitness app
+      class="web-shop-label">Web shop
     </mat-label>
   </div>
 
@@ -15,4 +20,43 @@
     </button>
   </div>
 </mat-toolbar>
-<router-outlet></router-outlet>
+
+<mat-drawer-container class="container">
+  <mat-drawer
+    #drawer
+    class="sidenav">
+
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <div
+      [@collapse]="collapsed"
+      class="quick-profile-view-card">
+      <button
+        (click)="onProfileDetailsClick()"
+        class="icon-label-wrapper"
+        mat-button>
+        <mat-icon>settings</mat-icon>
+        Profile details
+      </button>
+
+      <button
+        (click)="onChangePasswordClick()"
+        class="icon-label-wrapper"
+        mat-button>
+        <mat-icon>password</mat-icon>
+        Manage password
+      </button>
+      <button
+        (click)="onLogOutClick()"
+        class="icon-label-wrapper"
+        mat-button>
+        <mat-icon>logout</mat-icon>
+        Log out
+      </button>
+    </div>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+

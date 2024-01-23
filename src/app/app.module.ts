@@ -14,6 +14,9 @@ import { LoginCardComponent } from './components/login-card/login-card.component
 import { MatCardModule } from "@angular/material/card";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatDialogModule } from "@angular/material/dialog";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatSelectModule } from "@angular/material/select";
 
 export const ANGULAR_MATERIAL_MODULES = [
   MatIconModule,
@@ -21,7 +24,9 @@ export const ANGULAR_MATERIAL_MODULES = [
   MatInputModule,
   MatToolbarModule,
   MatCardModule,
-  MatDialogModule
+  MatDialogModule,
+  MatSidenavModule,
+  MatSelectModule
 ]
 
 @NgModule({
@@ -33,6 +38,7 @@ export const ANGULAR_MATERIAL_MODULES = [
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
