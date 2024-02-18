@@ -4,6 +4,7 @@ import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
 import * as sha512 from 'js-sha512';
 import { UserService } from "../../user.service";
+import { UserStoreService } from "../../services/user-store.service";
 
 @Component({
   selector: 'app-login-card',
@@ -18,7 +19,8 @@ export class LoginCardComponent implements OnInit, OnDestroy {
 
   constructor(private readonly _formBuilder: UntypedFormBuilder,
               private _router: Router,
-              private _userService: UserService) {
+              private _userService: UserService,
+              private _userStoreService: UserStoreService) {
   }
 
   ngOnInit(): void {
@@ -43,8 +45,11 @@ export class LoginCardComponent implements OnInit, OnDestroy {
   onLoginClick($event: MouseEvent) {
     const username = this.loginForm.get('username').value;
     const password = this.getPasswordHash(this.loginForm.get('password').value);
+    console.log(password);
     this._userService.findUserByUsernameAndPassword(username, password).subscribe(user => {
         if (user.activated) {
+          this._userStoreService.isLoggedIn$.next(true);
+          this._userStoreService.setUserAsLoggedIn(user);
           this._router.navigateByUrl('exercises').catch(err => console.log(err));
         } else {
           this._router.navigate(['profile-activation'], {queryParams: {id: user.id}}).catch(err => console.log(err));

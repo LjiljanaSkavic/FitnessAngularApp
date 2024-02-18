@@ -21,4 +21,19 @@ export class UserService {
     const loginUrl = `${this.baseUrl}/login`;
     return this._httpClient.post<User>(loginUrl, loginUserInfo);
   }
+
+  sendEmail(userId: number) {
+    const activateUrl = `${this.baseUrl}/send-email/${userId}`;
+    return this._httpClient.post<User>(activateUrl, {});
+  }
+
+  activateUser(userId: number, link: string) {
+    const activateUrl = `${this.baseUrl}/activate/${userId}`;
+    return this._httpClient.post<User>(activateUrl, {link});
+  }
+
+  logoutUser(userId: number) {
+    const logoutUrl = `${this.baseUrl}/logout/${userId}`;
+    return this._httpClient.post<User>(logoutUrl, {});
+  }
 }

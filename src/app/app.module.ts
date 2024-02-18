@@ -17,6 +17,8 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatSelectModule } from "@angular/material/select";
+import { ActivationCardComponent } from './components/activation-card/activation-card.component';
+import { ActivateComponent } from './components/activate/activate.component';
 
 export const ANGULAR_MATERIAL_MODULES = [
   MatIconModule,
@@ -35,6 +37,8 @@ export const ANGULAR_MATERIAL_MODULES = [
     ExerciseCardComponent,
     ExerciseListComponent,
     LoginCardComponent,
+    ActivationCardComponent,
+    ActivateComponent,
   ],
   imports: [
     BrowserModule,

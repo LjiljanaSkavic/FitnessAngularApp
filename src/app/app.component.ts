@@ -3,6 +3,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { UserService } from "./user.service";
 import { Router } from "@angular/router";
 import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular/animations';
+import { UserStoreService } from "./services/user-store.service";
 
 export const DEFAULT_ANIMATION_DURATION = 100;
 
@@ -26,7 +27,8 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private _userService: UserService,
               private _router: Router,
               public dialog: MatDialog,
-              private _elRef: ElementRef) {
+              private _elRef: ElementRef,
+              private _userStoreService: UserStoreService) {
   }
 
   @HostListener('document:click', ['$event'])
@@ -43,7 +45,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onToggleAccountMenuClick() {
-    this._router.navigateByUrl('login').catch(err => console.log(err))
+    const user = this._userStoreService.getLoggedInUser();
+    user === null ? this._router.navigateByUrl('login').catch(err => console.log(err)) : this.collapsed = !this.collapsed;
   }
 
   onFitnessAppClick() {
@@ -59,7 +62,19 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onLogOutClick() {
-
+    const user = this._userStoreService.getLoggedInUser();
+    if (user !== null) {
+      this._userService.logoutUser(user.id).subscribe(res => {
+        this.collapsed = true;
+        this._userStoreService.setUserAsLoggedOut();
+        this._userStoreService.isLoggedIn$.next(false);
+        this._router.navigateByUrl('web-shop').catch(err => console.log(err));
+      }, err => {
+        //this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
+      });
+    } else {
+      //this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
+    }
   }
 
   ngOnDestroy(): void {
