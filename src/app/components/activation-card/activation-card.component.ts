@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, switchMap } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
 import { UserService } from "../../user.service";
+import { ERROR_HAS_OCCURRED_MESSAGE, snackBarConfig } from "../../shared/contants";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-activation-card',
@@ -13,7 +15,8 @@ export class ActivationCardComponent implements OnInit, OnDestroy {
   userId: number;
 
   constructor(private _activatedRoute: ActivatedRoute,
-              private _userService: UserService) {
+              private _userService: UserService,
+              private _snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -21,10 +24,10 @@ export class ActivationCardComponent implements OnInit, OnDestroy {
       this.userId = params['id'];
       return this._userService.sendEmail(this.userId);
     })).subscribe(res => {
-        console.log('Email sent');
+        this._snackBar.open('Email successfully sent, check your inbox!', "OK", snackBarConfig);
       },
       error => {
-        console.log('Email is not sent')
+        this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
       }
     ));
   }

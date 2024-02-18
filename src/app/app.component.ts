@@ -4,6 +4,9 @@ import { UserService } from "./user.service";
 import { Router } from "@angular/router";
 import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular/animations';
 import { UserStoreService } from "./services/user-store.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { ERROR_HAS_OCCURRED_MESSAGE, snackBarConfig } from "./shared/contants";
+import { Subscription } from "rxjs";
 
 export const DEFAULT_ANIMATION_DURATION = 100;
 
@@ -23,12 +26,14 @@ export const DEFAULT_ANIMATION_DURATION = 100;
 export class AppComponent implements OnInit, OnDestroy {
   title = 'FitnessAngularApp';
   collapsed = true;
+  subscription = new Subscription();
 
   constructor(private _userService: UserService,
               private _router: Router,
-              public dialog: MatDialog,
               private _elRef: ElementRef,
-              private _userStoreService: UserStoreService) {
+              private _snackBar: MatSnackBar,
+              private _userStoreService: UserStoreService,
+              public dialog: MatDialog,) {
   }
 
   @HostListener('document:click', ['$event'])
@@ -64,19 +69,20 @@ export class AppComponent implements OnInit, OnDestroy {
   onLogOutClick() {
     const user = this._userStoreService.getLoggedInUser();
     if (user !== null) {
-      this._userService.logoutUser(user.id).subscribe(res => {
+      this.subscription.add(this._userService.logoutUser(user.id).subscribe(res => {
         this.collapsed = true;
         this._userStoreService.setUserAsLoggedOut();
         this._userStoreService.isLoggedIn$.next(false);
         this._router.navigateByUrl('web-shop').catch(err => console.log(err));
       }, err => {
-        //this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
-      });
+        this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
+      }));
     } else {
-      //this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
+      this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
     }
   }
 
   ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
