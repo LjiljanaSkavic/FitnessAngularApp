@@ -4,6 +4,7 @@ import { ExerciseListComponent } from "./components/exercise-list/exercise-list.
 import { LoginCardComponent } from "./components/login-card/login-card.component";
 import { ActivationCardComponent } from "./components/activation-card/activation-card.component";
 import { ActivateComponent } from "./components/activate/activate.component";
+import { ProfileDetailsComponent } from "./components/profile-details/profile-details.component";
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: "activate",
     component: ActivateComponent
+  },
+  {
+    path: "profile-details/:id",
+    component: ProfileDetailsComponent
   },
 ];
 

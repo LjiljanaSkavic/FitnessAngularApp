@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { User } from "./models/User";
+import { User } from "../models/User";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -30,6 +30,12 @@ export class UserService {
   activateUser(userId: number, link: string) {
     const activateUrl = `${this.baseUrl}/activate/${userId}`;
     return this._httpClient.post<User>(activateUrl, {link});
+  }
+
+  //TODO: Interface has imageId, change any to UserDTO (add this interface)
+  editUser(user: any): Observable<any> {
+    const editUserUrl = `${this.baseUrl}/${user.id}`;
+    return this._httpClient.put<any>(editUserUrl, user);
   }
 
   logoutUser(userId: number) {

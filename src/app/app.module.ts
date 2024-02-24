@@ -19,6 +19,9 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatSelectModule } from "@angular/material/select";
 import { ActivationCardComponent } from './components/activation-card/activation-card.component';
 import { ActivateComponent } from './components/activate/activate.component';
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { ProfileDetailsComponent } from './components/profile-details/profile-details.component';
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 export const ANGULAR_MATERIAL_MODULES = [
   MatIconModule,
@@ -28,7 +31,8 @@ export const ANGULAR_MATERIAL_MODULES = [
   MatCardModule,
   MatDialogModule,
   MatSidenavModule,
-  MatSelectModule
+  MatSelectModule,
+  MatSnackBarModule
 ]
 
 @NgModule({
@@ -39,6 +43,7 @@ export const ANGULAR_MATERIAL_MODULES = [
     LoginCardComponent,
     ActivationCardComponent,
     ActivateComponent,
+    ProfileDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +52,7 @@ export const ANGULAR_MATERIAL_MODULES = [
     HttpClientModule,
     ReactiveFormsModule,
     ANGULAR_MATERIAL_MODULES,
+    MatTooltipModule,
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

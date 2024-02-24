@@ -1,3 +1,5 @@
+import { File } from "../models/File";
+
 export interface User {
   id: number;
   username: string;

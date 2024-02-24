@@ -3,7 +3,7 @@ import { FormControl, FormGroup, UntypedFormBuilder, Validators } from "@angular
 import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
 import * as sha512 from 'js-sha512';
-import { UserService } from "../../user.service";
+import { UserService } from "../../services/user.service";
 import { UserStoreService } from "../../services/user-store.service";
 
 @Component({
@@ -45,8 +45,7 @@ export class LoginCardComponent implements OnInit, OnDestroy {
   onLoginClick($event: MouseEvent) {
     const username = this.loginForm.get('username').value;
     const password = this.getPasswordHash(this.loginForm.get('password').value);
-    console.log(password);
-    this._userService.findUserByUsernameAndPassword(username, password).subscribe(user => {
+    this.subs.add(this._userService.findUserByUsernameAndPassword(username, password).subscribe(user => {
         if (user.activated) {
           this._userStoreService.isLoggedIn$.next(true);
           this._userStoreService.setUserAsLoggedIn(user);
@@ -58,7 +57,7 @@ export class LoginCardComponent implements OnInit, OnDestroy {
       error => {
         //TODO: (Handle invalid login)
         console.log('error', error);
-      })
+      }));
   }
 
   getPasswordHash(password: string): string {
@@ -70,5 +69,6 @@ export class LoginCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 }

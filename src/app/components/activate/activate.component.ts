@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, switchMap } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
-import { UserService } from "../../user.service";
+import { UserService } from "../../services/user.service";
 import { UserStoreService } from "../../services/user-store.service";
 import { ERROR_HAS_OCCURRED_MESSAGE, snackBarConfig } from "../../shared/contants";
 import { MatSnackBar } from "@angular/material/snack-bar";

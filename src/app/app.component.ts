@@ -1,12 +1,13 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from "@angular/material/dialog";
-import { UserService } from "./user.service";
+import { UserService } from "./services/user.service";
 import { Router } from "@angular/router";
 import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular/animations';
 import { UserStoreService } from "./services/user-store.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ERROR_HAS_OCCURRED_MESSAGE, snackBarConfig } from "./shared/contants";
 import { Subscription } from "rxjs";
+import { User } from "./models/User";
 
 export const DEFAULT_ANIMATION_DURATION = 100;
 
@@ -26,6 +27,7 @@ export const DEFAULT_ANIMATION_DURATION = 100;
 export class AppComponent implements OnInit, OnDestroy {
   title = 'FitnessAngularApp';
   collapsed = true;
+  user: User = null;
   subscription = new Subscription();
 
   constructor(private _userService: UserService,
@@ -49,31 +51,32 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
-  onToggleAccountMenuClick() {
-    const user = this._userStoreService.getLoggedInUser();
-    user === null ? this._router.navigateByUrl('login').catch(err => console.log(err)) : this.collapsed = !this.collapsed;
+  onToggleAccountMenuClick(): void {
+    this.user = this._userStoreService.getLoggedInUser();
+    this.user === null ? this._router.navigateByUrl('login').catch(err => console.log(err)) : this.collapsed = !this.collapsed;
   }
 
-  onFitnessAppClick() {
-
+  onFitnessAppClick(): void {
+    this._router.navigateByUrl(`exercises`).catch(err => console.log(err));
   }
 
   onProfileDetailsClick() {
-
+    this.collapsed = true;
+    this._router.navigateByUrl(`profile-details/${this.user.id}`).catch(err => console.log(err));
   }
 
-  onChangePasswordClick() {
-
+  onChangePasswordClick(): void {
+    this.collapsed = true;
   }
 
-  onLogOutClick() {
-    const user = this._userStoreService.getLoggedInUser();
-    if (user !== null) {
-      this.subscription.add(this._userService.logoutUser(user.id).subscribe(res => {
+  onLogOutClick(): void {
+    this.user = this._userStoreService.getLoggedInUser();
+    if (this.user !== null) {
+      this.subscription.add(this._userService.logoutUser(this.user.id).subscribe(res => {
         this.collapsed = true;
         this._userStoreService.setUserAsLoggedOut();
         this._userStoreService.isLoggedIn$.next(false);
-        this._router.navigateByUrl('web-shop').catch(err => console.log(err));
+        this._router.navigateByUrl('exercises').catch(err => console.log(err));
       }, err => {
         this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
       }));
