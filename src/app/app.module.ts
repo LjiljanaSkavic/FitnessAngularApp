@@ -22,6 +22,7 @@ import { ActivateComponent } from './components/activate/activate.component';
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { ProfileDetailsComponent } from './components/profile-details/profile-details.component';
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 export const ANGULAR_MATERIAL_MODULES = [
   MatIconModule,
@@ -44,6 +45,7 @@ export const ANGULAR_MATERIAL_MODULES = [
     ActivationCardComponent,
     ActivateComponent,
     ProfileDetailsComponent,
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,

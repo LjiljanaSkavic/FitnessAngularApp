@@ -65,7 +65,7 @@ export class LoginCardComponent implements OnInit, OnDestroy {
   }
 
   onSignUpClick($event: MouseEvent) {
-    this._router.navigateByUrl('register').catch(err => console.log(err));
+    this._router.navigateByUrl('sign-up').catch(err => console.log(err));
   }
 
   ngOnDestroy(): void {

@@ -5,6 +5,7 @@ import { LoginCardComponent } from "./components/login-card/login-card.component
 import { ActivationCardComponent } from "./components/activation-card/activation-card.component";
 import { ActivateComponent } from "./components/activate/activate.component";
 import { ProfileDetailsComponent } from "./components/profile-details/profile-details.component";
+import { SignUpComponent } from "./components/sign-up/sign-up.component";
 
 const routes: Routes = [
   {
@@ -30,6 +31,10 @@ const routes: Routes = [
   {
     path: "profile-details/:id",
     component: ProfileDetailsComponent
+  },
+  {
+    path: "sign-up",
+    component: SignUpComponent
   },
 ];
 
