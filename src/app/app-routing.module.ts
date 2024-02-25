@@ -8,39 +8,43 @@ import { ProfileDetailsComponent } from "./components/profile-details/profile-de
 import { SignUpComponent } from "./components/sign-up/sign-up.component";
 
 const routes: Routes = [
-  {
-    path: "",
-    component: ExerciseListComponent
-  },
-  {
-    path: "exercises",
-    component: ExerciseListComponent
-  },
-  {
-    path: "login",
-    component: LoginCardComponent
-  },
-  {
-    path: "profile-activation",
-    component: ActivationCardComponent
-  },
-  {
-    path: "activate",
-    component: ActivateComponent
-  },
-  {
-    path: "profile-details/:id",
-    component: ProfileDetailsComponent
-  },
-  {
-    path: "sign-up",
-    component: SignUpComponent
-  },
+    {
+        path: "",
+        component: ExerciseListComponent
+    },
+    {
+        path: "exercises",
+        component: ExerciseListComponent
+    },
+    {
+        path: "login",
+        component: LoginCardComponent
+    },
+    {
+        path: "profile-activation",
+        component: ActivationCardComponent
+    },
+    {
+        path: "profile-activation/:id",
+        component: ActivationCardComponent
+    },
+    {
+        path: "activate",
+        component: ActivateComponent
+    },
+    {
+        path: "profile-details/:id",
+        component: ProfileDetailsComponent
+    },
+    {
+        path: "sign-up",
+        component: SignUpComponent
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule {
 }

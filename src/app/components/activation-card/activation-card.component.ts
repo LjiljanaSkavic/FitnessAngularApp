@@ -6,33 +6,35 @@ import { ERROR_HAS_OCCURRED_MESSAGE, snackBarConfig } from "../../shared/contant
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
-  selector: 'app-activation-card',
-  templateUrl: './activation-card.component.html',
-  styleUrls: ['./activation-card.component.scss']
+    selector: 'app-activation-card',
+    templateUrl: './activation-card.component.html',
+    styleUrls: ['./activation-card.component.scss']
 })
 export class ActivationCardComponent implements OnInit, OnDestroy {
-  subscription = new Subscription();
-  userId: number;
+    subscription = new Subscription();
+    userId: number;
 
-  constructor(private _activatedRoute: ActivatedRoute,
-              private _userService: UserService,
-              private _snackBar: MatSnackBar) {
-  }
+    constructor(private _activatedRoute: ActivatedRoute,
+                private _userService: UserService,
+                private _snackBar: MatSnackBar) {
+    }
 
-  ngOnInit(): void {
-    this.subscription.add(this._activatedRoute.queryParams.pipe(switchMap(params => {
-      this.userId = params['id'];
-      return this._userService.sendEmail(this.userId);
-    })).subscribe(res => {
-        this._snackBar.open('Email successfully sent, check your inbox!', "OK", snackBarConfig);
-      },
-      error => {
-        this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
-      }
-    ));
-  }
+    ngOnInit(): void {
+        this.subscription.add(this._activatedRoute.queryParams.pipe(switchMap(params => {
+            this.userId = params['id'];
+            return this._userService.sendEmail(this.userId);
+        })).subscribe(res => {
+                console.log(res);
+                this._snackBar.open('Email successfully sent, check your inbox!', "OK", snackBarConfig);
+            },
+            error => {
+                console.log(error);
+                this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
+            }
+        ));
+    }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
+    }
 }

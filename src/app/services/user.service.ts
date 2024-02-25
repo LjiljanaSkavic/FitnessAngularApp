@@ -2,44 +2,48 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { User } from "../models/User";
 import { Observable } from "rxjs";
+import { UserDTO } from "../models/dto/UserDTO";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class UserService {
-  loggedUser: User = null;
-  baseUrl = "http://localhost:9000/users";
+    loggedUser: User = null;
+    baseUrl = "http://localhost:9000/users";
 
-  constructor(private _httpClient: HttpClient) {
-  }
-
-  findUserByUsernameAndPassword(username: any, password: string): Observable<User> {
-    const loginUserInfo = {
-      username: username,
-      password: password
+    constructor(private _httpClient: HttpClient) {
     }
-    const loginUrl = `${this.baseUrl}/login`;
-    return this._httpClient.post<User>(loginUrl, loginUserInfo);
-  }
 
-  sendEmail(userId: number) {
-    const activateUrl = `${this.baseUrl}/send-email/${userId}`;
-    return this._httpClient.post<User>(activateUrl, {});
-  }
+    findUserByUsernameAndPassword(username: any, password: string): Observable<User> {
+        const loginUserInfo = {
+            username: username,
+            password: password
+        }
+        const loginUrl = `${this.baseUrl}/login`;
+        return this._httpClient.post<User>(loginUrl, loginUserInfo);
+    }
 
-  activateUser(userId: number, link: string) {
-    const activateUrl = `${this.baseUrl}/activate/${userId}`;
-    return this._httpClient.post<User>(activateUrl, {link});
-  }
+    sendEmail(userId: number): Observable<string> {
+        const activateUrl = `${this.baseUrl}/send-email/${userId}`;
+        return this._httpClient.post(activateUrl, {}, {responseType: "text"});
+    }
 
-  //TODO: Interface has imageId, change any to UserDTO (add this interface)
-  editUser(user: any): Observable<any> {
-    const editUserUrl = `${this.baseUrl}/${user.id}`;
-    return this._httpClient.put<any>(editUserUrl, user);
-  }
+    activateUser(userId: number, link: string) {
+        const activateUrl = `${this.baseUrl}/activate/${userId}`;
+        return this._httpClient.post<User>(activateUrl, link);
+    }
 
-  logoutUser(userId: number) {
-    const logoutUrl = `${this.baseUrl}/logout/${userId}`;
-    return this._httpClient.post<User>(logoutUrl, {});
-  }
+    editUser(user: UserDTO): Observable<User> {
+        const editUserUrl = `${this.baseUrl}/${user.id}`;
+        return this._httpClient.put<User>(editUserUrl, user);
+    }
+
+    logoutUser(userId: number) {
+        const logoutUrl = `${this.baseUrl}/logout/${userId}`;
+        return this._httpClient.post<User>(logoutUrl, {});
+    }
+
+    createUser(user: UserDTO) {
+        return this._httpClient.post<User>(this.baseUrl, user);
+    }
 }
