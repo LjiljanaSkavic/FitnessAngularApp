@@ -23,41 +23,45 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { ProfileDetailsComponent } from './components/profile-details/profile-details.component';
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { MatListModule } from "@angular/material/list";
+import { MatTreeModule } from "@angular/material/tree";
 
 export const ANGULAR_MATERIAL_MODULES = [
-  MatIconModule,
-  MatButtonModule,
-  MatInputModule,
-  MatToolbarModule,
-  MatCardModule,
-  MatDialogModule,
-  MatSidenavModule,
-  MatSelectModule,
-  MatSnackBarModule
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatDialogModule,
+    MatSidenavModule,
+    MatSelectModule,
+    MatSnackBarModule,
+    MatTooltipModule,
+    MatListModule,
+    MatTreeModule,
 ]
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ExerciseCardComponent,
-    ExerciseListComponent,
-    LoginCardComponent,
-    ActivationCardComponent,
-    ActivateComponent,
-    ProfileDetailsComponent,
-    SignUpComponent,
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    ANGULAR_MATERIAL_MODULES,
-    MatTooltipModule,
-  ],
-  providers: [HttpClient],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        ExerciseCardComponent,
+        ExerciseListComponent,
+        LoginCardComponent,
+        ActivationCardComponent,
+        ActivateComponent,
+        ProfileDetailsComponent,
+        SignUpComponent,
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        ANGULAR_MATERIAL_MODULES,
+    ],
+    providers: [HttpClient],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

@@ -35,10 +35,33 @@ body {
 
 .sidenav {
   display: flex;
-  width: 300px;
+  flex-direction: column;
+  width: 200px;
   background-color: $color-blue-4;
   color: $color-blue-3;
-  padding: 8px;
+  padding: 16px;
+}
+
+.mat-toolbar {
+  background-color: $color-blue-3;
+}
+
+.mat-list-item {
+  color: $color-blue-3;
+  background-color: $color-blue-4;
+  width: 100%;
+  padding: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.mat-list-item:hover {
+  background-color: $color-blue-7;
+}
+
+.mat-list-item.active {
+  background-color: $color-blue-1;
+  color: $color-gray-1;
 }
 
 .quick-profile-view-card {
