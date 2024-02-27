@@ -25,43 +25,47 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MatListModule } from "@angular/material/list";
 import { MatTreeModule } from "@angular/material/tree";
+import { FitnessProgramsList } from './components/fitness-programs-list/fitness-programs-list.component';
+import { FitnessProgramComponent } from './components/fitness-programs-list/fitness-program/fitness-program.component';
 
 export const ANGULAR_MATERIAL_MODULES = [
-    MatIconModule,
-    MatButtonModule,
-    MatInputModule,
-    MatToolbarModule,
-    MatCardModule,
-    MatDialogModule,
-    MatSidenavModule,
-    MatSelectModule,
-    MatSnackBarModule,
-    MatTooltipModule,
-    MatListModule,
-    MatTreeModule,
+  MatIconModule,
+  MatButtonModule,
+  MatInputModule,
+  MatToolbarModule,
+  MatCardModule,
+  MatDialogModule,
+  MatSidenavModule,
+  MatSelectModule,
+  MatSnackBarModule,
+  MatTooltipModule,
+  MatListModule,
+  MatTreeModule,
 ]
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        ExerciseCardComponent,
-        ExerciseListComponent,
-        LoginCardComponent,
-        ActivationCardComponent,
-        ActivateComponent,
-        ProfileDetailsComponent,
-        SignUpComponent,
-    ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        ANGULAR_MATERIAL_MODULES,
-    ],
-    providers: [HttpClient],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    ExerciseCardComponent,
+    ExerciseListComponent,
+    LoginCardComponent,
+    ActivationCardComponent,
+    ActivateComponent,
+    ProfileDetailsComponent,
+    SignUpComponent,
+    FitnessProgramsList,
+    FitnessProgramComponent,
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    ANGULAR_MATERIAL_MODULES,
+  ],
+  providers: [HttpClient],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

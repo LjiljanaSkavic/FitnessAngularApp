@@ -1,94 +1,94 @@
 <mat-toolbar class="toolbar-container">
-    <div class="toolbar-container-left">
-        <button
-            (click)="drawer.toggle()"
-            mat-icon-button>
-            <mat-icon>menu</mat-icon>
-        </button>
-        <mat-label
-            (click)="onFitnessAppClick()"
-            class="fitness-app-label">GymGuru
-        </mat-label>
-    </div>
+  <div class="toolbar-container-left">
+    <button
+      (click)="drawer.toggle()"
+      mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-label
+      (click)="onFitnessAppClick()"
+      class="fitness-app-label">GymGuru
+    </mat-label>
+  </div>
 
-    <div class="toolbar-container-right">
-        <button
-            (click)="onToggleAccountMenuClick()"
-            class="profile-details"
-            mat-icon-button>
-            <mat-icon>account_circle</mat-icon>
-        </button>
-    </div>
+  <div class="toolbar-container-right">
+    <button
+      (click)="onToggleAccountMenuClick()"
+      class="profile-details"
+      mat-icon-button>
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>
 
 <mat-drawer-container class="container">
-    <mat-drawer
-        #drawer
-        class="sidenav">
-        <mat-nav-list>
-            <button
-                (click)="drawer.close()"
-                class="mat-list-item"
-                routerLink="/exercises"
-                routerLinkActive="active">Overview
-            </button>
-            <button
-                (click)="drawer.close()"
-                class="mat-list-item"
-                routerLink="/workout"
-                routerLinkActive="active">Workout
-            </button>
-            <button
-                (click)="drawer.close()"
-                class="mat-list-item"
-                routerLink="/progress"
-                routerLinkActive="active">Progress
-            </button>
-            <button
-                (click)="drawer.close()"
-                class="mat-list-item"
-                routerLink="/goals"
-                routerLinkActive="active">Goals
-            </button>
-            <button
-                (click)="drawer.close()"
-                class="mat-list-item"
-                routerLink="/diet-plan"
-                routerLinkActive="active"
-            >Diet Plan
-            </button>
-        </mat-nav-list>
-    </mat-drawer>
+  <mat-drawer
+    #drawer
+    class="sidenav">
+    <mat-nav-list>
+      <button
+        (click)="drawer.close()"
+        class="mat-list-item"
+        routerLink="/exercises"
+        routerLinkActive="active">Overview
+      </button>
+      <button
+        (click)="drawer.close()"
+        class="mat-list-item"
+        routerLink="/fitness-programs"
+        routerLinkActive="active">Fitness programs
+      </button>
+      <button
+        (click)="drawer.close()"
+        class="mat-list-item"
+        routerLink="/progress"
+        routerLinkActive="active">Progress
+      </button>
+      <button
+        (click)="drawer.close()"
+        class="mat-list-item"
+        routerLink="/goals"
+        routerLinkActive="active">Goals
+      </button>
+      <button
+        (click)="drawer.close()"
+        class="mat-list-item"
+        routerLink="/diet-plan"
+        routerLinkActive="active"
+      >Diet plan
+      </button>
+    </mat-nav-list>
+  </mat-drawer>
 
-    <mat-drawer-content>
-        <div
-            [@collapse]="collapsed"
-            class="quick-profile-view-card">
-            <button
-                (click)="onProfileDetailsClick()"
-                class="icon-label-wrapper"
-                mat-button>
-                <mat-icon>settings</mat-icon>
-                Profile details
-            </button>
+  <mat-drawer-content>
+    <div
+      [@collapse]="collapsed"
+      class="quick-profile-view-card">
+      <button
+        (click)="onProfileDetailsClick()"
+        class="icon-label-wrapper"
+        mat-button>
+        <mat-icon>settings</mat-icon>
+        Profile details
+      </button>
 
-            <button
-                (click)="onChangePasswordClick()"
-                class="icon-label-wrapper"
-                mat-button>
-                <mat-icon>password</mat-icon>
-                Manage password
-            </button>
-            <button
-                (click)="onLogOutClick()"
-                class="icon-label-wrapper"
-                mat-button>
-                <mat-icon>logout</mat-icon>
-                Log out
-            </button>
-        </div>
-        <router-outlet></router-outlet>
-    </mat-drawer-content>
+      <button
+        (click)="onChangePasswordClick()"
+        class="icon-label-wrapper"
+        mat-button>
+        <mat-icon>password</mat-icon>
+        Manage password
+      </button>
+      <button
+        (click)="onLogOutClick()"
+        class="icon-label-wrapper"
+        mat-button>
+        <mat-icon>logout</mat-icon>
+        Log out
+      </button>
+    </div>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
 </mat-drawer-container>
 
 
