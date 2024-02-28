@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FitnessProgramService } from "../../services/fitness-program.service";
+import { FitnessProgram } from "../../models/FitnessProgram";
 
 @Component({
   selector: 'app-fitness-programs-list',
@@ -6,10 +8,18 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
   styleUrls: ['./fitness-programs-list.component.scss']
 })
 export class FitnessProgramsList implements OnInit, OnDestroy {
-  constructor() {
+
+  fitnessPrograms: FitnessProgram[] = [];
+  isLoading = true;
+
+  constructor(private _fitnessProgramService: FitnessProgramService) {
   }
 
   ngOnInit(): void {
+    this._fitnessProgramService.getAll().subscribe(res => {
+      this.fitnessPrograms = res;
+      this.isLoading = false;
+    });
   }
 
   ngOnDestroy(): void {

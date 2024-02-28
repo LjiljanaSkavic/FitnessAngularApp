@@ -1,1 +1,7 @@
-<p>workout-programs works!</p>
+<div
+  *ngIf="!isLoading"
+  class="items-container">
+  <ng-container *ngFor="let fitnessProgram of fitnessPrograms">
+    <app-fitness-program [fitnessProgram]="fitnessProgram"></app-fitness-program>
+  </ng-container>
+</div>

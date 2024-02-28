@@ -1,39 +1,41 @@
-<mat-card class="login-card">
-  <mat-label>Login</mat-label>
-  <mat-label>Please sign in to continue.</mat-label>
-  <form
-    [formGroup]="loginForm"
-    class="login-form">
-    <mat-form-field>
-      <mat-label>Username</mat-label>
-      <input
-        formControlName="username"
-        matInput>
-    </mat-form-field>
+<div class="center-container">
+  <mat-card class="login-card">
+    <mat-label>Login</mat-label>
+    <mat-label>Please sign in to continue.</mat-label>
+    <form
+      [formGroup]="loginForm"
+      class="login-form">
+      <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input
+          formControlName="username"
+          matInput>
+      </mat-form-field>
 
-    <mat-form-field>
-      <input
-        [type]="hidePassword ? 'password' : 'text'"
-        formControlName="password"
-        matInput
-        placeholder="Password"
-        required>
-      <mat-icon
-        (click)="hidePassword = !hidePassword"
-        matSuffix>{{ hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </mat-form-field>
-    <mat-error *ngIf="invalidCredentials">You have entered an invalid username or password</mat-error>
+      <mat-form-field>
+        <input
+          [type]="hidePassword ? 'password' : 'text'"
+          formControlName="password"
+          matInput
+          placeholder="Password"
+          required>
+        <mat-icon
+          (click)="hidePassword = !hidePassword"
+          matSuffix>{{ hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </mat-form-field>
+      <mat-error *ngIf="invalidCredentials">You have entered an invalid username or password</mat-error>
 
 
+      <button
+        (click)="onLoginClick($event)"
+        [disabled]="!loginForm.valid"
+        mat-button>Login
+      </button>
+
+    </form>
     <button
-      (click)="onLoginClick($event)"
-      [disabled]="!loginForm.valid"
-      mat-button>Login
+      (click)="onSignUpClick($event)"
+      mat-button>Don't have an account yet? Sign up
     </button>
-
-  </form>
-  <button
-    (click)="onSignUpClick($event)"
-    mat-button>Don't have an account yet? Sign up
-  </button>
-</mat-card>
+  </mat-card>
+</div>

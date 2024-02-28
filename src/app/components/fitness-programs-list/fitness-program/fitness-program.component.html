@@ -1,1 +1,12 @@
-<p>fitness-program works!</p>
+<div class="fitness-program-card">
+  <h2>{{ fitnessProgram.name }}</h2>
+  <p><strong> Description:</strong> {{ fitnessProgram.description }}</p>
+  <p><strong> Price:</strong> {{ fitnessProgram.price }}</p>
+  <p><strong> Difficulty Level:</strong> {{ fitnessProgram.difficultyLevel }}</p>
+  <p><strong> Duration:</strong> {{ fitnessProgram.duration }}</p>
+  <p><strong> Location:</strong> {{ fitnessProgram.location }}</p>
+  <p><strong> Contact:</strong> {{ fitnessProgram.contact }}</p>
+  <p><strong> Category:</strong> {{ fitnessProgram.category.name }}</p>
+  <p><strong> Instructor:</strong> {{ fitnessProgram.instructor.firstName }} {{ fitnessProgram.instructor.lastName}}</p>
+  <p *ngIf="fitnessProgram.isCompleted"><strong>Status:</strong> Completed</p>
+</div>
