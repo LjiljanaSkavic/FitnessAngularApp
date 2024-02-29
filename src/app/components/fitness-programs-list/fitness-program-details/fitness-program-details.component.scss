@@ -1,0 +1,29 @@
+
+.upload-button {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.file-label {
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.file-label:hover {
+  background-color: #0056b3;
+}
+
+.avatar-wrapper {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.avatar-image {
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Adjust size as needed */
+  border-radius: 50%; /* Make it circular */
+}

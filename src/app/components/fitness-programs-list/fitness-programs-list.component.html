@@ -2,6 +2,6 @@
   *ngIf="!isLoading"
   class="items-container">
   <ng-container *ngFor="let fitnessProgram of fitnessPrograms">
-    <app-fitness-program [fitnessProgram]="fitnessProgram"></app-fitness-program>
+    <app-fitness-program-preview-card [fitnessProgram]="fitnessProgram"></app-fitness-program-preview-card>
   </ng-container>
 </div>

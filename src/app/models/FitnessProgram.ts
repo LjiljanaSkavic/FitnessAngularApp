@@ -1,6 +1,7 @@
-// fitness-program.interface.ts
+// fitness-program-preview-card.interface.ts
 import { Category } from "./dto/Category";
 import { Instructor } from "./Instructor";
+import { File } from "./File"
 
 export interface FitnessProgram {
   id: number;
@@ -15,4 +16,5 @@ export interface FitnessProgram {
   contact: string;
   category: Category;
   instructor: Instructor;
+  image: File
 }

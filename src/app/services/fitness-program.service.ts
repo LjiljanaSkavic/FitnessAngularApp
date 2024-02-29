@@ -15,4 +15,8 @@ export class FitnessProgramService {
   getAll(): Observable<FitnessProgram[]> {
     return this._httpClient.get<FitnessProgram[]>(this.baseUrl);
   }
+
+  getById(id: number): Observable<FitnessProgram> {
+    return this._httpClient.get<FitnessProgram>(`${this.baseUrl}/${id}`);
+  }
 }

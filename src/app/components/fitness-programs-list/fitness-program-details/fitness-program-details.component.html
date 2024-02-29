@@ -1,6 +1,29 @@
-<div class="fitness-program-card">
+<div
+  *ngIf="!isLoading"
+  class="fitness-program-details">
+  <div
+    *ngIf="fileUrl"
+    class="avatar-wrapper">
+    <img
+      [src]="fileUrl"
+      alt="File"
+      class="avatar-image">
+  </div>
+  <div
+    *ngIf="isEditMode"
+    class="upload-button">
+    <label
+      class="file-label"
+      for="fileInput">
+      <span>Upload new picture</span>
+      <input
+        (change)="onFileSelected($event)"
+        id="fileInput"
+        style="display: none;"
+        type="file">
+    </label>
+  </div>
   <h2>{{ fitnessProgram.name }}</h2>
-  <p><strong> Description:</strong> {{ fitnessProgram.description }}</p>
   <p><strong> Price:</strong> {{ fitnessProgram.price }}</p>
   <p><strong> Difficulty Level:</strong> {{ fitnessProgram.difficultyLevel }}</p>
   <p><strong> Duration:</strong> {{ fitnessProgram.duration }}</p>

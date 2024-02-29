@@ -26,7 +26,12 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MatListModule } from "@angular/material/list";
 import { MatTreeModule } from "@angular/material/tree";
 import { FitnessProgramsList } from './components/fitness-programs-list/fitness-programs-list.component';
-import { FitnessProgramComponent } from './components/fitness-programs-list/fitness-program/fitness-program.component';
+import {
+  FitnessProgramPreviewCardComponent
+} from './components/fitness-programs-list/fitness-program-preview-card/fitness-program-preview-card.component';
+import {
+  FitnessProgramDetailsComponent
+} from './components/fitness-programs-list/fitness-program-details/fitness-program-details.component';
 
 export const ANGULAR_MATERIAL_MODULES = [
   MatIconModule,
@@ -54,7 +59,8 @@ export const ANGULAR_MATERIAL_MODULES = [
     ProfileDetailsComponent,
     SignUpComponent,
     FitnessProgramsList,
-    FitnessProgramComponent,
+    FitnessProgramPreviewCardComponent,
+    FitnessProgramDetailsComponent,
   ],
   imports: [
     BrowserModule,

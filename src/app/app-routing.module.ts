@@ -7,6 +7,9 @@ import { ActivateComponent } from "./components/activate/activate.component";
 import { ProfileDetailsComponent } from "./components/profile-details/profile-details.component";
 import { SignUpComponent } from "./components/sign-up/sign-up.component";
 import { FitnessProgramsList } from "./components/fitness-programs-list/fitness-programs-list.component";
+import {
+  FitnessProgramDetailsComponent
+} from "./components/fitness-programs-list/fitness-program-details/fitness-program-details.component";
 
 const routes: Routes = [
   {
@@ -42,8 +45,12 @@ const routes: Routes = [
     component: SignUpComponent
   },
   {
-    path: "fitness-programs",
+    path: "fitness-program",
     component: FitnessProgramsList
+  },
+  {
+    path: "fitness-program/:id",
+    component: FitnessProgramDetailsComponent
   },
 ];
 
