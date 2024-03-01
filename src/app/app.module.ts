@@ -32,6 +32,7 @@ import {
 import {
   FitnessProgramDetailsComponent
 } from './components/fitness-programs-list/fitness-program-details/fitness-program-details.component';
+import { MatRadioModule } from "@angular/material/radio";
 
 export const ANGULAR_MATERIAL_MODULES = [
   MatIconModule,
@@ -46,6 +47,7 @@ export const ANGULAR_MATERIAL_MODULES = [
   MatTooltipModule,
   MatListModule,
   MatTreeModule,
+  MatRadioModule
 ]
 
 @NgModule({

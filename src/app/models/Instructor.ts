@@ -5,7 +5,7 @@ export interface Instructor {
   firstName: string;
   lastName: string;
   age: number;
-  sex: boolean;
+  sex: string;
   height: number;
   weight: number;
   image: File;
