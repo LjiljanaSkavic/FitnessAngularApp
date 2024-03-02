@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { FitnessProgram } from "../../../models/FitnessProgram";
 import { Router } from "@angular/router";
+import { FitnessProgramCard } from "../../../models/FitnessProgramCard";
 
 @Component({
   selector: 'app-fitness-program-preview-card',
@@ -9,12 +9,12 @@ import { Router } from "@angular/router";
 })
 export class FitnessProgramPreviewCardComponent {
 
-  @Input() fitnessProgram: FitnessProgram = {} as FitnessProgram;
+  @Input() fitnessProgramCard: FitnessProgramCard = {} as FitnessProgramCard;
 
   constructor(private _router: Router) {
   }
 
-  onFitnessProgramClick() {
-    this._router.navigateByUrl(`fitness-program/${this.fitnessProgram.id}`);
+  onFitnessProgramCardClick() {
+    this._router.navigateByUrl(`fitness-program/${this.fitnessProgramCard.id}`);
   }
 }

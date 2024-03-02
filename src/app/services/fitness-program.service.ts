@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { FitnessProgram } from "../models/FitnessProgram";
+import { FitnessProgramCard } from "../models/FitnessProgramCard";
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,8 @@ export class FitnessProgramService {
   constructor(private _httpClient: HttpClient) {
   }
 
-  getAll(): Observable<FitnessProgram[]> {
-    return this._httpClient.get<FitnessProgram[]>(this.baseUrl);
+  getAll(): Observable<FitnessProgramCard[]> {
+    return this._httpClient.get<FitnessProgramCard[]>(this.baseUrl);
   }
 
   getById(id: number): Observable<FitnessProgram> {

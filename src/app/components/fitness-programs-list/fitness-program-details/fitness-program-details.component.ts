@@ -43,7 +43,7 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
         this.fitnessProgram = res;
         this.buildFitnessForm(this.fitnessProgram);
         this.buildInstructorForm(this.fitnessProgram.instructor);
-        return this._fileService.getFileById(this.fitnessProgram.image.id);
+        return this._fileService.getFileById(this.fitnessProgram.images[0].id);
       })
     ).subscribe(data => {
         const reader = new FileReader();

@@ -42,6 +42,10 @@ body {
   padding: 16px;
 }
 
+.mat-drawer-content {
+  overflow: hidden;
+}
+
 .mat-toolbar {
   background-color: $color-blue-3;
 }

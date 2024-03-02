@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FitnessProgramService } from "../../services/fitness-program.service";
-import { FitnessProgram } from "../../models/FitnessProgram";
 import { CategoryService } from "../../services/category.service";
 import { Category } from "../../models/dto/Category";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Subscription } from "rxjs";
+import { FitnessProgramCard } from "../../models/FitnessProgramCard";
 
 @Component({
   selector: 'app-fitness-programs-list',
@@ -13,7 +13,7 @@ import { Subscription } from "rxjs";
 })
 export class FitnessProgramsList implements OnInit, OnDestroy {
 
-  fitnessPrograms: FitnessProgram[] = [];
+  fitnessProgramCards: FitnessProgramCard[] = [];
   categories: Category[] = [];
   filterForm: FormGroup;
   isLoading = true;
@@ -33,7 +33,7 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
     }));
 
     this.subs.add(this._fitnessProgramService.getAll().subscribe(res => {
-      this.fitnessPrograms = res;
+      this.fitnessProgramCards = res;
       this.isLoading = false;
     }));
   }

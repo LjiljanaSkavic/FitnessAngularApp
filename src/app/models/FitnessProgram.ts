@@ -16,5 +16,5 @@ export interface FitnessProgram {
   contact: string;
   category: Category;
   instructor: Instructor;
-  image: File
+  images: File[]
 }
