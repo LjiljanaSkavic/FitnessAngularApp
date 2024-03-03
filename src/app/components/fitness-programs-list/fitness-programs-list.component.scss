@@ -1,2 +1,8 @@
 @import "src/app/shared/colors";
 @import "src/app/shared/classes";
+
+.fitness-card-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

@@ -5,3 +5,11 @@
     <app-exercise-card [exercise]="exercise"></app-exercise-card>
   </ng-container>
 </div>
+
+<mat-paginator
+  (page)="onPageChange($event)"
+  [length]="exercises.length"
+  [pageSizeOptions]="pageSizeOptions"
+  [pageSize]="pageSize"
+  class="mat-paginator">
+</mat-paginator>

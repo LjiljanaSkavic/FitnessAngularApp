@@ -20,9 +20,23 @@
           matInput
           placeholder="Type to search">
       </mat-form-field>
+      <button
+        (click)="onFilterClick()"
+        mat-button
+      >Filter
+      </button>
     </form>
   </div>
-  <ng-container *ngFor="let fitnessProgramCard of fitnessProgramCards">
-    <app-fitness-program-preview-card [fitnessProgramCard]="fitnessProgramCard"></app-fitness-program-preview-card>
-  </ng-container>
+  <div class="fitness-card-container">
+    <ng-container *ngFor="let fitnessProgramCard of fitnessProgramCards">
+      <app-fitness-program-preview-card [fitnessProgramCard]="fitnessProgramCard"></app-fitness-program-preview-card>
+    </ng-container>
+  </div>
+  <mat-paginator
+    (page)="onPageChange($event)"
+    [length]="totalItems"
+    [pageSizeOptions]="pageSizeOptions"
+    [pageSize]="pageSize"
+    class="mat-paginator">
+  </mat-paginator>
 </div>

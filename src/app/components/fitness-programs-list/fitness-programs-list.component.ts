@@ -19,6 +19,10 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
   isLoading = true;
   categoriesLoading = true;
   subs = new Subscription();
+  pageSizeOptions: any;
+  pageSize = 5;
+  pageIndex = 0;
+  totalItems = 0;
 
   constructor(private _fitnessProgramService: FitnessProgramService,
               private _categoryService: CategoryService) {
@@ -28,30 +32,43 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
     this.subs.add(this._categoryService.getAll().subscribe(res => {
       this.categories = res;
       this.categoriesLoading = false;
-      this.buildCategoriesForm();
-      this.addSubscriptions();
+      this.buildFilterForm();
+      this.displayCards();
     }));
+  }
 
-    this.subs.add(this._fitnessProgramService.getAll().subscribe(res => {
-      this.fitnessProgramCards = res;
+  onFilterClick() {
+    this.pageIndex = 0;
+    this.displayCards();
+  }
+
+  displayCards(): void {
+    this.isLoading = true;
+
+    const keyword = this.filterForm.get('search').value;
+    const categoryId = this.filterForm.get('category').value;
+    console.log(keyword);
+    console.log(categoryId);
+    console.log(this.pageIndex);
+    console.log(this.pageSize);
+
+    this.subs.add(this._fitnessProgramService.search(keyword, categoryId, this.pageIndex, this.pageSize).subscribe(res => {
+      this.fitnessProgramCards = res.fitnessPrograms;
+      this.totalItems = res.totalElements;
       this.isLoading = false;
     }));
   }
 
-  buildCategoriesForm() {
+  buildFilterForm() {
     this.filterForm = new FormGroup({
-      category: new FormControl(this.categories),
+      category: new FormControl(''),
       search: new FormControl('')
     });
   }
 
-  addSubscriptions() {
-    this.subs.add(this.filterForm.get('category').valueChanges.subscribe((selectedCategoryId) => {
-      console.log('Selected category ID:', selectedCategoryId);
-    }));
-    this.subs.add(this.filterForm.get('search').valueChanges.subscribe((searchTerm) => {
-      console.log(searchTerm);
-    }));
+  onPageChange(event: { pageIndex: number; }): void {
+    this.pageIndex = event.pageIndex;
+    this.displayCards();
   }
 
   ngOnDestroy(): void {
