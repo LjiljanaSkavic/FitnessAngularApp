@@ -10,6 +10,7 @@ import { FitnessProgramsList } from "./components/fitness-programs-list/fitness-
 import {
   FitnessProgramDetailsComponent
 } from "./components/fitness-programs-list/fitness-program-details/fitness-program-details.component";
+import { ManagePasswordComponent } from "./components/manage-password/manage-password.component";
 
 const routes: Routes = [
   {
@@ -51,6 +52,10 @@ const routes: Routes = [
   {
     path: "fitness-program/:id",
     component: FitnessProgramDetailsComponent
+  },
+  {
+    path: "manage-password/:id",
+    component: ManagePasswordComponent
   },
 ];
 
