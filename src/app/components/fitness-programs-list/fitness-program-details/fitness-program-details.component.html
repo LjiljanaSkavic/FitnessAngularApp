@@ -2,6 +2,12 @@
   *ngIf="!isLoading"
   class="fitness-program-details">
   <form [formGroup]="fitnessProgramForm">
+    <button
+      (click)="onBuyProgramClick()"
+      *ngIf="isLoggedIn"
+      mat-button
+    >Buy program
+    </button>
     <div
       *ngIf="fileUrl"
       class="avatar-wrapper">

@@ -47,10 +47,6 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
 
     const keyword = this.filterForm.get('search').value;
     const categoryId = this.filterForm.get('category').value;
-    console.log(keyword);
-    console.log(categoryId);
-    console.log(this.pageIndex);
-    console.log(this.pageSize);
 
     this.subs.add(this._fitnessProgramService.search(keyword, categoryId, this.pageIndex, this.pageSize).subscribe(res => {
       this.fitnessProgramCards = res.fitnessPrograms;

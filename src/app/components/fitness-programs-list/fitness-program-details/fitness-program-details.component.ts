@@ -6,6 +6,10 @@ import { FitnessProgramService } from "../../../services/fitness-program.service
 import { FileService } from "../../../services/file.service";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Instructor } from "../../../models/Instructor";
+import { BuyProgramComponent } from "../../buy-program/buy-program.component";
+import { MatDialog } from "@angular/material/dialog";
+import { UserStoreService } from "../../../services/user-store.service";
+import { FitnessProgramPurchaseService } from "../../../services/fitness-program-purchase.service";
 
 @Component({
   selector: 'app-fitness-program-details',
@@ -20,6 +24,7 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
   fitnessProgram: FitnessProgram = {} as FitnessProgram;
   fitnessProgramForm: FormGroup;
   instructorForm: FormGroup;
+  userId: number;
 
   subs = new Subscription();
 
@@ -27,13 +32,21 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
   selectedFileName = '';
   fileUrl: string | ArrayBuffer | null = null;
   fileUrlOriginal = null;
+  isLoggedIn = false;
 
   constructor(private _activatedRoute: ActivatedRoute,
               private _fitnessProgramService: FitnessProgramService,
-              private _fileService: FileService) {
+              private _fileService: FileService,
+              private _userStoreService: UserStoreService,
+              private _fitnessProgramPurchaseService: FitnessProgramPurchaseService,
+              public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
+    if (this._userStoreService.isLoggedIn) {
+      this.userId = this._userStoreService.getLoggedInUser().id;
+      this.isLoggedIn = true;
+    }
     this.subs.add(this._activatedRoute.params.pipe(
       switchMap(params => {
         this.id = params['id'];
@@ -79,11 +92,6 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
     reader.readAsDataURL(file);
   }
 
-
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
-  }
-
   buildFitnessForm(fitnessProgram: FitnessProgram) {
     this.fitnessProgramForm = new FormGroup({
       price: new FormControl(fitnessProgram.price),
@@ -95,6 +103,22 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
+  onBuyProgramClick() {
+    this.dialog.open(BuyProgramComponent, {
+      data: {
+        userId: this.userId,
+        fitnessProgramId: this.id
+      }
+    }).afterClosed().subscribe(res => {
+      if (res != null) {
+        this.subs.add(this._fitnessProgramPurchaseService.createPurchase(res).subscribe(res => {
+          console.log(res);
+          //TODO: Handle message
+        }))
+      }
+    })
+  }
+
   buildInstructorForm(instructor: Instructor) {
     this.instructorForm = new FormGroup({
       firstName: new FormControl(instructor.firstName),
@@ -104,5 +128,9 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
       weight: new FormControl(instructor.weight),
       sex: new FormControl(instructor.sex),
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 }
