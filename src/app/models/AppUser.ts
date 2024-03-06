@@ -1,6 +1,6 @@
 import { File } from "../models/File";
 
-export interface User {
+export interface AppUser {
   id: number;
   username: string;
   firstName: string;
@@ -9,4 +9,11 @@ export interface User {
   city: string;
   activated: boolean;
   image: File;
+}
+
+export interface AppUserShort {
+  id: number;
+  username: string;
+  image: File;
+  isLoggedIn: boolean;
 }

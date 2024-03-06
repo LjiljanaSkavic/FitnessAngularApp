@@ -36,6 +36,8 @@ import { MatRadioModule } from "@angular/material/radio";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { ManagePasswordComponent } from './components/manage-password/manage-password.component';
 import { BuyProgramComponent } from './components/buy-program/buy-program.component';
+import { CommentComponent } from './components/comment/comment.component';
+import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 
 export const ANGULAR_MATERIAL_MODULES = [
   MatIconModule,
@@ -69,6 +71,8 @@ export const ANGULAR_MATERIAL_MODULES = [
     FitnessProgramDetailsComponent,
     ManagePasswordComponent,
     BuyProgramComponent,
+    CommentComponent,
+    ConfirmationModalComponent,
   ],
   imports: [
     BrowserModule,

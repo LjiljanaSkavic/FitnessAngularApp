@@ -1,0 +1,36 @@
+@import "src/app/shared/colors";
+@import "src/app/shared/classes";
+
+.comment {
+  padding: 8px;
+}
+
+.my-comment-wrapper {
+  background-color: $color-blue-5;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 16px;
+}
+
+.other-people-comment-wrapper {
+  background-color: $color-gray-1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.avatar-wrapper {
+  display: flex;
+  align-items: center;
+
+  &__image {
+    height: 32px;
+    width: 32px;
+  }
+
+  &__label {
+    margin-left: 8px;
+
+  }
+}

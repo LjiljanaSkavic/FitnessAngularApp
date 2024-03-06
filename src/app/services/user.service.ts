@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { User } from "../models/User";
+import { AppUser } from "../models/AppUser";
 import { Observable } from "rxjs";
 import { UserDTO } from "../models/dto/UserDTO";
 
@@ -8,19 +8,19 @@ import { UserDTO } from "../models/dto/UserDTO";
   providedIn: 'root'
 })
 export class UserService {
-  loggedUser: User = null;
+  loggedUser: AppUser = null;
   baseUrl = "http://localhost:9000/users";
 
   constructor(private _httpClient: HttpClient) {
   }
 
-  findUserByUsernameAndPassword(username: any, password: string): Observable<User> {
+  findUserByUsernameAndPassword(username: any, password: string): Observable<AppUser> {
     const loginUserInfo = {
       username: username,
       password: password
     }
     const loginUrl = `${this.baseUrl}/login`;
-    return this._httpClient.post<User>(loginUrl, loginUserInfo);
+    return this._httpClient.post<AppUser>(loginUrl, loginUserInfo);
   }
 
   sendEmail(userId: number): Observable<string> {
@@ -30,21 +30,21 @@ export class UserService {
 
   activateUser(userId: number, link: string) {
     const activateUrl = `${this.baseUrl}/activate/${userId}`;
-    return this._httpClient.post<User>(activateUrl, link);
+    return this._httpClient.post<AppUser>(activateUrl, link);
   }
 
-  editUser(user: UserDTO): Observable<User> {
+  editUser(user: UserDTO): Observable<AppUser> {
     const editUserUrl = `${this.baseUrl}/${user.id}`;
-    return this._httpClient.put<User>(editUserUrl, user);
+    return this._httpClient.put<AppUser>(editUserUrl, user);
   }
 
   logoutUser(userId: number) {
     const logoutUrl = `${this.baseUrl}/logout/${userId}`;
-    return this._httpClient.post<User>(logoutUrl, {});
+    return this._httpClient.post<AppUser>(logoutUrl, {});
   }
 
   createUser(user: UserDTO) {
-    return this._httpClient.post<User>(this.baseUrl, user);
+    return this._httpClient.post<AppUser>(this.baseUrl, user);
   }
 
   changePassword(userId: number, currentPassword: string, newPassword: string) {

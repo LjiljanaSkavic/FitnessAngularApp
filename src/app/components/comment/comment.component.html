@@ -1,0 +1,16 @@
+<div class="comment">
+    <div [ngClass]="isMyComment ? 'my-comment-wrapper' : 'other-people-comment-wrapper'">
+        <div class="avatar-wrapper">
+            <img
+                [matTooltip]="comment.appUser.username"
+                class="avatar-wrapper__image">
+        </div>
+        <mat-label class="comment-content">{{ comment.content }}</mat-label>
+        <button
+            (click)="onDeleteCommentClick()"
+            *ngIf="isMyComment"
+            mat-button>
+            Delete
+        </button>
+    </div>
+</div>

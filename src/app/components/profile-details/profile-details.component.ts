@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from "@angular/material/dialog";
-import { User } from "../../models/User";
+import { AppUser } from "../../models/AppUser";
 import { Subscription, switchMap } from "rxjs";
 import { UserStoreService } from "../../services/user-store.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
@@ -17,7 +17,7 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
 
   isEditMode = false;
   profileForm: FormGroup;
-  user: User = null;
+  user: AppUser = null;
   subs = new Subscription();
   selectedFile: File | null = null;
   selectedFileName = '';
@@ -62,7 +62,7 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
     ));
   }
 
-  buildProfileForm(user: User): void {
+  buildProfileForm(user: AppUser): void {
     this.profileForm = new FormGroup({
       firstName: new FormControl(user.firstName, Validators.required),
       lastName: new FormControl(user.lastName, Validators.required),
@@ -86,7 +86,7 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
   }
 
   onSaveProfileChanges(): void {
-    const editedUser: User = {
+    const editedUser: AppUser = {
       id: this.user.id,
       activated: true,
       city: this.profileForm.get('city').value,
@@ -147,7 +147,7 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  uploadNewPictureAndSaveUser(user: User) {
+  uploadNewPictureAndSaveUser(user: AppUser) {
     this._fileService.uploadFile(this.selectedFile).pipe(
       switchMap((response: any) => {
         return this._userService.editUser({...user, password: null, imageId: response.id});
