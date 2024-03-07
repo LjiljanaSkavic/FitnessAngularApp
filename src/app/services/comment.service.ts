@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { CommentRequest } from "../models/dto/CommentRequest";
+import { CommentEditRequest, CommentRequest } from "../models/dto/CommentRequest";
 import { Comment } from "../models/Comment";
 import { Observable } from "rxjs";
 
@@ -18,6 +18,10 @@ export class CommentService {
     }
 
     deleteById(id: number): Observable<any> {
-        return this._httpClient.post<any>(`${this.baseUrl}/${id}`, {});
+        return this._httpClient.post<any>(`${this.baseUrl}/delete/${id}`, {});
+    }
+
+    editComment(id: number, commentEditRequest: CommentEditRequest) {
+        return this._httpClient.post<any>(`${this.baseUrl}/${id}`, commentEditRequest);
     }
 }

@@ -38,52 +38,54 @@ import { ManagePasswordComponent } from './components/manage-password/manage-pas
 import { BuyProgramComponent } from './components/buy-program/buy-program.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
+import { NgOptimizedImage } from "@angular/common";
 
 export const ANGULAR_MATERIAL_MODULES = [
-  MatIconModule,
-  MatButtonModule,
-  MatInputModule,
-  MatToolbarModule,
-  MatCardModule,
-  MatDialogModule,
-  MatSidenavModule,
-  MatSelectModule,
-  MatSnackBarModule,
-  MatTooltipModule,
-  MatListModule,
-  MatTreeModule,
-  MatRadioModule,
-  MatPaginatorModule
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatDialogModule,
+    MatSidenavModule,
+    MatSelectModule,
+    MatSnackBarModule,
+    MatTooltipModule,
+    MatListModule,
+    MatTreeModule,
+    MatRadioModule,
+    MatPaginatorModule
 ]
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ExerciseCardComponent,
-    ExerciseListComponent,
-    LoginCardComponent,
-    ActivationCardComponent,
-    ActivateComponent,
-    ProfileDetailsComponent,
-    SignUpComponent,
-    FitnessProgramsList,
-    FitnessProgramPreviewCardComponent,
-    FitnessProgramDetailsComponent,
-    ManagePasswordComponent,
-    BuyProgramComponent,
-    CommentComponent,
-    ConfirmationModalComponent,
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    ANGULAR_MATERIAL_MODULES,
-  ],
-  providers: [HttpClient],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        ExerciseCardComponent,
+        ExerciseListComponent,
+        LoginCardComponent,
+        ActivationCardComponent,
+        ActivateComponent,
+        ProfileDetailsComponent,
+        SignUpComponent,
+        FitnessProgramsList,
+        FitnessProgramPreviewCardComponent,
+        FitnessProgramDetailsComponent,
+        ManagePasswordComponent,
+        BuyProgramComponent,
+        CommentComponent,
+        ConfirmationModalComponent,
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        ANGULAR_MATERIAL_MODULES,
+        NgOptimizedImage,
+    ],
+    providers: [HttpClient],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

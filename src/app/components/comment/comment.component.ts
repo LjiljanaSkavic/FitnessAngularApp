@@ -5,6 +5,9 @@ import { ConfirmationModalComponent } from "../../confirmation-modal/confirmatio
 import { EMPTY, switchMap } from "rxjs";
 import { CommentService } from "../../services/comment.service";
 import { MatDialog } from "@angular/material/dialog";
+import { FormControl, FormGroup } from "@angular/forms";
+import { CommentEditRequest } from "../../models/dto/CommentRequest";
+import { FileService } from "../../services/file.service";
 
 @Component({
     selector: 'app-comment',
@@ -15,17 +18,54 @@ export class CommentComponent implements OnInit {
     @Input() comment: Comment;
     @Output() commentDeletedEmitter = new EventEmitter<number>();
     isMyComment = false;
+    commentForm: FormGroup;
+    isEditMode = false;
+    imageURL: string;
 
     constructor(private _userStoreService: UserStoreService,
                 private _commentService: CommentService,
+                private _fileService: FileService,
                 public dialog: MatDialog) {
     }
 
     ngOnInit(): void {
-        console.log(this._userStoreService.getIsLoggedIn());
         if (this._userStoreService.getIsLoggedIn()) {
-            this.isMyComment = this._userStoreService.getLoggedInUser().id === this.comment.id;
+            this.isMyComment = this._userStoreService.getLoggedInUser().id === this.comment.appUser.id;
         }
+        this.commentForm = new FormGroup({
+            myComment: new FormControl(this.comment.content)
+        })
+        this.commentForm.disable();
+
+        if (!this.imageURL) {
+            this._fileService.getFileById(this.comment.appUser.image.id).subscribe(imageBlob => {
+                this.imageURL = URL.createObjectURL(imageBlob);
+            });
+        }
+    }
+
+    onEditCommentClick() {
+        this.isEditMode = true;
+        this.commentForm.enable();
+    }
+
+    onDiscardEditCommentClick() {
+        this.isEditMode = false;
+        this.commentForm.get('myComment').setValue(this.comment.content);
+        this.commentForm.disable();
+    }
+
+    onSaveEditCommentClick() {
+        this.isEditMode = false;
+        this.commentForm.disable();
+        const commentEditRequest: CommentEditRequest = {
+            content: this.commentForm.get('myComment').value,
+            date: new Date()
+        }
+
+        this._commentService.editComment(this.comment.id, commentEditRequest).subscribe(res => {
+            //TODO: Success
+        });
     }
 
     onDeleteCommentClick() {
