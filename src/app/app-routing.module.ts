@@ -11,57 +11,62 @@ import {
   FitnessProgramDetailsComponent
 } from "./components/fitness-programs-list/fitness-program-details/fitness-program-details.component";
 import { ManagePasswordComponent } from "./components/manage-password/manage-password.component";
+import { FitnessPurchasesListComponent } from "./components/fitness-purchases-list/fitness-purchases-list.component";
 
 const routes: Routes = [
-  {
-    path: "",
-    component: ExerciseListComponent
-  },
-  {
-    path: "exercises",
-    component: ExerciseListComponent
-  },
-  {
-    path: "login",
-    component: LoginCardComponent
-  },
-  {
-    path: "profile-activation",
-    component: ActivationCardComponent
-  },
-  {
-    path: "profile-activation/:id",
-    component: ActivationCardComponent
-  },
-  {
-    path: "activate",
-    component: ActivateComponent
-  },
-  {
-    path: "profile-details/:id",
-    component: ProfileDetailsComponent
-  },
-  {
-    path: "sign-up",
-    component: SignUpComponent
-  },
-  {
-    path: "fitness-program",
-    component: FitnessProgramsList
-  },
-  {
-    path: "fitness-program/:id",
-    component: FitnessProgramDetailsComponent
-  },
-  {
-    path: "manage-password/:id",
-    component: ManagePasswordComponent
-  },
+    {
+        path: "",
+        component: ExerciseListComponent
+    },
+    {
+        path: "exercises",
+        component: ExerciseListComponent
+    },
+    {
+        path: "login",
+        component: LoginCardComponent
+    },
+    {
+        path: "profile-activation",
+        component: ActivationCardComponent
+    },
+    {
+        path: "profile-activation/:id",
+        component: ActivationCardComponent
+    },
+    {
+        path: "activate",
+        component: ActivateComponent
+    },
+    {
+        path: "profile-details/:id",
+        component: ProfileDetailsComponent
+    },
+    {
+        path: "sign-up",
+        component: SignUpComponent
+    },
+    {
+        path: "fitness-program",
+        component: FitnessProgramsList
+    },
+    {
+        path: "fitness-program/:id",
+        component: FitnessProgramDetailsComponent
+    },
+    {
+        path: "manage-password/:id",
+        component: ManagePasswordComponent
+    },
+    {
+        path: "fitness-program-purchases/:id",
+        component: FitnessPurchasesListComponent
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule {
 }

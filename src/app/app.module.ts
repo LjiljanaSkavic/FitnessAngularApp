@@ -39,6 +39,7 @@ import { BuyProgramComponent } from './components/buy-program/buy-program.compon
 import { CommentComponent } from './components/comment/comment.component';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import { NgOptimizedImage } from "@angular/common";
+import { FitnessPurchasesListComponent } from './components/fitness-purchases-list/fitness-purchases-list.component';
 
 export const ANGULAR_MATERIAL_MODULES = [
     MatIconModule,
@@ -74,6 +75,7 @@ export const ANGULAR_MATERIAL_MODULES = [
         BuyProgramComponent,
         CommentComponent,
         ConfirmationModalComponent,
+        FitnessPurchasesListComponent,
     ],
     imports: [
         BrowserModule,
