@@ -3,8 +3,10 @@ import { FitnessProgramService } from "../../services/fitness-program.service";
 import { CategoryService } from "../../services/category.service";
 import { Category } from "../../models/dto/Category";
 import { FormControl, FormGroup } from "@angular/forms";
-import { Subscription } from "rxjs";
+import { EMPTY, Subscription, switchMap } from "rxjs";
 import { FitnessProgramCard } from "../../models/FitnessProgramCard";
+import { AddFitnessProgramModalComponent } from "./add-fitness-program-modal/add-fitness-program-modal.component";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: 'app-fitness-programs-list',
@@ -25,7 +27,8 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
   totalItems = 0;
 
   constructor(private _fitnessProgramService: FitnessProgramService,
-              private _categoryService: CategoryService) {
+              private _categoryService: CategoryService,
+              public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -65,6 +68,24 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
   onPageChange(event: { pageIndex: number; }): void {
     this.pageIndex = event.pageIndex;
     this.displayCards();
+  }
+
+  onAddNewFitnessProgramClick() {
+    this.dialog.open(AddFitnessProgramModalComponent, {
+      data: {
+        title: "Delete comment",
+        text: "Are you sure that you want to delete this comment?"
+      }
+    }).afterClosed().pipe(switchMap(result => {
+      if (result) {
+        //TODO: http call to save fitness program
+        return EMPTY;
+      } else {
+        return EMPTY
+      }
+    })).subscribe(res => {
+      console.log(res);
+    })
   }
 
   ngOnDestroy(): void {

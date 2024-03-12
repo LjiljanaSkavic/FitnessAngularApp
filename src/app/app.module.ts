@@ -44,6 +44,7 @@ import {
   FitnessProgramPurchaseCardComponent
 } from './components/fitness-purchases-list/fitness-program-purchase-card/fitness-program-purchase-card.component';
 import { PaymentTypePipe } from "./pipes/payment-type.pipe";
+import { AddFitnessProgramModalComponent } from './components/fitness-programs-list/add-fitness-program-modal/add-fitness-program-modal.component';
 
 export const ANGULAR_MATERIAL_MODULES = [
   MatIconModule,
@@ -81,7 +82,8 @@ export const ANGULAR_MATERIAL_MODULES = [
     ConfirmationModalComponent,
     FitnessPurchasesListComponent,
     FitnessProgramPurchaseCardComponent,
-    PaymentTypePipe
+    PaymentTypePipe,
+    AddFitnessProgramModalComponent
   ],
   imports: [
     BrowserModule,
