@@ -1,1 +1,7 @@
-<p>fitness-purchases-list works!</p>
+<div class="fitness-card-container">
+  <ng-container *ngFor="let purchase of purchases">
+    <app-fitness-program-purchase-card
+      (purchaseDeletedEmitter)="purchaseDeleted($event)"
+      [purchase]="purchase"></app-fitness-program-purchase-card>
+  </ng-container>
+</div>

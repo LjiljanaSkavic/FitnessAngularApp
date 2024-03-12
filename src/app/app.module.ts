@@ -40,54 +40,60 @@ import { CommentComponent } from './components/comment/comment.component';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import { NgOptimizedImage } from "@angular/common";
 import { FitnessPurchasesListComponent } from './components/fitness-purchases-list/fitness-purchases-list.component';
+import {
+  FitnessProgramPurchaseCardComponent
+} from './components/fitness-purchases-list/fitness-program-purchase-card/fitness-program-purchase-card.component';
+import { PaymentTypePipe } from "./pipes/payment-type.pipe";
 
 export const ANGULAR_MATERIAL_MODULES = [
-    MatIconModule,
-    MatButtonModule,
-    MatInputModule,
-    MatToolbarModule,
-    MatCardModule,
-    MatDialogModule,
-    MatSidenavModule,
-    MatSelectModule,
-    MatSnackBarModule,
-    MatTooltipModule,
-    MatListModule,
-    MatTreeModule,
-    MatRadioModule,
-    MatPaginatorModule
+  MatIconModule,
+  MatButtonModule,
+  MatInputModule,
+  MatToolbarModule,
+  MatCardModule,
+  MatDialogModule,
+  MatSidenavModule,
+  MatSelectModule,
+  MatSnackBarModule,
+  MatTooltipModule,
+  MatListModule,
+  MatTreeModule,
+  MatRadioModule,
+  MatPaginatorModule
 ]
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        ExerciseCardComponent,
-        ExerciseListComponent,
-        LoginCardComponent,
-        ActivationCardComponent,
-        ActivateComponent,
-        ProfileDetailsComponent,
-        SignUpComponent,
-        FitnessProgramsList,
-        FitnessProgramPreviewCardComponent,
-        FitnessProgramDetailsComponent,
-        ManagePasswordComponent,
-        BuyProgramComponent,
-        CommentComponent,
-        ConfirmationModalComponent,
-        FitnessPurchasesListComponent,
-    ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        ANGULAR_MATERIAL_MODULES,
-        NgOptimizedImage,
-    ],
-    providers: [HttpClient],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    ExerciseCardComponent,
+    ExerciseListComponent,
+    LoginCardComponent,
+    ActivationCardComponent,
+    ActivateComponent,
+    ProfileDetailsComponent,
+    SignUpComponent,
+    FitnessProgramsList,
+    FitnessProgramPreviewCardComponent,
+    FitnessProgramDetailsComponent,
+    ManagePasswordComponent,
+    BuyProgramComponent,
+    CommentComponent,
+    ConfirmationModalComponent,
+    FitnessPurchasesListComponent,
+    FitnessProgramPurchaseCardComponent,
+    PaymentTypePipe
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    ANGULAR_MATERIAL_MODULES,
+    NgOptimizedImage,
+  ],
+  providers: [HttpClient],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

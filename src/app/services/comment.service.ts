@@ -5,23 +5,23 @@ import { Comment } from "../models/Comment";
 import { Observable } from "rxjs";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class CommentService {
-    baseUrl = "http://localhost:9000/comments";
+  baseUrl = "http://localhost:9000/comments";
 
-    constructor(private _httpClient: HttpClient) {
-    }
+  constructor(private _httpClient: HttpClient) {
+  }
 
-    createComment(commentRequest: CommentRequest): Observable<Comment> {
-        return this._httpClient.post<Comment>(this.baseUrl, commentRequest);
-    }
+  createComment(commentRequest: CommentRequest): Observable<Comment> {
+    return this._httpClient.post<Comment>(this.baseUrl, commentRequest);
+  }
 
-    deleteById(id: number): Observable<any> {
-        return this._httpClient.post<any>(`${this.baseUrl}/delete/${id}`, {});
-    }
+  deleteById(id: number): Observable<any> {
+    return this._httpClient.delete<any>(`${this.baseUrl}/delete/${id}`, {});
+  }
 
-    editComment(id: number, commentEditRequest: CommentEditRequest) {
-        return this._httpClient.post<any>(`${this.baseUrl}/${id}`, commentEditRequest);
-    }
+  editComment(id: number, commentEditRequest: CommentEditRequest) {
+    return this._httpClient.post<any>(`${this.baseUrl}/${id}`, commentEditRequest);
+  }
 }
