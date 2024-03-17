@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { FitnessProgram } from "../models/FitnessProgram";
+import { FitnessProgram, FitnessProgramRequest } from "../models/FitnessProgram";
 import { FitnessProgramSearchResult } from "../models/FitnessProgramSearchResult";
 
 @Injectable({
@@ -20,7 +20,15 @@ export class FitnessProgramService {
     return this._httpClient.get<FitnessProgramSearchResult>(`${this.baseUrl}/search?keyword=${keyword}&category=${categoryId}&page=${page}&size=${size}`);
   }
 
+  create(fitnessProgram: FitnessProgramRequest): Observable<FitnessProgramRequest> {
+    return this._httpClient.post<FitnessProgramRequest>(this.baseUrl, fitnessProgram);
+  }
+
   getById(id: number): Observable<FitnessProgram> {
     return this._httpClient.get<FitnessProgram>(`${this.baseUrl}/${id}`);
+  }
+
+  deleteById(id: number): Observable<FitnessProgram> {
+    return this._httpClient.delete<FitnessProgram>(`${this.baseUrl}/${id}`);
   }
 }

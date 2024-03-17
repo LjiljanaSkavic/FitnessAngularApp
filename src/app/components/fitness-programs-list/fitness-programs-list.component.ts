@@ -7,6 +7,9 @@ import { EMPTY, Subscription, switchMap } from "rxjs";
 import { FitnessProgramCard } from "../../models/FitnessProgramCard";
 import { AddFitnessProgramModalComponent } from "./add-fitness-program-modal/add-fitness-program-modal.component";
 import { MatDialog } from "@angular/material/dialog";
+import { Router } from "@angular/router";
+import { snackBarConfig } from "../../shared/contants";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-fitness-programs-list',
@@ -28,7 +31,9 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
 
   constructor(private _fitnessProgramService: FitnessProgramService,
               private _categoryService: CategoryService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              private _router: Router,
+              private _snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -71,14 +76,11 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
   }
 
   onAddNewFitnessProgramClick() {
-    this.dialog.open(AddFitnessProgramModalComponent, {
-      data: {
-        title: "Delete comment",
-        text: "Are you sure that you want to delete this comment?"
-      }
-    }).afterClosed().pipe(switchMap(result => {
+    this.dialog.open(AddFitnessProgramModalComponent).afterClosed().pipe(switchMap(result => {
       if (result) {
         //TODO: http call to save fitness program
+        this._snackBar.open("Fitness program successfully added.", "OK", snackBarConfig)
+        this._router.navigateByUrl(`fitness-program/${result.id}`).catch(err => console.log(err));
         return EMPTY;
       } else {
         return EMPTY

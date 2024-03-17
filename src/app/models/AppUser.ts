@@ -1,4 +1,4 @@
-import { File } from "../models/File";
+import { IFile } from "./IFile";
 
 export interface AppUser {
   id: number;
@@ -8,12 +8,12 @@ export interface AppUser {
   email: string;
   city: string;
   activated: boolean;
-  image: File;
+  image: IFile;
 }
 
 export interface AppUserShort {
   id: number;
   username: string;
-  image: File;
+  image: IFile;
   isLoggedIn: boolean;
 }

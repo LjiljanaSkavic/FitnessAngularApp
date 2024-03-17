@@ -49,7 +49,6 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
 
     this._userService.changePassword(this.userId, currentPasswordHash, newPasswordHash).subscribe(
       () => {
-        console.log('Password changed')
         this.passwordForm.reset();
         //TODO: navigate router
       },

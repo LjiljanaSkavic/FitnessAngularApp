@@ -1,27 +1,30 @@
-<div class="fitness-program-details">
+<div
+  *ngIf="!categoriesLoading"
+  class="fitness-program-details">
   <h2>Add fitness program</h2>
   <form [formGroup]="fitnessProgramForm">
-    <div
-      *ngIf="fileUrl"
-      class="avatar-wrapper">
-      <img
-        [src]="fileUrl"
-        alt="File"
-        class="avatar-image">
-    </div>
-    <div
-      class="upload-button">
-      <label
-        class="file-label"
-        for="fileInput">
-        <span>Upload new picture</span>
-        <input
-          (change)="onFileSelected($event)"
-          id="fileInput"
-          style="display: none;"
-          type="file">
-      </label>
-    </div>
+    <mat-form-field>
+      <mat-label>Choose category</mat-label>
+      <mat-select formControlName="category">
+        <mat-option
+          *ngFor="let category of categories"
+          [value]="category.id">
+          {{ category.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Name</mat-label>
+      <input
+        formControlName="name"
+        matInput>
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Description</mat-label>
+      <input
+        formControlName="description"
+        matInput>
+    </mat-form-field>
     <mat-form-field class="form-field">
       <mat-label>Price</mat-label>
       <input
@@ -35,7 +38,7 @@
         matInput>
     </mat-form-field>
     <mat-form-field class="form-field">
-      <mat-label>Duration</mat-label>
+      <mat-label>Duration (hh:mm:ss)</mat-label>
       <input
         formControlName="duration"
         matInput>
@@ -52,16 +55,35 @@
         formControlName="contact"
         matInput>
     </mat-form-field>
-    <mat-form-field class="form-field">
-      <mat-label>Category</mat-label>
+    <div>
+      <label
+        class="custom-file-input"
+        for="fileInput">Choose fitness program photos</label>
       <input
-        formControlName="category"
-        matInput>
-    </mat-form-field>
+        (change)="onFileChange($event)"
+        class="file-input"
+        id="fileInput"
+        multiple
+        type="file">
+    </div>
+    <div class="image-preview-container">
+      <div
+        *ngFor="let preview of imagePreviews; let i = index"
+        class="image-preview">
+        <img
+          [src]="preview"
+          alt="Image Preview">
+        <button
+          (click)="removeFitnessProgramImage(i)"
+          class="remove-btn">X
+        </button>
+      </div>
+    </div>
   </form>
   <form
     [formGroup]="instructorForm"
     class="instructor-form">
+    <h3>Instructor details</h3>
     <mat-form-field class="form-field">
       <mat-label>First Name</mat-label>
       <input
@@ -74,6 +96,12 @@
         formControlName="lastName"
         matInput>
     </mat-form-field>
+    <div class="form-field">
+      <mat-radio-group formControlName="sex">
+        <mat-radio-button value="male">Male</mat-radio-button>
+        <mat-radio-button value="female">Female</mat-radio-button>
+      </mat-radio-group>
+    </div>
     <mat-form-field class="form-field">
       <mat-label>Age</mat-label>
       <input
@@ -93,14 +121,33 @@
         formControlName="weight"
         matInput>
     </mat-form-field>
-    <div class="form-field">
-      <label>Sex:</label>
-      <mat-radio-group formControlName="sex">
-        <mat-radio-button value="male">Male</mat-radio-button>
-        <mat-radio-button value="female">Female</mat-radio-button>
-      </mat-radio-group>
+
+    <div>
+      <label
+        class="custom-file-input"
+        for="instructorFileInput">Choose instructor photo</label>
+      <input
+        (change)="onInstructorFileChange($event)"
+        class="file-input"
+        id="instructorFileInput"
+        type="file">
+    </div>
+
+    <div class="image-preview-container">
+      <div
+        *ngIf="instructorImagePreview"
+        class="image-preview">
+        <img
+          [src]="instructorImagePreview"
+          alt="Instructor Image Preview">
+        <button
+          (click)="removeInstructorImage()"
+          class="remove-btn">X
+        </button>
+      </div>
     </div>
   </form>
+
   <div
     class="button-wrapper"
     mat-dialog-actions>
@@ -110,8 +157,8 @@
       mat-button>Discard
     </button>
     <button
+      (click)="onDialogClose()"
       [disabled]="!fitnessProgramForm.valid"
-      [mat-dialog-close]="fitnessProgramForm"
       class="button-save"
       mat-button>Save
     </button>

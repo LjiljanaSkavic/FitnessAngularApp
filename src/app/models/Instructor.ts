@@ -1,4 +1,4 @@
-import { File } from "./File";
+import { IFile } from "./IFile";
 
 export interface Instructor {
   id: number;
@@ -8,5 +8,16 @@ export interface Instructor {
   sex: string;
   height: number;
   weight: number;
-  image: File;
+  image: IFile;
+}
+
+export interface InstructorDTO {
+  id: number;
+  firstName: string;
+  lastName: string;
+  age: number;
+  sex: boolean;
+  height: number;
+  weight: number;
+  imageId: number;
 }

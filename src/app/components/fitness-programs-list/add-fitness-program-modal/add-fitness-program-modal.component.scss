@@ -1,2 +1,77 @@
 @import "src/app/shared/colors";
 @import "src/app/shared/classes";
+
+.fitness-program-details {
+  max-height: 500px;
+  overflow: scroll;
+}
+
+.file-input {
+  display: none; /* Hide the default file input */
+}
+
+.custom-file-input {
+  display: inline-block;
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.custom-file-input:hover {
+  background-color: #e0e0e0;
+}
+
+.image-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.image-preview {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.image-preview img {
+  max-width: 100px;
+  max-height: 100px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.remove-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #ff4d4f;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-btn {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.upload-btn:hover {
+  background-color: #45a049;
+}
+
+.instructor-form {
+  border: 1px cornflowerblue;
+}

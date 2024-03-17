@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
+import { IFile } from "../models/IFile";
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,10 @@ export class FileService {
     return this._httpClient.get(`${this.baseUrl}/${id}`, {responseType: 'blob'});
   }
 
-  uploadFile(file: File): Observable<any> {
+  uploadFile(file: any): Observable<IFile> {
     const formData = new FormData();
     formData.append('file', file);
 
-    return this._httpClient.post<any>(`${this.baseUrl}/upload`, formData);
+    return this._httpClient.post<IFile>(`${this.baseUrl}/upload`, formData);
   }
 }
