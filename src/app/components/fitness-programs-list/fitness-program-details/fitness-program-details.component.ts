@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FitnessProgram } from "../../../models/FitnessProgram";
-import { Subscription, switchMap } from "rxjs";
+import { EMPTY, Subscription, switchMap } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
 import { FitnessProgramService } from "../../../services/fitness-program.service";
 import { FileService } from "../../../services/file.service";
@@ -14,6 +14,7 @@ import { CommentRequest } from "../../../models/dto/CommentRequest";
 import { ERROR_HAS_OCCURRED_MESSAGE, MESSAGE_SUCCESS, snackBarConfig } from "../../../shared/contants";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { CommentService } from "../../../services/comment.service";
+import { ConfirmationModalComponent } from "../../../confirmation-modal/confirmation-modal.component";
 
 @Component({
   selector: 'app-fitness-program-details',
@@ -38,6 +39,7 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
   fileUrlOriginal = null;
   isLoggedIn = false;
   leaveCommentForm: FormGroup;
+  isMyFitnessProgram: boolean = false;
 
   constructor(private _activatedRoute: ActivatedRoute,
               private _fitnessProgramService: FitnessProgramService,
@@ -175,5 +177,20 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
+  }
+
+  onDeleteFitnessProgramClick() {
+    this.dialog.open(ConfirmationModalComponent, {
+      data: {
+        title: "Delete fitness program",
+        text: "Are you sure that you want to delete this fitness program?"
+      }
+    }).afterClosed().pipe(switchMap(result => {
+      return result ? this._commentService.deleteById(this.fitnessProgram.id) : EMPTY
+    })).subscribe(res => {
+      //TODO: Handle this
+
+      // this.commentDeletedEmitter.emit(this.comment.id);
+    });
   }
 }
