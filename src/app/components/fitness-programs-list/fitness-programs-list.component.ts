@@ -12,85 +12,84 @@ import { snackBarConfig } from "../../shared/contants";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
-  selector: 'app-fitness-programs-list',
-  templateUrl: './fitness-programs-list.component.html',
-  styleUrls: ['./fitness-programs-list.component.scss']
+    selector: 'app-fitness-programs-list',
+    templateUrl: './fitness-programs-list.component.html',
+    styleUrls: ['./fitness-programs-list.component.scss']
 })
 export class FitnessProgramsList implements OnInit, OnDestroy {
 
-  fitnessProgramCards: FitnessProgramCard[] = [];
-  categories: Category[] = [];
-  filterForm: FormGroup;
-  isLoading = true;
-  categoriesLoading = true;
-  subs = new Subscription();
-  pageSizeOptions: any;
-  pageSize = 5;
-  pageIndex = 0;
-  totalItems = 0;
+    fitnessProgramCards: FitnessProgramCard[] = [];
+    categories: Category[] = [];
+    filterForm: FormGroup;
+    isLoading = true;
+    categoriesLoading = true;
+    subs = new Subscription();
+    pageSizeOptions: any;
+    pageSize = 5;
+    pageIndex = 0;
+    totalItems = 0;
 
-  constructor(private _fitnessProgramService: FitnessProgramService,
-              private _categoryService: CategoryService,
-              public dialog: MatDialog,
-              private _router: Router,
-              private _snackBar: MatSnackBar) {
-  }
+    constructor(private _fitnessProgramService: FitnessProgramService,
+                private _categoryService: CategoryService,
+                public dialog: MatDialog,
+                private _router: Router,
+                private _snackBar: MatSnackBar) {
+    }
 
-  ngOnInit(): void {
-    this.subs.add(this._categoryService.getAll().subscribe(res => {
-      this.categories = res;
-      this.categoriesLoading = false;
-      this.buildFilterForm();
-      this.displayCards();
-    }));
-  }
+    ngOnInit(): void {
+        this.subs.add(this._categoryService.getAll().subscribe(res => {
+            this.categories = res;
+            this.categoriesLoading = false;
+            this.buildFilterForm();
+            this.displayCards();
+        }));
+    }
 
-  onFilterClick() {
-    this.pageIndex = 0;
-    this.displayCards();
-  }
+    onFilterClick() {
+        this.pageIndex = 0;
+        this.displayCards();
+    }
 
-  displayCards(): void {
-    this.isLoading = true;
+    displayCards(): void {
+        this.isLoading = true;
 
-    const keyword = this.filterForm.get('search').value;
-    const categoryId = this.filterForm.get('category').value;
+        const keyword = this.filterForm.get('search').value;
+        const categoryId = this.filterForm.get('category').value;
+        this.subs.add(this._fitnessProgramService.search(keyword, categoryId, this.pageIndex, this.pageSize).subscribe(res => {
+            this.fitnessProgramCards = res.fitnessPrograms;
+            this.totalItems = res.totalElements;
+            this.isLoading = false;
+        }));
+    }
 
-    this.subs.add(this._fitnessProgramService.search(keyword, categoryId, this.pageIndex, this.pageSize).subscribe(res => {
-      this.fitnessProgramCards = res.fitnessPrograms;
-      this.totalItems = res.totalElements;
-      this.isLoading = false;
-    }));
-  }
+    buildFilterForm() {
+        this.filterForm = new FormGroup({
+            category: new FormControl(''),
+            search: new FormControl('')
+        });
+    }
 
-  buildFilterForm() {
-    this.filterForm = new FormGroup({
-      category: new FormControl(''),
-      search: new FormControl('')
-    });
-  }
+    onPageChange(event: { pageIndex: number; }): void {
+        this.pageIndex = event.pageIndex;
+        this.displayCards();
+    }
 
-  onPageChange(event: { pageIndex: number; }): void {
-    this.pageIndex = event.pageIndex;
-    this.displayCards();
-  }
+    onAddNewFitnessProgramClick() {
+        this.dialog.open(AddFitnessProgramModalComponent).afterClosed().pipe(switchMap(result => {
+            if (result) {
+                //TODO: http call to save fitness program
+                this._snackBar.open("Fitness program successfully added.", "OK", snackBarConfig)
+                this._router.navigateByUrl(`fitness-program/${result.id}`).catch(err => console.log(err));
+                return EMPTY;
+            } else {
+                return EMPTY
+            }
+        })).subscribe(res => {
+            console.log(res);
+        })
+    }
 
-  onAddNewFitnessProgramClick() {
-    this.dialog.open(AddFitnessProgramModalComponent).afterClosed().pipe(switchMap(result => {
-      if (result) {
-        //TODO: http call to save fitness program
-        this._snackBar.open("Fitness program successfully added.", "OK", snackBarConfig)
-        this._router.navigateByUrl(`fitness-program/${result.id}`).catch(err => console.log(err));
-        return EMPTY;
-      } else {
-        return EMPTY
-      }
-    })).subscribe(res => {
-      console.log(res);
-    })
-  }
-
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
-  }
+    ngOnDestroy(): void {
+        this.subs.unsubscribe();
+    }
 }

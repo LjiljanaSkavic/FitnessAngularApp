@@ -9,7 +9,7 @@
   <form [formGroup]="fitnessProgramForm">
     <button
       (click)="onBuyProgramClick()"
-      *ngIf="isLoggedIn"
+      *ngIf="isLoggedIn && !isMyFitnessProgram"
       mat-button
     >Buy program
     </button>

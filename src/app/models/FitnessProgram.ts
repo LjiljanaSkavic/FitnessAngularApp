@@ -18,6 +18,7 @@ export interface FitnessProgram {
   instructor: Instructor;
   images: IFile[]
   comments: Comment[];
+  appUserCreatorId: number;
 }
 
 export interface FitnessProgramRequest {
