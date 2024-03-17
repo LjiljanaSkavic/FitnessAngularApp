@@ -32,7 +32,8 @@ export interface FitnessProgramRequest {
   contact: string;
   categoryId: number;
   instructor: InstructorDTO;
-  imageIds: number[]
+  imageIds: number[],
+  appUserCreatorId: number
 }
 
 

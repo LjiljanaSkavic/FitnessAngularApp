@@ -37,6 +37,8 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
   instructorImagePreview: string;
   uploadedInstructorImage: IFile;
 
+  contact: string;
+
   constructor(private dialogRef: MatDialogRef<AddFitnessProgramModalComponent>,
               private _categoryService: CategoryService,
               private _userStoreService: UserStoreService,
@@ -60,6 +62,7 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
     const user = this._userStoreService.getLoggedInUser();
     if (user !== null) {
       this.userId = user.id;
+      this.contact = user.email;
     }
   }
 
@@ -71,7 +74,7 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
       duration: new FormControl(null, Validators.required),
       description: new FormControl(null, Validators.required),
       location: new FormControl(null, Validators.required),
-      contact: new FormControl(null, Validators.required),
+      contact: new FormControl(this.contact, Validators.required),
       category: new FormControl(null, Validators.required),
     });
   }
@@ -160,7 +163,8 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
       name: this.fitnessProgramForm.get('name').value,
       price: +this.fitnessProgramForm.get('price').value,
       isCompleted: false,
-      isDeleted: false
+      isDeleted: false,
+      appUserCreatorId: this.userId
     };
 
     this._fitnessProgramService.create(this.fitnessProgramDTO).subscribe(res => {
