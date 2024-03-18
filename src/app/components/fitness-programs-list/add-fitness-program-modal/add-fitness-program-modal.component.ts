@@ -11,12 +11,7 @@ import { IFile } from "../../../models/IFile";
 import { doubleValidator } from "../../../validators/DoubleValidator";
 import { FitnessProgramService } from "../../../services/fitness-program.service";
 import { InstructorDTO } from "../../../models/Instructor";
-
-const DIFFICULTY_LEVELS: string[] = [
-    'beginner',
-    'intermediate',
-    'expert'
-];
+import { DIFFICULTY_LEVELS } from "../../../constants/difficulty-levels";
 
 @Component({
     selector: 'app-add-fitness-program-modal',

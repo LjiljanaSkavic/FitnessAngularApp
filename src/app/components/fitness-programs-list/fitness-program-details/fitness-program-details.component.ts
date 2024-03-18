@@ -15,6 +15,7 @@ import { ERROR_HAS_OCCURRED_MESSAGE, MESSAGE_SUCCESS, snackBarConfig } from "../
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { CommentService } from "../../../services/comment.service";
 import { ConfirmationModalComponent } from "../../../confirmation-modal/confirmation-modal.component";
+import { DIFFICULTY_LEVELS } from "../../../constants/difficulty-levels";
 
 @Component({
     selector: 'app-fitness-program-details',
@@ -40,6 +41,7 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
     isLoggedIn = false;
     leaveCommentForm: FormGroup;
     isMyFitnessProgram: boolean = false;
+    difficultyLevels = DIFFICULTY_LEVELS;
 
     constructor(private _activatedRoute: ActivatedRoute,
                 private _fitnessProgramService: FitnessProgramService,

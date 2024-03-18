@@ -1,147 +1,151 @@
 <div
-  *ngIf="!isLoading"
-  class="fitness-program-details">
-  <button
-    (click)="onDeleteFitnessProgramClick()"
-    *ngIf="isMyFitnessProgram && !isEditMode">
-    <mat-icon>delete</mat-icon>
-  </button>
-  <form [formGroup]="fitnessProgramForm">
+    *ngIf="!isLoading"
+    class="fitness-program-details">
     <button
-      (click)="onBuyProgramClick()"
-      *ngIf="isLoggedIn && !isMyFitnessProgram"
-      mat-button
-    >Buy program
+        (click)="onDeleteFitnessProgramClick()"
+        *ngIf="isMyFitnessProgram && !isEditMode">
+        <mat-icon>delete</mat-icon>
     </button>
-    <div
-      *ngIf="fileUrl"
-      class="avatar-wrapper">
-      <img
-        [src]="fileUrl"
-        alt="File"
-        class="avatar-image">
-    </div>
-    <div
-      *ngIf="isEditMode"
-      class="upload-button">
-      <label
-        class="file-label"
-        for="fileInput">
-        <span>Upload new picture</span>
-        <input
-          (change)="onFileSelected($event)"
-          id="fileInput"
-          style="display: none;"
-          type="file">
-      </label>
-    </div>
-    <h2>{{ fitnessProgram.name }}</h2>
-    <mat-form-field class="form-field">
-      <mat-label>Price</mat-label>
-      <input
-        formControlName="price"
-        matInput>
-    </mat-form-field>
-    <mat-form-field class="form-field">
-      <mat-label>Difficulty Level</mat-label>
-      <input
-        formControlName="difficultyLevel"
-        matInput>
-    </mat-form-field>
-    <mat-form-field class="form-field">
-      <mat-label>Duration</mat-label>
-      <input
-        formControlName="duration"
-        matInput>
-    </mat-form-field>
-    <mat-form-field class="form-field">
-      <mat-label>Location</mat-label>
-      <input
-        formControlName="location"
-        matInput>
-    </mat-form-field>
-    <mat-form-field class="form-field">
-      <mat-label>Contact</mat-label>
-      <input
-        formControlName="contact"
-        matInput>
-    </mat-form-field>
-    <mat-form-field class="form-field">
-      <mat-label>Category</mat-label>
-      <input
-        formControlName="category"
-        matInput>
-    </mat-form-field>
-    <p *ngIf="fitnessProgram.isCompleted"><strong>Status:</strong> Completed</p>
-  </form>
-  <form
-    [formGroup]="instructorForm"
-    class="instructor-form">
-    <mat-form-field class="form-field">
-      <mat-label>First Name</mat-label>
-      <input
-        formControlName="firstName"
-        matInput>
-    </mat-form-field>
-    <mat-form-field class="form-field">
-      <mat-label>Last Name</mat-label>
-      <input
-        formControlName="lastName"
-        matInput>
-    </mat-form-field>
-    <mat-form-field class="form-field">
-      <mat-label>Age</mat-label>
-      <input
-        formControlName="age"
-        matInput
-        type="number">
-    </mat-form-field>
-    <mat-form-field class="form-field">
-      <mat-label>Height</mat-label>
-      <input
-        formControlName="height"
-        matInput>
-    </mat-form-field>
-    <mat-form-field class="form-field">
-      <mat-label>Weight</mat-label>
-      <input
-        formControlName="weight"
-        matInput>
-    </mat-form-field>
-    <div class="form-field">
-      <label>Sex:</label>
-      <mat-radio-group formControlName="sex">
-        <mat-radio-button value="male">Male</mat-radio-button>
-        <mat-radio-button value="female">Female</mat-radio-button>
-      </mat-radio-group>
-    </div>
-  </form>
-  <div class="comment-wrapper">
-    <div class="comment-header">Comments</div>
-    <div *ngFor="let comment of fitnessProgram.comments">
-      <app-comment
-        (commentDeletedEmitter)="commentDeleted($event)"
-        [comment]="comment"></app-comment>
-    </div>
-    <div class="button-wrapper">
-      <button
-        (click)="onPostCommentClick()"
-        [disabled]="leaveCommentForm.invalid"
-        class="button-save"
-        mat-button>Post
-      </button>
-    </div>
-    <form
-      *ngIf="isLoggedIn"
-      [formGroup]="leaveCommentForm"
-      class="comment-card">
-      <mat-form-field class="comment-card__field">
-        <mat-label>Leave a comment</mat-label>
-        <textarea
-          class="comment-content"
-          formControlName="commentContent"
-          matInput></textarea>
-      </mat-form-field>
+    <form [formGroup]="fitnessProgramForm">
+        <button
+            (click)="onBuyProgramClick()"
+            *ngIf="isLoggedIn && !isMyFitnessProgram"
+            mat-button
+        >Buy program
+        </button>
+        <div
+            *ngIf="fileUrl"
+            class="avatar-wrapper">
+            <img
+                [src]="fileUrl"
+                alt="File"
+                class="avatar-image">
+        </div>
+        <div
+            *ngIf="isEditMode"
+            class="upload-button">
+            <label
+                class="file-label"
+                for="fileInput">
+                <span>Upload new picture</span>
+                <input
+                    (change)="onFileSelected($event)"
+                    id="fileInput"
+                    style="display: none;"
+                    type="file">
+            </label>
+        </div>
+        <h2>{{ fitnessProgram.name }}</h2>
+        <mat-form-field class="form-field">
+            <mat-label>Price</mat-label>
+            <input
+                formControlName="price"
+                matInput>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Difficulty level</mat-label>
+            <mat-select formControlName="difficultyLevel">
+                <mat-option
+                    *ngFor="let difficultyLevel of difficultyLevels; let i = index"
+                    [value]="i + 1">
+                    {{ difficultyLevel }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Duration</mat-label>
+            <input
+                formControlName="duration"
+                matInput>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Location</mat-label>
+            <input
+                formControlName="location"
+                matInput>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Contact</mat-label>
+            <input
+                formControlName="contact"
+                matInput>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Category</mat-label>
+            <input
+                formControlName="category"
+                matInput>
+        </mat-form-field>
+        <p *ngIf="fitnessProgram.isCompleted"><strong>Status:</strong> Completed</p>
     </form>
-  </div>
+    <form
+        [formGroup]="instructorForm"
+        class="instructor-form">
+        <mat-form-field class="form-field">
+            <mat-label>First Name</mat-label>
+            <input
+                formControlName="firstName"
+                matInput>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Last Name</mat-label>
+            <input
+                formControlName="lastName"
+                matInput>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Age</mat-label>
+            <input
+                formControlName="age"
+                matInput
+                type="number">
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Height</mat-label>
+            <input
+                formControlName="height"
+                matInput>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Weight</mat-label>
+            <input
+                formControlName="weight"
+                matInput>
+        </mat-form-field>
+        <div class="form-field">
+            <label>Sex:</label>
+            <mat-radio-group formControlName="sex">
+                <mat-radio-button value="male">Male</mat-radio-button>
+                <mat-radio-button value="female">Female</mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </form>
+    <div class="comment-wrapper">
+        <div class="comment-header">Comments</div>
+        <div *ngFor="let comment of fitnessProgram.comments">
+            <app-comment
+                (commentDeletedEmitter)="commentDeleted($event)"
+                [comment]="comment"></app-comment>
+        </div>
+        <div class="button-wrapper">
+            <button
+                (click)="onPostCommentClick()"
+                [disabled]="leaveCommentForm.invalid"
+                class="button-save"
+                mat-button>Post
+            </button>
+        </div>
+        <form
+            *ngIf="isLoggedIn"
+            [formGroup]="leaveCommentForm"
+            class="comment-card">
+            <mat-form-field class="comment-card__field">
+                <mat-label>Leave a comment</mat-label>
+                <textarea
+                    class="comment-content"
+                    formControlName="commentContent"
+                    matInput></textarea>
+            </mat-form-field>
+        </form>
+    </div>
 </div>
