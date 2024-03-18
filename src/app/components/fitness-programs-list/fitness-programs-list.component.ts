@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FitnessProgramService } from "../../services/fitness-program.service";
 import { CategoryService } from "../../services/category.service";
 import { Category } from "../../models/dto/Category";
@@ -10,6 +10,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { snackBarConfig } from "../../shared/contants";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
 
 @Component({
     selector: 'app-fitness-programs-list',
@@ -24,10 +25,12 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
     isLoading = true;
     categoriesLoading = true;
     subs = new Subscription();
-    pageSizeOptions: any;
+    pageSizeOptions: number[] = [5, 10];
     pageSize = 5;
     pageIndex = 0;
     totalItems = 0;
+
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(private _fitnessProgramService: FitnessProgramService,
                 private _categoryService: CategoryService,
@@ -55,6 +58,7 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
 
         const keyword = this.filterForm.get('search').value;
         const categoryId = this.filterForm.get('category').value;
+
         this.subs.add(this._fitnessProgramService.search(keyword, categoryId, this.pageIndex, this.pageSize).subscribe(res => {
             this.fitnessProgramCards = res.fitnessPrograms;
             this.totalItems = res.totalElements;
@@ -69,8 +73,9 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
         });
     }
 
-    onPageChange(event: { pageIndex: number; }): void {
+    onPageChange(event: PageEvent): void {
         this.pageIndex = event.pageIndex;
+        this.pageSize = event.pageSize;
         this.displayCards();
     }
 
