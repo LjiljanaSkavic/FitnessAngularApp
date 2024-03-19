@@ -76,7 +76,7 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
             duration: new FormControl(null, Validators.required),
             description: new FormControl(null, Validators.required),
             location: new FormControl(null, Validators.required),
-            contact: new FormControl(this.contact, Validators.required),
+            contactEmail: new FormControl(this.contact, [Validators.required, Validators.email]),
             category: new FormControl(null, Validators.required),
         });
     }
@@ -155,7 +155,7 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
 
         this.fitnessProgramDTO = {
             categoryId: this.fitnessProgramForm.get('category').value,
-            contact: this.fitnessProgramForm.get('contact').value,
+            contactEmail: this.fitnessProgramForm.get('contact').value,
             description: this.fitnessProgramForm.get('description').value,
             difficultyLevel: +this.fitnessProgramForm.get('difficultyLevel').value,
             duration: this.fitnessProgramForm.get('duration').value,
@@ -169,11 +169,9 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
             appUserCreatorId: this.userId
         };
 
-        console.log(this.fitnessProgramDTO);
-
-        // this._fitnessProgramService.create(this.fitnessProgramDTO).subscribe(res => {
-        //     this.dialogRef.close(res);
-        // })
+        this._fitnessProgramService.create(this.fitnessProgramDTO).subscribe(res => {
+            this.dialogRef.close(res);
+        })
     }
 
     onInstructorFileChange(event: any): void {

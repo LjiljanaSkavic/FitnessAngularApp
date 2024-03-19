@@ -116,7 +116,7 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
             difficultyLevel: new FormControl(fitnessProgram.difficultyLevel),
             duration: new FormControl(fitnessProgram.duration),
             location: new FormControl(fitnessProgram.location),
-            contact: new FormControl(fitnessProgram.contact),
+            contactEmail: new FormControl(fitnessProgram.contactEmail),
             category: new FormControl(fitnessProgram.category.name),
         });
     }
