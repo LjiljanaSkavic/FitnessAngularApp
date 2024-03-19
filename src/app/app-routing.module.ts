@@ -8,10 +8,11 @@ import { ProfileDetailsComponent } from "./components/profile-details/profile-de
 import { SignUpComponent } from "./components/sign-up/sign-up.component";
 import { FitnessProgramsList } from "./components/fitness-programs-list/fitness-programs-list.component";
 import {
-  FitnessProgramDetailsComponent
+    FitnessProgramDetailsComponent
 } from "./components/fitness-programs-list/fitness-program-details/fitness-program-details.component";
 import { ManagePasswordComponent } from "./components/manage-password/manage-password.component";
 import { FitnessPurchasesListComponent } from "./components/fitness-purchases-list/fitness-purchases-list.component";
+import { ActivityLogsListComponent } from "./components/activity-logs-list/activity-logs-list.component";
 
 const routes: Routes = [
     {
@@ -62,6 +63,10 @@ const routes: Routes = [
         path: "fitness-program-purchases/:id",
         component: FitnessPurchasesListComponent
     },
+    {
+        path: "activity-logs",
+        component: ActivityLogsListComponent
+    }
 ];
 
 @NgModule({

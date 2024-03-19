@@ -1,0 +1,24 @@
+<div
+    *ngIf="!isLoading"
+    class="items-container">
+    <div class="header-container">
+        <button
+            (click)="onAddNewActivityLogClick()"
+            mat-button
+        >Add activity log
+        </button>
+    </div>
+    <!--    <div class="fitness-card-container">-->
+    <!--        <ng-container *ngFor="let activityLog of activityLogs">-->
+    <!--            <app-activity-log [activityLog]="activityLog"></app-activity-log>-->
+    <!--        </ng-container>-->
+    <!--    </div>-->
+    <!--    <mat-paginator-->
+    <!--        (page)="onPageChange($event)"-->
+    <!--        [length]="totalItems"-->
+    <!--        [pageIndex]="pageIndex"-->
+    <!--        [pageSizeOptions]="pageSizeOptions"-->
+    <!--        [pageSize]="pageSize"-->
+    <!--        class="mat-paginator">-->
+    <!--    </mat-paginator>-->
+</div>
