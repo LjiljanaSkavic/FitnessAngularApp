@@ -49,9 +49,16 @@ import {
 } from './components/fitness-programs-list/add-fitness-program-modal/add-fitness-program-modal.component';
 import { AdviceMessageModalComponent } from './components/advice-message-modal/advice-message-modal.component';
 import { ActivityLogsListComponent } from './components/activity-logs-list/activity-logs-list.component';
-import { ActivityLogComponent } from './components/activity-logs-list/activity-log/activity-log.component';
+import {
+    ActivityLogDetailsComponent
+} from './components/activity-logs-list/activity-log-details/activity-log-details.component';
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
+import {
+    AddActivityLogModalComponent
+} from './components/activity-logs-list/add-activity-log-modal/add-activity-log-modal.component';
+import { AtivityLogCardComponent } from './components/ativity-log-card/ativity-log-card.component';
+import { MatTableModule } from "@angular/material/table";
 
 export const ANGULAR_MATERIAL_MODULES = [
     MatIconModule,
@@ -69,7 +76,7 @@ export const ANGULAR_MATERIAL_MODULES = [
     MatRadioModule,
     MatPaginatorModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
 ]
 
 @NgModule({
@@ -95,7 +102,9 @@ export const ANGULAR_MATERIAL_MODULES = [
         AddFitnessProgramModalComponent,
         AdviceMessageModalComponent,
         ActivityLogsListComponent,
-        ActivityLogComponent
+        ActivityLogDetailsComponent,
+        AddActivityLogModalComponent,
+        AtivityLogCardComponent
     ],
     imports: [
         BrowserModule,
@@ -105,6 +114,7 @@ export const ANGULAR_MATERIAL_MODULES = [
         ReactiveFormsModule,
         ANGULAR_MATERIAL_MODULES,
         NgOptimizedImage,
+        MatTableModule,
     ],
     providers: [HttpClient],
     bootstrap: [AppComponent]

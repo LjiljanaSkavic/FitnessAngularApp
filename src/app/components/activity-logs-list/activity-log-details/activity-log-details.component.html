@@ -1,0 +1,46 @@
+<div class="activity-log-card">
+    <form [formGroup]="activityLogForm">
+        <mat-form-field>
+            <input
+                [matDatepicker]="picker"
+                formControlName="date"
+                matInput
+                placeholder="Choose a date">
+            <mat-datepicker-toggle
+                [for]="picker"
+                matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Duration (hh:mm:ss)</mat-label>
+            <input
+                formControlName="duration"
+                matInput>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Type</mat-label>
+            <input
+                formControlName="type"
+                matInput>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Current Weight (lbs)</mat-label>
+            <input
+                formControlName="currentWeightLbs"
+                matInput>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Kcal Intake</mat-label>
+            <input
+                formControlName="kcalIntake"
+                matInput
+                type="number">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Notes</mat-label>
+            <textarea
+                formControlName="notes"
+                matInput></textarea>
+        </mat-form-field>
+    </form>
+</div>

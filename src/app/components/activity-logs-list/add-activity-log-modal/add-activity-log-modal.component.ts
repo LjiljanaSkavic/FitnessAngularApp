@@ -2,18 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivityLogRequest } from "../../../models/ActivityLogRequest";
 import { UserStoreService } from "../../../services/user-store.service";
+import { ActivityLogService } from "../../../services/activity-log.service";
+import { MatDialogRef } from "@angular/material/dialog";
 
 @Component({
-    selector: 'app-activity-log',
-    templateUrl: './activity-log.component.html',
-    styleUrls: ['./activity-log.component.scss']
+    selector: 'app-add-activity-log-details-modal',
+    templateUrl: './add-activity-log-modal.component.html',
+    styleUrls: ['./add-activity-log-modal.component.scss']
 })
-export class ActivityLogComponent implements OnInit {
+export class AddActivityLogModalComponent implements OnInit {
     activityLogForm: FormGroup;
-    activityLog: ActivityLogRequest;
+    activityLogRequest: ActivityLogRequest;
     userId: number;
 
-    constructor(private _userStoreService: UserStoreService) {
+    constructor(private _userStoreService: UserStoreService,
+                private _activityLogService: ActivityLogService,
+                private dialogRef: MatDialogRef<AddActivityLogModalComponent>) {
     }
 
     ngOnInit() {
@@ -28,7 +32,7 @@ export class ActivityLogComponent implements OnInit {
     }
 
     prepareActivityLog() {
-        this.activityLog = {
+        this.activityLogRequest = {
             appUserId: this.userId,
             currentWeightLbs: +this.activityLogForm.get('currentWeightLbs').value,
             date: this.activityLogForm.get('date').value,
@@ -37,8 +41,11 @@ export class ActivityLogComponent implements OnInit {
             notes: this.activityLogForm.get('notes').value,
             type: +this.activityLogForm.get('type').value
         }
-        console.log(this.activityLog);
-
+        console.log(this.activityLogRequest);
+        this._activityLogService.createActivityLog(this.activityLogRequest).subscribe(res => {
+            console.log(res);
+            this.dialogRef.close(res);
+        })
     }
 
     buildEmptyActivityLogForm() {
