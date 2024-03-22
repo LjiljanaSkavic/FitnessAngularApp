@@ -36,9 +36,13 @@ export class ActivityLogsListComponent implements OnInit, OnDestroy {
     ngOnInit() {
         if (this._userStoreService.getIsLoggedIn()) {
             this.userId = this._userStoreService.getLoggedInUser().id;
-            this.subscription.add(this._activityLogService.getAll(this.userId).subscribe(res => {
-                this.activityLogs = res;
+            this.subscription.add(this._activityLogService.search(this.userId).subscribe(res => {
+                console.log(res);
+                console.log(res.activityLogs)
+                this.activityLogs = res.activityLogs;
+                this.totalItems = res.totalElements;
                 this.isLoading = false;
+                this.displayActivityLogs();
             }));
         }
     }
@@ -66,7 +70,12 @@ export class ActivityLogsListComponent implements OnInit, OnDestroy {
     }
 
     displayActivityLogs() {
-        //TODO: Finish this
+        this.isLoading = true;
+        this.subs.add(this._activityLogService.search(this.userId).subscribe(res => {
+            this.activityLogs = res.activityLogs;
+            this.totalItems = res.totalElements;
+            this.isLoading = false;
+        }));
     }
 
     ondDownloadMyActivityLogs() {
