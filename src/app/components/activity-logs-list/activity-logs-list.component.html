@@ -7,6 +7,11 @@
             mat-button
         >Add activity log
         </button>
+        <button
+            (click)="ondDownloadMyActivityLogs()"
+            mat-button>Download
+            <mat-icon>download</mat-icon>
+        </button>
     </div>
     <table
         [dataSource]="activityLogs"

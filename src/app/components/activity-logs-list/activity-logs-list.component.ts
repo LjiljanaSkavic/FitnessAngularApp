@@ -66,4 +66,23 @@ export class ActivityLogsListComponent implements OnInit, OnDestroy {
     displayActivityLogs() {
         //TODO: Finish this
     }
+
+    ondDownloadMyActivityLogs() {
+        this._activityLogService.downloadActivityLogs(this.userId).subscribe(
+            (data: Blob) => {
+                const blob = new Blob([data], {type: 'application/pdf'});
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                document.body.appendChild(a);
+                a.href = url;
+                a.download = 'activity_logs.pdf';
+                a.click();
+                window.URL.revokeObjectURL(url);
+            },
+            (error) => {
+                console.error('Error downloading activity logs:', error);
+                // Handle error as needed
+            }
+        );
+    }
 }
