@@ -1,0 +1,11 @@
+@import "src/app/shared/colors";
+@import "src/app/shared/classes";
+
+.statistics-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.chart {
+  min-width: 500px;
+}

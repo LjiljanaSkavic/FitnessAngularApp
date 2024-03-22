@@ -11,8 +11,8 @@ export interface ActivityLogRequest {
 export interface ActivityLog {
     id: number;
     date: Date;
-    duration: number; // Assuming duration in minutes
-    type: number; // Assuming type is represented by an ID
+    duration: number;
+    type: number;
     currentWeightLbs: number;
     notes: string;
     kcalIntake: number;

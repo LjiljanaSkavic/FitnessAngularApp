@@ -59,6 +59,8 @@ import {
 } from './components/activity-logs-list/add-activity-log-modal/add-activity-log-modal.component';
 import { AtivityLogCardComponent } from './components/ativity-log-card/ativity-log-card.component';
 import { MatTableModule } from "@angular/material/table";
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 export const ANGULAR_MATERIAL_MODULES = [
     MatIconModule,
@@ -104,7 +106,8 @@ export const ANGULAR_MATERIAL_MODULES = [
         ActivityLogsListComponent,
         ActivityLogDetailsComponent,
         AddActivityLogModalComponent,
-        AtivityLogCardComponent
+        AtivityLogCardComponent,
+        StatisticsComponent
     ],
     imports: [
         BrowserModule,
@@ -115,6 +118,7 @@ export const ANGULAR_MATERIAL_MODULES = [
         ANGULAR_MATERIAL_MODULES,
         NgOptimizedImage,
         MatTableModule,
+        GoogleChartsModule
     ],
     providers: [HttpClient],
     bootstrap: [AppComponent]

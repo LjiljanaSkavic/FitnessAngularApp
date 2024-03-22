@@ -23,6 +23,8 @@ export class ActivityLogsListComponent implements OnInit, OnDestroy {
     pageIndex = 0;
     totalItems = 0;
 
+    subscription = new Subscription();
+
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -34,10 +36,10 @@ export class ActivityLogsListComponent implements OnInit, OnDestroy {
     ngOnInit() {
         if (this._userStoreService.getIsLoggedIn()) {
             this.userId = this._userStoreService.getLoggedInUser().id;
-            this._activityLogService.getAll(this.userId).subscribe(res => {
+            this.subscription.add(this._activityLogService.getAll(this.userId).subscribe(res => {
                 this.activityLogs = res;
                 this.isLoading = false;
-            })
+            }));
         }
     }
 
@@ -68,7 +70,7 @@ export class ActivityLogsListComponent implements OnInit, OnDestroy {
     }
 
     ondDownloadMyActivityLogs() {
-        this._activityLogService.downloadActivityLogs(this.userId).subscribe(
+        this.subscription.add(this._activityLogService.downloadActivityLogs(this.userId).subscribe(
             (data: Blob) => {
                 const blob = new Blob([data], {type: 'application/pdf'});
                 const url = window.URL.createObjectURL(blob);
@@ -83,6 +85,6 @@ export class ActivityLogsListComponent implements OnInit, OnDestroy {
                 console.error('Error downloading activity logs:', error);
                 // Handle error as needed
             }
-        );
+        ));
     }
 }

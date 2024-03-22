@@ -13,6 +13,7 @@ import {
 import { ManagePasswordComponent } from "./components/manage-password/manage-password.component";
 import { FitnessPurchasesListComponent } from "./components/fitness-purchases-list/fitness-purchases-list.component";
 import { ActivityLogsListComponent } from "./components/activity-logs-list/activity-logs-list.component";
+import { StatisticsComponent } from "./components/statistics/statistics.component";
 
 const routes: Routes = [
     {
@@ -66,6 +67,10 @@ const routes: Routes = [
     {
         path: "activity-logs",
         component: ActivityLogsListComponent
+    },
+    {
+        path: "statistics",
+        component: StatisticsComponent
     }
 ];
 

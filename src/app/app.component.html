@@ -54,22 +54,17 @@
             </button>
             <button
                 (click)="drawer.close()"
+                *ngIf="user"
                 class="mat-list-item"
                 routerLink="/activity-logs"
                 routerLinkActive="active">Activity logs
             </button>
             <button
                 (click)="drawer.close()"
+                *ngIf="user"
                 class="mat-list-item"
-                routerLink="/goals"
-                routerLinkActive="active">Goals
-            </button>
-            <button
-                (click)="drawer.close()"
-                class="mat-list-item"
-                routerLink="/diet-plan"
-                routerLinkActive="active"
-            >Diet plan
+                routerLink="/statistics"
+                routerLinkActive="active">Statistics
             </button>
         </mat-nav-list>
     </mat-drawer>
