@@ -4,13 +4,28 @@
     <div class="header-container">
         <form [formGroup]="filterForm">
             <mat-form-field *ngIf="!categoriesLoading">
-                <mat-label>Filter by category</mat-label>
+                <mat-label>Choose category</mat-label>
                 <mat-select formControlName="category">
+                    <mat-option [value]=0>All</mat-option>
                     <mat-option
                         *ngFor="let category of categories"
                         [value]="category.id">
                         {{ category.name }}
                     </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="userId">
+                <mat-label>Show programs</mat-label>
+                <mat-select formControlName="showPrograms">
+                    <mat-option value="all">All</mat-option>
+                    <mat-option value="myPrograms">My programs</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="myProgramsFilterOn">
+                <mat-label>Choose status</mat-label>
+                <mat-select formControlName="status">
+                    <mat-option [value]=0>Active</mat-option>
+                    <mat-option [value]=1>Completed</mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field appearance="fill">

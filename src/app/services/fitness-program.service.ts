@@ -13,11 +13,34 @@ export class FitnessProgramService {
     constructor(private _httpClient: HttpClient) {
     }
 
-    search(keyword: string, categoryId: number, pageIndex: number, size: number): Observable<FitnessProgramSearchResult> {
-        if (!keyword && !categoryId) {
-            return this._httpClient.get<FitnessProgramSearchResult>(`${this.baseUrl}/search?page=${pageIndex}&size=${size}`);
+    search(keyword: string, categoryId: number, userId: number, isCompleted: boolean, page: number, size: number): Observable<FitnessProgramSearchResult> {
+        let url = `${this.baseUrl}/search`;
+
+        const queryParams = {};
+        if (keyword) {
+            queryParams['keyword'] = keyword;
         }
-        return this._httpClient.get<FitnessProgramSearchResult>(`${this.baseUrl}/search?keyword=${keyword}&category=${categoryId}&page=${pageIndex}&size=${size}`);
+        if (categoryId && categoryId !== 0) {
+            queryParams['category'] = categoryId;
+        }
+        if (userId) {
+            queryParams['userId'] = userId;
+        }
+        if (isCompleted) {
+            queryParams['isCompleted'] = isCompleted;
+        }
+        if (page) {
+            queryParams['page'] = page;
+        }
+        if (size) {
+            queryParams['size'] = size;
+        }
+
+        const queryString = Object.keys(queryParams).map(key => key + '=' + queryParams[key]).join('&');
+        if (queryString) {
+            url += '?' + queryString;
+        }
+        return this._httpClient.get<FitnessProgramSearchResult>(url);
     }
 
     create(fitnessProgram: FitnessProgramRequest): Observable<FitnessProgramRequest> {

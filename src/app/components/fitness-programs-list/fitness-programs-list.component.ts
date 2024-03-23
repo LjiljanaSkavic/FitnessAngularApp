@@ -11,6 +11,12 @@ import { Router } from "@angular/router";
 import { snackBarConfig } from "../../shared/contants";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatPaginator, PageEvent } from "@angular/material/paginator";
+import { UserStoreService } from "../../services/user-store.service";
+
+const SHOW_PROGRAMS = {
+    ALL: 'all',
+    MY_PROGRAMS: 'myPrograms'
+}
 
 @Component({
     selector: 'app-fitness-programs-list',
@@ -29,6 +35,8 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
     pageSize = 5;
     pageIndex = 0;
     totalItems = 0;
+    userId: number;
+    myProgramsFilterOn = false;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -36,7 +44,8 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
                 private _categoryService: CategoryService,
                 public dialog: MatDialog,
                 private _router: Router,
-                private _snackBar: MatSnackBar) {
+                private _snackBar: MatSnackBar,
+                private _userStoreService: UserStoreService) {
     }
 
     ngOnInit(): void {
@@ -45,7 +54,21 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
             this.categoriesLoading = false;
             this.buildFilterForm();
             this.displayCards();
+            this.addShowProgramsAndStatusSubscriptions();
         }));
+        if (this._userStoreService.getIsLoggedIn()) {
+            this.userId = this._userStoreService.getLoggedInUser().id;
+        }
+
+    }
+
+    addShowProgramsAndStatusSubscriptions() {
+        this.filterForm.get('showPrograms').valueChanges.subscribe(res => {
+            this.myProgramsFilterOn = res === 'myPrograms';
+        });
+        // this.filterForm.get('status').valueChanges.subscribe(res => {
+        //
+        // });
     }
 
     onFilterClick() {
@@ -58,8 +81,20 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
 
         const keyword = this.filterForm.get('search').value;
         const categoryId = this.filterForm.get('category').value;
+        const showPrograms = this.filterForm.get('showPrograms').value;
+        let status = this.filterForm.get('status').value;
+        let isCompleted = false;
+        if (this.myProgramsFilterOn) {
+            isCompleted = status === 1;
+            console.log(isCompleted);
+        }
 
-        this.subs.add(this._fitnessProgramService.search(keyword, categoryId, this.pageIndex, this.pageSize).subscribe(res => {
+        this.subs.add(this._fitnessProgramService.search(keyword,
+            categoryId,
+            showPrograms === SHOW_PROGRAMS.ALL ? null : this.userId,
+            isCompleted,
+            this.pageIndex,
+            this.pageSize).subscribe(res => {
             this.fitnessProgramCards = res.fitnessPrograms;
             this.totalItems = res.totalElements;
             this.isLoading = false;
@@ -68,8 +103,10 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
 
     buildFilterForm() {
         this.filterForm = new FormGroup({
-            category: new FormControl(''),
-            search: new FormControl('')
+            category: new FormControl(0),
+            search: new FormControl(''),
+            showPrograms: new FormControl(SHOW_PROGRAMS.ALL),
+            status: new FormControl(0),
         });
     }
 
