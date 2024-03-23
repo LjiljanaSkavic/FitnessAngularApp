@@ -54,4 +54,8 @@ export class FitnessProgramService {
     deleteById(id: number): Observable<FitnessProgram> {
         return this._httpClient.delete<FitnessProgram>(`${this.baseUrl}/${id}`);
     }
+
+    setAsCompletedById(id: number): Observable<boolean> {
+        return this._httpClient.post<boolean>(`${this.baseUrl}/${id}`, {});
+    }
 }

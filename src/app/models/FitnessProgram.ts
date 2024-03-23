@@ -11,8 +11,8 @@ export interface FitnessProgram {
     difficultyLevel: number;
     duration: string;
     location: string;
-    isCompleted: boolean;
-    isDeleted: boolean;
+    completed: boolean;
+    deleted: boolean;
     contactEmail: string;
     category: Category;
     instructor: Instructor;

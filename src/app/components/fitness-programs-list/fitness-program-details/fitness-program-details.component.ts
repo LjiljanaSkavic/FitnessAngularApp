@@ -67,6 +67,8 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
             switchMap(res => {
                 this.fitnessProgram = res;
                 this.isMyFitnessProgram = this.userId === this.fitnessProgram.appUserCreatorId;
+                console.log(this.isMyFitnessProgram);
+                console.log(this.fitnessProgram.completed);
                 this.buildFitnessForm(this.fitnessProgram);
                 this.buildInstructorForm(this.fitnessProgram.instructor);
                 return this._fileService.getFileById(this.fitnessProgram.images[0].id);
@@ -196,6 +198,21 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
             this._router.navigateByUrl(`fitness-program`).catch(err => console.log(err));
 
             // this.commentDeletedEmitter.emit(this.comment.id);
+        });
+    }
+
+    onCompleteFitnessProgramClick() {
+        this.dialog.open(ConfirmationModalComponent, {
+            data: {
+                title: "Complete fitness program",
+                text: "Are you sure that you want to set this fitness program as completed?"
+            }
+        }).afterClosed().pipe(switchMap(result => {
+            return result ? this._fitnessProgramService.setAsCompletedById(this.fitnessProgram.id) : EMPTY
+        })).subscribe(res => {
+            if (res) {
+                this._router.navigateByUrl(`fitness-program`).catch(err => console.log(err));
+            }
         });
     }
 }

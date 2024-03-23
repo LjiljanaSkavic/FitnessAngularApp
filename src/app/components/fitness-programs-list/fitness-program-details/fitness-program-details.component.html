@@ -3,8 +3,13 @@
     class="fitness-program-details">
     <button
         (click)="onDeleteFitnessProgramClick()"
-        *ngIf="isMyFitnessProgram && !isEditMode">
+        *ngIf="isMyFitnessProgram && !fitnessProgram.completed && !isEditMode">
         <mat-icon>delete</mat-icon>
+    </button>
+    <button
+        (click)="onCompleteFitnessProgramClick()"
+        *ngIf="isMyFitnessProgram && !fitnessProgram.completed && !isEditMode">
+        <mat-icon>add_task</mat-icon>
     </button>
     <form [formGroup]="fitnessProgramForm">
         <button
@@ -76,7 +81,7 @@
                 formControlName="category"
                 matInput>
         </mat-form-field>
-        <p *ngIf="fitnessProgram.isCompleted"><strong>Status:</strong> Completed</p>
+        <p *ngIf="fitnessProgram.completed"><strong>Status:</strong> Completed</p>
     </form>
     <form
         [formGroup]="instructorForm"
@@ -127,7 +132,9 @@
                 (commentDeletedEmitter)="commentDeleted($event)"
                 [comment]="comment"></app-comment>
         </div>
-        <div class="button-wrapper">
+        <div
+            *ngIf="!fitnessProgram.completed"
+            class="button-wrapper">
             <button
                 (click)="onPostCommentClick()"
                 [disabled]="leaveCommentForm.invalid"
@@ -136,7 +143,7 @@
             </button>
         </div>
         <form
-            *ngIf="isLoggedIn"
+            *ngIf="isLoggedIn && !fitnessProgram.completed"
             [formGroup]="leaveCommentForm"
             class="comment-card">
             <mat-form-field class="comment-card__field">
