@@ -61,6 +61,8 @@ import { AtivityLogCardComponent } from './components/ativity-log-card/ativity-l
 import { MatTableModule } from "@angular/material/table";
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { RssFeedNewsListComponent } from './components/news-list/rss-feed-news-list.component';
+import { RssFeedNewsItemComponent } from './components/news-list/rss-feed-news-item/rss-feed-news-item.component';
 
 export const ANGULAR_MATERIAL_MODULES = [
     MatIconModule,
@@ -107,7 +109,9 @@ export const ANGULAR_MATERIAL_MODULES = [
         ActivityLogDetailsComponent,
         AddActivityLogModalComponent,
         AtivityLogCardComponent,
-        StatisticsComponent
+        StatisticsComponent,
+        RssFeedNewsListComponent,
+        RssFeedNewsItemComponent
     ],
     imports: [
         BrowserModule,

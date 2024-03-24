@@ -1,0 +1,8 @@
+<div
+    *ngIf="!isLoading"
+    class="items-container">
+    <div
+        *ngFor="let item of rssFeedNews">
+        <app-rss-feed-news-item [rssFeedNewsItem]="item"></app-rss-feed-news-item>
+    </div>
+</div>

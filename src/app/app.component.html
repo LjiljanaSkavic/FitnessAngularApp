@@ -35,8 +35,15 @@
             <button
                 (click)="drawer.close()"
                 class="mat-list-item"
+                routerLink="/news"
+                routerLinkActive="active">News
+            </button>
+            <button
+                (click)="drawer.close()"
+                *ngIf="user"
+                class="mat-list-item"
                 routerLink="/exercises"
-                routerLinkActive="active">Overview
+                routerLinkActive="active">Exercise suggestions
             </button>
             <button
                 (click)="drawer.close()"

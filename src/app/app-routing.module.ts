@@ -14,11 +14,16 @@ import { ManagePasswordComponent } from "./components/manage-password/manage-pas
 import { FitnessPurchasesListComponent } from "./components/fitness-purchases-list/fitness-purchases-list.component";
 import { ActivityLogsListComponent } from "./components/activity-logs-list/activity-logs-list.component";
 import { StatisticsComponent } from "./components/statistics/statistics.component";
+import { RssFeedNewsListComponent } from "./components/news-list/rss-feed-news-list.component";
 
 const routes: Routes = [
     {
         path: "",
-        component: ExerciseListComponent
+        component: RssFeedNewsListComponent
+    },
+    {
+        path: "news",
+        component: RssFeedNewsListComponent
     },
     {
         path: "exercises",
@@ -71,7 +76,7 @@ const routes: Routes = [
     {
         path: "statistics",
         component: StatisticsComponent
-    }
+    },
 ];
 
 @NgModule({
