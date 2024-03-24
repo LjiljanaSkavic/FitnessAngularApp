@@ -9,3 +9,14 @@
   cursor: pointer;
   width: 120px;
 }
+
+.avatar-wrapper {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.avatar-image {
+  width: 30px; /* Adjust size as needed */
+  height: 30px; /* Adjust size as needed */
+  border-radius: 50%; /* Make it circular */
+}
