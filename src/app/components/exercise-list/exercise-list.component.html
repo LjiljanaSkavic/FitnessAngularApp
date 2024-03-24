@@ -1,15 +1,19 @@
-<div
-  *ngIf="!isLoading"
-  class="items-container">
-  <ng-container *ngFor="let exercise of exercises">
-    <app-exercise-card [exercise]="exercise"></app-exercise-card>
-  </ng-container>
-</div>
+<ng-container *ngIf="isLoading; else items">
+    <app-loader></app-loader>
+</ng-container>
 
-<mat-paginator
-  (page)="onPageChange($event)"
-  [length]="exercises.length"
-  [pageSizeOptions]="pageSizeOptions"
-  [pageSize]="pageSize"
-  class="mat-paginator">
-</mat-paginator>
+<ng-template #items>
+    <div class="items-container">
+        <ng-container *ngFor="let exercise of exercises">
+            <app-exercise-card [exercise]="exercise"></app-exercise-card>
+        </ng-container>
+    </div>
+
+    <mat-paginator
+        (page)="onPageChange($event)"
+        [length]="exercises.length"
+        [pageSizeOptions]="pageSizeOptions"
+        [pageSize]="pageSize"
+        class="mat-paginator">
+    </mat-paginator>
+</ng-template>
