@@ -155,7 +155,7 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
 
         this.fitnessProgramDTO = {
             categoryId: this.fitnessProgramForm.get('category').value,
-            contactEmail: this.fitnessProgramForm.get('contact').value,
+            contactEmail: this.fitnessProgramForm.get('contactEmail').value,
             description: this.fitnessProgramForm.get('description').value,
             difficultyLevel: +this.fitnessProgramForm.get('difficultyLevel').value,
             duration: this.fitnessProgramForm.get('duration').value,
@@ -168,6 +168,8 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
             isDeleted: false,
             appUserCreatorId: this.userId
         };
+
+        console.log(this.fitnessProgramDTO);
 
         this._fitnessProgramService.create(this.fitnessProgramDTO).subscribe(res => {
             this.dialogRef.close(res);

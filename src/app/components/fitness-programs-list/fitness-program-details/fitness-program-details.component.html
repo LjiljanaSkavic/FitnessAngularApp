@@ -11,6 +11,11 @@
         *ngIf="isMyFitnessProgram && !fitnessProgram.completed && !isEditMode">
         <mat-icon>add_task</mat-icon>
     </button>
+
+    <app-carousel
+        *ngIf="fitnessProgramImageUrls"
+        [images]="fitnessProgramImageUrls"></app-carousel>
+
     <form [formGroup]="fitnessProgramForm">
         <button
             (click)="onBuyProgramClick()"

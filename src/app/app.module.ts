@@ -63,6 +63,8 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
 import { GoogleChartsModule } from 'angular-google-charts';
 import { RssFeedNewsListComponent } from './components/news-list/rss-feed-news-list.component';
 import { RssFeedNewsItemComponent } from './components/news-list/rss-feed-news-item/rss-feed-news-item.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 export const ANGULAR_MATERIAL_MODULES = [
     MatIconModule,
@@ -111,7 +113,9 @@ export const ANGULAR_MATERIAL_MODULES = [
         AtivityLogCardComponent,
         StatisticsComponent,
         RssFeedNewsListComponent,
-        RssFeedNewsItemComponent
+        RssFeedNewsItemComponent,
+        CarouselComponent,
+        LoaderComponent
     ],
     imports: [
         BrowserModule,

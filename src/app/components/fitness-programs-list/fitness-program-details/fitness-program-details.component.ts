@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FitnessProgram } from "../../../models/FitnessProgram";
-import { EMPTY, Subscription, switchMap } from "rxjs";
+import { EMPTY, forkJoin, Subscription, switchMap } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FitnessProgramService } from "../../../services/fitness-program.service";
 import { FileService } from "../../../services/file.service";
@@ -42,6 +42,8 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
     leaveCommentForm: FormGroup;
     isMyFitnessProgram: boolean = false;
     difficultyLevels = DIFFICULTY_LEVELS;
+    fitnessProgramImageUrls: string[] = [];
+    activeIndex = 0;
 
     constructor(private _activatedRoute: ActivatedRoute,
                 private _fitnessProgramService: FitnessProgramService,
@@ -63,30 +65,13 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
             switchMap(params => {
                 this.id = params['id'];
                 return this._fitnessProgramService.getById(this.id);
-            }),
-            switchMap(res => {
-                this.fitnessProgram = res;
-                this.isMyFitnessProgram = this.userId === this.fitnessProgram.appUserCreatorId;
-                console.log(this.isMyFitnessProgram);
-                console.log(this.fitnessProgram.completed);
-                this.buildFitnessForm(this.fitnessProgram);
-                this.buildInstructorForm(this.fitnessProgram.instructor);
-                return this._fileService.getFileById(this.fitnessProgram.images[0].id);
-            })
-        ).subscribe(data => {
-                const reader = new FileReader();
-                reader.readAsDataURL(data);
-                reader.onloadend = () => {
-                    this.fileUrl = reader.result;
-                    this.fileUrlOriginal = reader.result;
-                };
-                this.isLoading = false;
-            },
-            error => {
-                //TODO: Handle error
-                console.error('Error retrieving file:', error);
-            }
-        ));
+            })).subscribe(res => {
+            this.fitnessProgram = res;
+            this.isMyFitnessProgram = this.userId === this.fitnessProgram.appUserCreatorId;
+            this.buildFitnessForm(this.fitnessProgram);
+            this.buildInstructorForm(this.fitnessProgram.instructor);
+            this.getAllImageUrls();
+        }));
 
         this.leaveCommentForm = new FormGroup(
             {
@@ -120,6 +105,19 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
             location: new FormControl(fitnessProgram.location),
             contactEmail: new FormControl(fitnessProgram.contactEmail),
             category: new FormControl(fitnessProgram.category.name),
+        });
+    }
+
+    getAllImageUrls() {
+        console.log(this.fitnessProgram.images);
+        const observables = this.fitnessProgram.images.map(image => {
+            return this._fileService.getFileById(image.id);
+        });
+
+        return forkJoin(observables).subscribe(res => {
+            this.fitnessProgramImageUrls = res.map(resBlob => URL.createObjectURL(resBlob));
+            console.log(this.fitnessProgramImageUrls);
+            this.isLoading = false;
         });
     }
 
