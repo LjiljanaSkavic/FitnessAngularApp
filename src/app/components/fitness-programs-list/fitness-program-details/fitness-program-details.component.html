@@ -86,6 +86,14 @@
                 formControlName="category"
                 matInput>
         </mat-form-field>
+        <ng-container *ngFor="let controlName of dynamicFormControls">
+            <mat-form-field>
+                <mat-label>{{ controlName }}</mat-label>
+                <input
+                    formControlName="{{ controlName }}"
+                    matInput>
+            </mat-form-field>
+        </ng-container>
         <p *ngIf="fitnessProgram.completed"><strong>Status:</strong> Completed</p>
     </form>
     <form

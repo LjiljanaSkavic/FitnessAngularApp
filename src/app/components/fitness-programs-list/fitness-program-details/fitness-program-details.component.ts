@@ -4,7 +4,7 @@ import { EMPTY, forkJoin, Subscription, switchMap } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FitnessProgramService } from "../../../services/fitness-program.service";
 import { FileService } from "../../../services/file.service";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Instructor } from "../../../models/Instructor";
 import { BuyProgramComponent } from "../../buy-program/buy-program.component";
 import { MatDialog } from "@angular/material/dialog";
@@ -44,6 +44,8 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
     difficultyLevels = DIFFICULTY_LEVELS;
     fitnessProgramImageUrls: string[] = [];
     activeIndex = 0;
+    dynamicFormControls: string[] = [];
+
 
     constructor(private _activatedRoute: ActivatedRoute,
                 private _fitnessProgramService: FitnessProgramService,
@@ -53,6 +55,7 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
                 private _snackBar: MatSnackBar,
                 private _commentService: CommentService,
                 private _router: Router,
+                private _formBuilder: FormBuilder,
                 public dialog: MatDialog) {
     }
 
@@ -71,6 +74,7 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
             this.buildFitnessForm(this.fitnessProgram);
             this.buildInstructorForm(this.fitnessProgram.instructor);
             this.getAllImageUrls();
+            this.buildAttributes();
         }));
 
         this.leaveCommentForm = new FormGroup(
@@ -211,6 +215,16 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
             if (res) {
                 this._router.navigateByUrl(`fitness-program`).catch(err => console.log(err));
             }
+        });
+    }
+
+    buildAttributes(): void {
+        this.dynamicFormControls = this.fitnessProgram.attributes.map(attribute => attribute.name);
+
+        this.dynamicFormControls.forEach((controlName, index) => {
+            const attributeValue = this.fitnessProgram.attributes[index].value;
+            this.fitnessProgramForm.addControl(controlName,
+                this._formBuilder.control(attributeValue, Validators.required));
         });
     }
 }
