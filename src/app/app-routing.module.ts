@@ -22,7 +22,7 @@ const routes: Routes = [
         component: RssFeedNewsListComponent
     },
     {
-        path: "news",
+        path: "fitness-news",
         component: RssFeedNewsListComponent
     },
     {
