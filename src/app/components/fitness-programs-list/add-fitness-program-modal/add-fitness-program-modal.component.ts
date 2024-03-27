@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { FileService } from "../../../services/file.service";
 import { MatDialogRef } from "@angular/material/dialog";
 import { FitnessProgramRequest } from "../../../models/FitnessProgram";
@@ -12,6 +12,8 @@ import { doubleValidator } from "../../../validators/DoubleValidator";
 import { FitnessProgramService } from "../../../services/fitness-program.service";
 import { InstructorDTO } from "../../../models/Instructor";
 import { DIFFICULTY_LEVELS } from "../../../constants/difficulty-levels";
+import { Attribute } from "../../../models/dto/Attribute";
+import { AttributeService } from "../../../services/attribute.service";
 
 @Component({
     selector: 'app-add-fitness-program-modal',
@@ -38,6 +40,9 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
     instructorImagePreview: string;
     uploadedInstructorImage: IFile;
 
+    attributes: Attribute[] = [];
+    dynamicFormControls: string[] = [];
+
     contact: string;
     difficultyLevels = DIFFICULTY_LEVELS;
 
@@ -45,7 +50,9 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
                 private _categoryService: CategoryService,
                 private _userStoreService: UserStoreService,
                 private _fileService: FileService,
-                private _fitnessProgramService: FitnessProgramService) {
+                private _fitnessProgramService: FitnessProgramService,
+                private _attributeService: AttributeService,
+                private _formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
@@ -166,6 +173,7 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
             price: +this.fitnessProgramForm.get('price').value,
             isCompleted: false,
             isDeleted: false,
+            attributes: this.getAttributes(),
             appUserCreatorId: this.userId
         };
 
@@ -174,6 +182,21 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
         this._fitnessProgramService.create(this.fitnessProgramDTO).subscribe(res => {
             this.dialogRef.close(res);
         })
+    }
+
+    getAttributes(): Attribute[] {
+        const attributes: Attribute[] = [];
+        for (const attribute of this.attributes) {
+            const control = this.fitnessProgramForm.get(attribute.name);
+            if (control) {
+                attributes.push({
+                    id: attribute.id,
+                    name: attribute.name,
+                    value: control.value
+                });
+            }
+        }
+        return attributes;
     }
 
     onInstructorFileChange(event: any): void {
@@ -187,6 +210,22 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
             };
             reader.readAsDataURL(file);
         }
+    }
+
+    onCategoryChange(event: any): void {
+        const selectedCategoryId = event.value;
+
+        this._attributeService.getAttributesFromCategory(selectedCategoryId).subscribe((response) => {
+            this.attributes = response;
+            this.dynamicFormControls = response.map(attribute => attribute.name);
+
+            for (const controlName of this.dynamicFormControls) {
+                this.fitnessProgramForm.addControl(controlName,
+                    this._formBuilder.control('', Validators.required));
+            }
+
+            console.log(this.fitnessProgramForm);
+        });
     }
 
     removeInstructorImage(): void {

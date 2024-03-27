@@ -5,7 +5,9 @@
     <form [formGroup]="fitnessProgramForm">
         <mat-form-field>
             <mat-label>Choose category</mat-label>
-            <mat-select formControlName="category">
+            <mat-select
+                (selectionChange)="onCategoryChange($event)"
+                formControlName="category">
                 <mat-option
                     *ngFor="let category of categories"
                     [value]="category.id">
@@ -13,6 +15,14 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
+        <ng-container *ngFor="let controlName of dynamicFormControls">
+            <mat-form-field>
+                <mat-label>{{ controlName }}</mat-label>
+                <input
+                    formControlName="{{ controlName }}"
+                    matInput>
+            </mat-form-field>
+        </ng-container>
         <mat-form-field class="form-field">
             <mat-label>Name</mat-label>
             <input
@@ -162,7 +172,6 @@
         </button>
         <button
             (click)="onDialogClose()"
-            [disabled]="!fitnessProgramForm.valid"
             class="button-save"
             mat-button>Save
         </button>

@@ -2,6 +2,7 @@ import { Category } from "./dto/Category";
 import { Instructor, InstructorDTO } from "./Instructor";
 import { IFile } from "./IFile"
 import { Comment } from "./Comment"
+import { Attribute } from "./dto/Attribute";
 
 export interface FitnessProgram {
     id: number;
@@ -18,6 +19,7 @@ export interface FitnessProgram {
     instructor: Instructor;
     images: IFile[]
     comments: Comment[];
+    attributes: Attribute[];
     appUserCreatorId: number;
 }
 
@@ -34,6 +36,7 @@ export interface FitnessProgramRequest {
     categoryId: number;
     instructor: InstructorDTO;
     imageIds: number[],
+    attributes: Attribute[],
     appUserCreatorId: number
 }
 
