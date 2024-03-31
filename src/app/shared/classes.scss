@@ -19,6 +19,7 @@
 .button-save {
   background-color: $color-blue-1;
   color: $color-white;
+  min-width: 120px;
 
   &:hover {
     background-color: $color-blue-3;

@@ -29,3 +29,51 @@
   height: 100px; /* Adjust size as needed */
   border-radius: 50%; /* Make it circular */
 }
+
+/* Overall container */
+.fitness-program-details {
+  padding: 20px;
+}
+
+/* Form fields */
+.form-field {
+  margin-bottom: 15px;
+}
+
+/* Buttons */
+.button-wrapper {
+  margin-top: 20px;
+}
+
+/* Comment section */
+.comment-wrapper {
+  margin-top: 30px;
+}
+
+.comment-header {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.comment-card {
+  margin-top: 20px;
+
+  &__field {
+    width: 100%;
+  }
+}
+
+/* Instructor section */
+.instructor-form {
+  margin-top: 30px;
+}
+
+/* Optional: Add more styling as needed for specific elements */
+
+/* Overall container */
+.fitness-program-details {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

@@ -45,7 +45,7 @@
                     type="file">
             </label>
         </div>
-        <h2>{{ fitnessProgram.name }}</h2>
+        <div class="part-header">{{ fitnessProgram.name }}</div>
         <mat-form-field class="form-field">
             <mat-label>Price</mat-label>
             <input
@@ -99,6 +99,7 @@
     <form
         [formGroup]="instructorForm"
         class="instructor-form">
+        <div class="part-header">Instructor details</div>
         <mat-form-field class="form-field">
             <mat-label>First Name</mat-label>
             <input
@@ -131,7 +132,6 @@
                 matInput>
         </mat-form-field>
         <div class="form-field">
-            <label>Sex:</label>
             <mat-radio-group formControlName="sex">
                 <mat-radio-button value="male">Male</mat-radio-button>
                 <mat-radio-button value="female">Female</mat-radio-button>
@@ -139,21 +139,11 @@
         </div>
     </form>
     <div class="comment-wrapper">
-        <div class="comment-header">Comments</div>
+        <div class="part-header">Comments</div>
         <div *ngFor="let comment of fitnessProgram.comments">
             <app-comment
                 (commentDeletedEmitter)="commentDeleted($event)"
                 [comment]="comment"></app-comment>
-        </div>
-        <div
-            *ngIf="!fitnessProgram.completed"
-            class="button-wrapper">
-            <button
-                (click)="onPostCommentClick()"
-                [disabled]="leaveCommentForm.invalid"
-                class="button-save"
-                mat-button>Post
-            </button>
         </div>
         <form
             *ngIf="isLoggedIn && !fitnessProgram.completed"
@@ -166,6 +156,16 @@
                     formControlName="commentContent"
                     matInput></textarea>
             </mat-form-field>
+            <div
+                *ngIf="!fitnessProgram.completed"
+                class="button-wrapper">
+                <button
+                    (click)="onPostCommentClick()"
+                    [disabled]="leaveCommentForm.invalid"
+                    class="button-save"
+                    mat-button>Post
+                </button>
+            </div>
         </form>
     </div>
 </div>
