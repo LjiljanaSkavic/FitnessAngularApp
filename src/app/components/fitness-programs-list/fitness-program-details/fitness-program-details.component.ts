@@ -113,14 +113,12 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
     }
 
     getAllImageUrls() {
-        console.log(this.fitnessProgram.images);
         const observables = this.fitnessProgram.images.map(image => {
             return this._fileService.getFileById(image.id);
         });
 
-        return forkJoin(observables).subscribe(res => {
+        forkJoin(observables).subscribe(res => {
             this.fitnessProgramImageUrls = res.map(resBlob => URL.createObjectURL(resBlob));
-            console.log(this.fitnessProgramImageUrls);
             this.isLoading = false;
         });
     }

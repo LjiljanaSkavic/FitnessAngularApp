@@ -55,7 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         //TODO: try with history
-        this._router.navigateByUrl(`news`).catch(err => console.log(err));
+        this._router.navigateByUrl(`fitness-news`).catch(err => console.log(err));
 
         this.user = this._userStoreService.getLoggedInUser();
         if (this.user !== null) {
@@ -68,7 +68,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     onFitnessAppClick(): void {
-        this._router.navigateByUrl(`news`).catch(err => console.log(err));
+        this._router.navigateByUrl(`fitness-news`).catch(err => console.log(err));
     }
 
     onProfileDetailsClick() {
