@@ -16,7 +16,6 @@ import { Attribute } from "../../../models/dto/Attribute";
 import { AttributeService } from "../../../services/attribute.service";
 
 export interface ModalData {
-  editMode: boolean;
   fitnessProgram: FitnessProgram;
   fitnessProgramImageUrls: string[];
   instructorImageUrl: string;
@@ -54,6 +53,8 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
   difficultyLevels = DIFFICULTY_LEVELS;
   categoryDisabled = false;
 
+  currentFitnessProgramIds: number[] = [];
+
   constructor(private dialogRef: MatDialogRef<AddFitnessProgramModalComponent>,
               private _categoryService: CategoryService,
               private _userStoreService: UserStoreService,
@@ -65,6 +66,10 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    //TODO: Add variable isEditMode or isAddNewMode
+
+
     this.subs.add(this._categoryService.getAll().subscribe(res => {
       this.categories = res;
       this.categoriesLoading = false;
@@ -108,6 +113,9 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
         category: new FormControl(this.data.fitnessProgram.category.id, Validators.required),
       });
 
+      this.currentFitnessProgramIds = this.data.fitnessProgram.images.map(image => image.id);
+
+      console.log(this.currentFitnessProgramIds);
       this.fitnessProgramForm.get('category').disable();
       this.fitnessProgramImageUrls = Array.from(this.data.fitnessProgramImageUrls);
       this.buildAttributes();
@@ -159,15 +167,62 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
         };
         reader.readAsDataURL(file);
       }
+
     }
   }
 
   removeFitnessProgramImage(index: number) {
-    this.selectedImages.splice(index, 1);
+    if (this.data !== null) {
+      this.currentFitnessProgramIds.splice(index, 1);
+
+      console.log(this.currentFitnessProgramIds);
+    }
+    if (this.selectedImages.length > 0) {
+      const indexOfUploaded = this.currentFitnessProgramIds.length - index;
+      this.selectedImages.splice(indexOfUploaded, 1);
+    }
     this.fitnessProgramImageUrls.splice(index, 1);
   }
 
-  uploadImagesAndPrepareFitnessProgram(): void {
+  uploadEditedImagesAndSave(): void {
+    const uploadFitnessProgramObservables = this.selectedImages.map(image => {
+      return this._fileService.uploadFile(image);
+    });
+
+    console.log(this.instructorImagePreview);
+    console.log(this.data.instructorImageUrl);
+    console.log(this.instructorImagePreview !== this.data.instructorImageUrl);
+
+    const uploadInstructorObservable = this.instructorImagePreview !== this.data.instructorImageUrl ? this._fileService.uploadFile(this.instructorImage) : of(null);
+
+    forkJoin([...uploadFitnessProgramObservables, uploadInstructorObservable]).subscribe((responses: any[]) => {
+      const fitnessProgramResponses = responses.slice(0, uploadFitnessProgramObservables.length);
+      const instructorResponse = responses[uploadFitnessProgramObservables.length];
+
+      this.uploadedImages = fitnessProgramResponses;
+
+      console.log(this.uploadedImages);
+
+      if (instructorResponse) {
+        this.uploadedInstructorImage = instructorResponse;
+        console.log(this.uploadedInstructorImage);
+      }
+
+      this.populateFitnessProgram();
+      this.fitnessProgramDTO.imageIds.push(...this.currentFitnessProgramIds);
+
+      console.log(this.fitnessProgramDTO.imageIds);
+
+      console.log(this.fitnessProgramDTO.instructor.imageId);
+
+      this._fitnessProgramService.update(this.data.fitnessProgram.id, this.fitnessProgramDTO).subscribe(res => {
+        //TODO: Add success message
+        this.dialogRef.close(res);
+      });
+    });
+  }
+
+  uploadImagesAndSave(): void {
     const uploadFitnessProgramObservables = this.selectedImages.map(image => {
       return this._fileService.uploadFile(image);
     });
@@ -186,13 +241,22 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
 
       this.populateFitnessProgram();
 
+      this._fitnessProgramService.create(this.fitnessProgramDTO).subscribe(res => {
+        //TODO: Add success message
+        this.dialogRef.close(res);
+      })
+
       this.selectedImages = [];
       this.fitnessProgramImageUrls = [];
     });
   }
 
   onDialogClose(): void {
-    this.uploadImagesAndPrepareFitnessProgram();
+    if (this.data === null) {
+      this.uploadImagesAndSave();
+    } else {
+      this.uploadEditedImagesAndSave();
+    }
   }
 
   populateFitnessProgram(): void {
@@ -200,8 +264,8 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
       age: +this.instructorForm.get('age').value,
       firstName: this.instructorForm.get('firstName').value,
       height: +this.instructorForm.get('height').value,
-      id: 0,
-      imageId: this.uploadedInstructorImage.id,
+      id: this.data !== null ? this.data.fitnessProgram.instructor.id : 0,
+      imageId: this.uploadedInstructorImage ? this.uploadedInstructorImage.id : this.data.fitnessProgram.instructor.image.id,
       lastName: this.instructorForm.get('lastName').value,
       sex: this.instructorForm.get('sex').value === 'female',
       weight: +this.instructorForm.get('weight').value
@@ -223,10 +287,6 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
       attributes: this.getAttributes(),
       appUserCreatorId: this.userId
     };
-
-    this._fitnessProgramService.create(this.fitnessProgramDTO).subscribe(res => {
-      this.dialogRef.close(res);
-    })
   }
 
   getAttributes(): Attribute[] {
