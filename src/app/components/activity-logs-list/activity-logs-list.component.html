@@ -1,98 +1,123 @@
 <div
-    *ngIf="!isLoading"
-    class="items-container">
-    <div class="header-container">
+  *ngIf="!isLoading"
+  class="items-container">
+  <div class="header-container">
+    <button
+      (click)="onAddNewActivityLogClick()"
+      mat-button
+    >Add activity log
+    </button>
+    <button
+      (click)="ondDownloadMyActivityLogs()"
+      mat-button>Download
+      <mat-icon>download</mat-icon>
+    </button>
+  </div>
+  <table
+    [dataSource]="activityLogs"
+    class="mat-elevation-z8"
+    mat-table>
+    <ng-container matColumnDef="id">
+      <th
+        *matHeaderCellDef
+        mat-header-cell> ID
+      </th>
+      <td
+        *matCellDef="let activityLog"
+        mat-cell> {{activityLog.id}}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="date">
+      <th
+        *matHeaderCellDef
+        mat-header-cell> Date
+      </th>
+      <td
+        *matCellDef="let activityLog"
+        mat-cell> {{activityLog.date | date: 'mediumDate'}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="duration">
+      <th
+        *matHeaderCellDef
+        mat-header-cell> Duration
+      </th>
+      <td
+        *matCellDef="let activityLog"
+        mat-cell> {{activityLog.duration}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th
+        *matHeaderCellDef
+        mat-header-cell> Type
+      </th>
+      <td
+        *matCellDef="let activityLog"
+        mat-cell> {{activityLog.type}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="currentWeight">
+      <th
+        *matHeaderCellDef
+        mat-header-cell> Current Weight
+      </th>
+      <td
+        *matCellDef="let activityLog"
+        mat-cell> {{activityLog.currentWeightLbs}} </td>
+    </ng-container>
+    <ng-container matColumnDef="kcalIntake">
+      <th
+        *matHeaderCellDef
+        mat-header-cell> Kcal intake
+      </th>
+      <td
+        *matCellDef="let activityLog"
+        mat-cell> {{activityLog.kcalIntake}} </td>
+    </ng-container>
+    <ng-container matColumnDef="edit">
+      <th
+        *matHeaderCellDef
+        mat-header-cell>
+      </th>
+      <td
+        *matCellDef="let activityLog"
+        mat-cell>
         <button
-            (click)="onAddNewActivityLogClick()"
-            mat-button
-        >Add activity log
+          (click)="onEditActivityLogClick(activityLog)">
+          <mat-icon>edit</mat-icon>
         </button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+      <th
+        *matHeaderCellDef
+        mat-header-cell>
+      </th>
+      <td
+        *matCellDef="let activityLog"
+        mat-cell>
         <button
-            (click)="ondDownloadMyActivityLogs()"
-            mat-button>Download
-            <mat-icon>download</mat-icon>
+          (click)="onDeleteActivityLogClick(activityLog)">
+          <mat-icon>delete</mat-icon>
         </button>
-    </div>
-    <table
-        [dataSource]="activityLogs"
-        class="mat-elevation-z8"
-        mat-table>
-        <ng-container matColumnDef="id">
-            <th
-                *matHeaderCellDef
-                mat-header-cell> ID
-            </th>
-            <td
-                *matCellDef="let activityLog"
-                mat-cell> {{activityLog.id}}
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="date">
-            <th
-                *matHeaderCellDef
-                mat-header-cell> Date
-            </th>
-            <td
-                *matCellDef="let activityLog"
-                mat-cell> {{activityLog.date | date: 'mediumDate'}}
-            </td>
-        </ng-container>
+      </td>
+    </ng-container>
 
-        <ng-container matColumnDef="duration">
-            <th
-                *matHeaderCellDef
-                mat-header-cell> Duration
-            </th>
-            <td
-                *matCellDef="let activityLog"
-                mat-cell> {{activityLog.duration}} </td>
-        </ng-container>
-
-        <!-- Weight Column -->
-        <ng-container matColumnDef="type">
-            <th
-                *matHeaderCellDef
-                mat-header-cell> Type
-            </th>
-            <td
-                *matCellDef="let activityLog"
-                mat-cell> {{activityLog.type}} </td>
-        </ng-container>
-
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="currentWeight">
-            <th
-                *matHeaderCellDef
-                mat-header-cell> Current Weight
-            </th>
-            <td
-                *matCellDef="let activityLog"
-                mat-cell> {{activityLog.currentWeightLbs}} </td>
-        </ng-container>
-        <ng-container matColumnDef="kcalIntake">
-            <th
-                *matHeaderCellDef
-                mat-header-cell> Kcal intake
-            </th>
-            <td
-                *matCellDef="let activityLog"
-                mat-cell> {{activityLog.kcalIntake}} </td>
-        </ng-container>
-
-
-        <tr
-            *matHeaderRowDef="displayedColumns"
-            mat-header-row></tr>
-        <tr
-            *matRowDef="let row; columns: displayedColumns;"
-            mat-row></tr>
-    </table>
-    <mat-paginator
-        (page)="onPageChange($event)"
-        [length]="totalItems"
-        [pageIndex]="pageIndex"
-        [pageSizeOptions]="pageSizeOptions"
-        [pageSize]="pageSize"
-        class="mat-paginator">
-    </mat-paginator>
+    <tr
+      *matHeaderRowDef="displayedColumns"
+      mat-header-row></tr>
+    <tr
+      *matRowDef="let row; columns: displayedColumns;"
+      mat-row></tr>
+  </table>
+  <mat-paginator
+    (page)="onPageChange($event)"
+    [length]="totalItems"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="pageSizeOptions"
+    [pageSize]="pageSize"
+    class="mat-paginator">
+  </mat-paginator>
 </div>

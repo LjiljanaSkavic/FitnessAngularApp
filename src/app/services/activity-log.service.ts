@@ -5,36 +5,44 @@ import { ActivityLog, ActivityLogRequest } from "../models/ActivityLogRequest";
 import { ActivityLogSearchResult } from "../models/ActivityLogSearchResult";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class ActivityLogService {
-    baseUrl = "http://localhost:9000/activity-log";
+  baseUrl = "http://localhost:9000/activity-log";
 
-    constructor(private _httpClient: HttpClient) {
-    }
+  constructor(private _httpClient: HttpClient) {
+  }
 
-    createActivityLog(activityLogRequest: ActivityLogRequest): Observable<ActivityLog> {
-        return this._httpClient.post<ActivityLog>(this.baseUrl, activityLogRequest);
-    }
+  createActivityLog(activityLogRequest: ActivityLogRequest): Observable<ActivityLog> {
+    return this._httpClient.put<ActivityLog>(this.baseUrl, activityLogRequest);
+  }
 
-    getAll(userId: number): Observable<ActivityLog[]> {
-        const allActivityLogsUrl = `${this.baseUrl}/${userId}`
-        return this._httpClient.get<ActivityLog[]>(allActivityLogsUrl);
-    }
+  updateActivityLog(activityLogRequest: ActivityLogRequest): Observable<ActivityLog> {
+    return this._httpClient.post<ActivityLog>(this.baseUrl, activityLogRequest);
+  }
 
-    search(userId: number, type?: number, startDate?: Date, endDate?: Date, page?: number, size?: number): Observable<ActivityLogSearchResult> {
-        return this._httpClient.get<ActivityLogSearchResult>(`${this.baseUrl}/search?appUserId=${userId}`);
-        // return this._httpClient.get<ActivityLogSearchResult>(`${this.baseUrl}/search?appUserId=${userId}&type=${type}&startDate=${startDate}&endDate=${endDate}&page=${page}&size=${size}`);
-    }
+  deleteById(id: number): Observable<ActivityLog> {
+    return this._httpClient.delete<ActivityLog>(`${this.baseUrl}/${id}`);
+  }
 
-    downloadActivityLogs(userId: number): Observable<Blob> {
-        const headers = new HttpHeaders({'Content-Type': 'application/pdf'});
-        const downloadActivityLogsUrl = `${this.baseUrl}/download/${userId}`;
-        return this._httpClient.get(downloadActivityLogsUrl, {responseType: 'arraybuffer', headers})
-            .pipe(
-                map((data: ArrayBuffer) => {
-                    return new Blob([data], {type: 'application/pdf'});
-                })
-            );
-    }
+  getAll(userId: number): Observable<ActivityLog[]> {
+    const allActivityLogsUrl = `${this.baseUrl}/${userId}`
+    return this._httpClient.get<ActivityLog[]>(allActivityLogsUrl);
+  }
+
+  search(userId: number, type?: number, startDate?: Date, endDate?: Date, page?: number, size?: number): Observable<ActivityLogSearchResult> {
+    return this._httpClient.get<ActivityLogSearchResult>(`${this.baseUrl}/search?appUserId=${userId}`);
+    // return this._httpClient.get<ActivityLogSearchResult>(`${this.baseUrl}/search?appUserId=${userId}&type=${type}&startDate=${startDate}&endDate=${endDate}&page=${page}&size=${size}`);
+  }
+
+  downloadActivityLogs(userId: number): Observable<Blob> {
+    const headers = new HttpHeaders({'Content-Type': 'application/pdf'});
+    const downloadActivityLogsUrl = `${this.baseUrl}/download/${userId}`;
+    return this._httpClient.get(downloadActivityLogsUrl, {responseType: 'arraybuffer', headers})
+      .pipe(
+        map((data: ArrayBuffer) => {
+          return new Blob([data], {type: 'application/pdf'});
+        })
+      );
+  }
 }
