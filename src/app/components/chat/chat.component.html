@@ -1,1 +1,13 @@
-<p>chat works!</p>
+<div class="center-container">
+  <div class="chat-wrapper">
+    <app-user-list
+      (selectedUserEmitter)="onSelectUser($event)">
+    </app-user-list>
+    <ng-container *ngIf="selectedUser; else noMessages">
+      <app-messages [selectedUser]="selectedUser"></app-messages>
+    </ng-container>
+    <ng-template #noMessages>
+      <div>No messages</div>
+    </ng-template>
+  </div>
+</div>

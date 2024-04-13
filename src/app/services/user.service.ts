@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { AppUser } from "../models/AppUser";
+import { AppUser, AppUserShort } from "../models/AppUser";
 import { Observable } from "rxjs";
 import { UserDTO } from "../models/dto/UserDTO";
 
@@ -21,6 +21,10 @@ export class UserService {
     }
     const loginUrl = `${this.baseUrl}/login`;
     return this._httpClient.post<AppUser>(loginUrl, loginUserInfo);
+  }
+
+  getActiveUsers(): Observable<AppUserShort[]> {
+    return this._httpClient.get<AppUserShort[]>(`${this.baseUrl}/activated`);
   }
 
   sendEmail(userId: number): Observable<string> {

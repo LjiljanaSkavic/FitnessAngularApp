@@ -1,0 +1,7 @@
+<div
+  *ngFor="let user of activatedUsers"
+  class="user-list-wrapper">
+  <div
+    (click)="selectUser(user)"
+    class="username-field"> {{user.username}}</div>
+</div>

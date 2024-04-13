@@ -66,6 +66,9 @@ import { RssFeedNewsItemComponent } from './components/news-list/rss-feed-news-i
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { UserListComponent } from './components/chat/user-list/user-list.component';
+import { MessagesComponent } from './components/chat/messages/messages.component';
+import { ChatMessageComponent } from './components/chat/chat-message/chat-message.component';
 
 export const ANGULAR_MATERIAL_MODULES = [
     MatIconModule,
@@ -117,7 +120,10 @@ export const ANGULAR_MATERIAL_MODULES = [
         RssFeedNewsItemComponent,
         CarouselComponent,
         LoaderComponent,
-        ChatComponent
+        ChatComponent,
+        UserListComponent,
+        MessagesComponent,
+        ChatMessageComponent
     ],
     imports: [
         BrowserModule,

@@ -1,0 +1,26 @@
+<div class="messages-wrapper">
+  <div class="part-header"></div>
+  <div *ngFor="let message of messages">
+    <app-chat-message
+      [message]="message"></app-chat-message>
+  </div>
+  <form
+    *ngIf="chatId"
+    [formGroup]="sendMessageForm">
+    <mat-form-field class="comment-card__field">
+      <textarea
+        class="comment-content"
+        formControlName="messageText"
+        matInput></textarea>
+    </mat-form-field>
+    <div
+      class="button-wrapper">
+      <button
+        (click)="onSendMessageClick()"
+        [disabled]="sendMessageForm.invalid"
+        class="button-save"
+        mat-button>Post
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,18 @@
+/* Style for the user list wrapper */
+.user-list-wrapper {
+  cursor: pointer; /* Change cursor to pointer on hover */
+  padding: 10px; /* Add padding for spacing */
+  border-bottom: 1px solid #ccc; /* Add a border between users */
+
+  width: 30%; /* Set the width to 30% of the screen */
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: #f0f0f0; /* Change background color on hover */
+  }
+}
+
+/* Style for the username field */
+.username-field {
+  font-weight: bold; /* Make the username bold */
+}
