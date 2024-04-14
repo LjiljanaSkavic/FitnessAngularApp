@@ -1,1 +1,15 @@
-<div>{{message.text}}</div>
+<div class="message">
+    <form
+        [formGroup]="messageForm"
+        [ngClass]="isMyMessage ? 'my-message-wrapper' : 'other-user-message-wrapper'">
+        <div class="avatar-wrapper">
+            <img
+                [src]="imageURL">
+        </div>
+        <mat-form-field class="form-field">
+            <input
+                formControlName="message"
+                matInput>
+        </mat-form-field>
+    </form>
+</div>
