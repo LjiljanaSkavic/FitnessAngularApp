@@ -30,11 +30,11 @@ export class ChatMessageComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         if (this._userStoreService.getIsLoggedIn()) {
             this.user = this._userStoreService.getLoggedInUser();
-            this.isMyMessage = this.user.id === this.message.appUserCreator;
+            this.isMyMessage = this.user.id === this.message.appUserSender;
         }
 
         if (!this.imageURL) {
-            const userId = this.message.appUserCreator === this.user.id ? this.user.id : this.selectedUser.image.id;
+            const userId = this.message.appUserSender === this.user.id ? this.user.id : this.selectedUser.image.id;
             this.subscriptions.add(
                 this._fileService.getFileById(userId).subscribe(imageBlob => {
                     this.imageURL = URL.createObjectURL(imageBlob);

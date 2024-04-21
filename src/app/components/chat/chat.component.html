@@ -1,7 +1,8 @@
 <div class="center-container">
   <div class="chat-wrapper">
     <app-user-list
-      (selectedUserEmitter)="onSelectUser($event)">
+      (selectedUserEmitter)="onSelectUser($event)"
+      class="app-user-list">
     </app-user-list>
     <ng-container *ngIf="selectedUser; else noMessages">
       <app-messages [selectedUser]="selectedUser"></app-messages>

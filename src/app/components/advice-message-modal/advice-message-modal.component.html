@@ -1,31 +1,31 @@
 <div class="advice-message-wrapper">
-  <div
-    class="advice-message-wrapper__header"
-    mat-dialog-title>Ask for advice
-  </div>
-  <form
-    [formGroup]="adviceMessageFrom"
-    class="comment-card">
-    <mat-form-field class="comment-card__field">
-      <mat-label>Leave a message</mat-label>
-      <textarea
-        class="comment-content"
-        formControlName="messageControl"
-        matInput></textarea>
-    </mat-form-field>
-  </form>
-  <div
-    class="button-wrapper"
-    mat-dialog-actions>
-    <button
-      [mat-dialog-close]="DIALOG_RESPONSE.DISCARD"
-      class="button-discard"
-      mat-button>Discard
-    </button>
-    <button
-      [mat-dialog-close]="messageControl.value"
-      class="button-save"
-      mat-button>Send
-    </button>
-  </div>
+    <div
+        class="advice-message-wrapper__header"
+        mat-dialog-title>Ask for fitness advice
+    </div>
+    <form
+        [formGroup]="adviceMessageFrom"
+        class="comment-card">
+        <mat-form-field class="comment-card__field">
+            <mat-label>Leave a message</mat-label>
+            <textarea
+                class="comment-content"
+                formControlName="messageControl"
+                matInput></textarea>
+        </mat-form-field>
+    </form>
+    <div
+        class="button-wrapper"
+        mat-dialog-actions>
+        <button
+            [mat-dialog-close]="DIALOG_RESPONSE.DISCARD"
+            class="button-discard"
+            mat-button>Discard
+        </button>
+        <button
+            [mat-dialog-close]="messageControl.value"
+            class="button-save"
+            mat-button>Send
+        </button>
+    </div>
 </div>

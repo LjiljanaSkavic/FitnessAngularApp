@@ -15,14 +15,11 @@
           formControlName="messageText"
           matInput></textarea>
         </mat-form-field>
-        <div
-            class="button-wrapper">
-            <button
-                (click)="onSendMessageClick()"
-                [disabled]="sendMessageForm.invalid"
-                class="button-save"
-                mat-button>Post
-            </button>
-        </div>
+        <button
+            (click)="onSendMessageClick()"
+            [disabled]="sendMessageForm.invalid"
+            mat-icon-button>
+            <mat-icon>send</mat-icon>
+        </button>
     </form>
 </div>

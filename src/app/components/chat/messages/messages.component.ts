@@ -28,11 +28,11 @@ export class MessagesComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         if (!changes['selectedUser'].firstChange) {
             this.subscriptions.add(
-                this._chatService.getChat(this.userId, changes['selectedUser'].currentValue.id)
+                this._chatService.getChatId(this.userId, changes['selectedUser'].currentValue.id)
                     .pipe(
                         switchMap(res => {
                             this.chatId = res;
-                            return this._chatService.getMessages(this.chatId);
+                            return this._chatService.getChatMessages(this.chatId);
                         })
                     )
                     .subscribe(messages => {
@@ -55,7 +55,8 @@ export class MessagesComponent implements OnInit, OnChanges {
 
     onSendMessageClick(): void {
         const newChatMessage: ChatMessage = {
-            appUserCreator: this.userId,
+            appUserSender: this.userId,
+            appUserReceiver: this.selectedUser.id,
             chatId: this.chatId,
             dateTime: new Date(),
             id: 0,

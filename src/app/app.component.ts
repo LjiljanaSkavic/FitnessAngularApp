@@ -12,6 +12,8 @@ import { AdviceMessageModalComponent } from "./components/advice-message-modal/a
 import { DIALOG_RESPONSE } from "./confirmation-modal/confirmation-modal.component";
 import { AdviceMessage } from "./models/AdviceMessage";
 import { AdviceMessageService } from "./services/advice-message.service";
+import { ChatMessageService } from "./services/chat-message.service";
+import { ChatMessage } from "./models/dto/ChatMessage";
 
 export const DEFAULT_ANIMATION_DURATION = 100;
 
@@ -33,6 +35,9 @@ export class AppComponent implements OnInit, OnDestroy {
     collapsed = true;
     user: AppUser = null;
     subscription = new Subscription();
+    hasUnreadMessages = false;
+
+    unreadMessages: ChatMessage[] = [];
 
     constructor(private _userService: UserService,
                 private _router: Router,
@@ -40,6 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
                 private _snackBar: MatSnackBar,
                 private _userStoreService: UserStoreService,
                 private _adviceMessageService: AdviceMessageService,
+                private _chatMessageService: ChatMessageService,
                 public dialog: MatDialog) {
     }
 
@@ -60,6 +66,13 @@ export class AppComponent implements OnInit, OnDestroy {
         this.user = this._userStoreService.getLoggedInUser();
         if (this.user !== null) {
             this._userStoreService.setUserAsLoggedIn(this.user);
+
+            this.subscription.add(this._chatMessageService.getUnreadMessagesByUserId(this.user.id).subscribe(res => {
+                console.log(res);
+                this.hasUnreadMessages = !!res;
+                this.unreadMessages = res;
+                //TODO: For every chat add notification
+            }))
         }
     }
 
@@ -97,10 +110,6 @@ export class AppComponent implements OnInit, OnDestroy {
         }
     }
 
-    ngOnDestroy(): void {
-        this.subscription.unsubscribe();
-    }
-
     onSendAdviceMessageClick() {
         this.dialog.open(AdviceMessageModalComponent,
         ).afterClosed().pipe(switchMap(message => {
@@ -122,5 +131,13 @@ export class AppComponent implements OnInit, OnDestroy {
             (err) => {
                 this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig)
             });
+    }
+
+    onOpenChatClick(): void {
+        this._router.navigateByUrl(`chat`).catch(err => console.log(err));
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 }
