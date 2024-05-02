@@ -1,21 +1,57 @@
 @import "src/app/shared/colors";
 @import "src/app/shared/classes";
 
-/* Style for the user list wrapper */
-.user-list-wrapper {
-  cursor: pointer; /* Change cursor to pointer on hover */
-  padding: 10px; /* Add padding for spacing */
-  border-bottom: 1px solid #ccc; /* Add a border between users */
+.user-wrapper {
+  display: flex;
+  padding: 24px;
+  border-bottom: 1px solid white;
+  margin-bottom: 24px;
+}
 
-  width: 30%; /* Set the width to 30% of the screen */
-  box-sizing: border-box;
+.user-name-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-left: 16px;
+}
+
+.user-list-wrapper {
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
 
   &:hover {
-    background-color: #f0f0f0; /* Change background color on hover */
+    background-color: #f0f0f0;
   }
 }
 
-/* Style for the username field */
+.username-style {
+  font-size: 10px;
+}
+
+.name-style {
+  font-size: 16px;
+  color: $color-blue-2;
+}
+
+.selected-user-list-wrapper {
+  background-color: lightblue;
+}
+
 .username-field {
-  font-weight: bold; /* Make the username bold */
+  font-weight: bold;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.color-green {
+  background-color: #4caf50;
+}
+
+.color-gray {
+  background-color: gray;
 }

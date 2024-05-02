@@ -1,27 +1,17 @@
 @import "src/app/shared/colors";
 @import "src/app/shared/classes";
 
-.chat-wrapper {
-  display: flex;
-  background-color: red;
-  height: 100%; /* Ensure the wrapper takes full height */
+.app-user-list {
+  height: 100vw;
+  flex: 1 1 auto;
+  border-right: 1px solid white;
 }
 
-/* Style for the user list component */
-app-user-list {
-  flex: 1; /* User list takes up 1/3 of the width */
+.chat-messages {
+  flex: 2 1 auto;
+  padding: 0 20px;
 }
 
-/* Style for the messages component or "No messages" div */
-.ng-container {
-  flex: 2; /* Messages section takes up 2/3 of the width */
-  padding: 0 20px; /* Add some padding for spacing */
-  display: flex;
-  justify-content: center; /* Center the content horizontally */
-  align-items: center; /* Center the content vertically */
-}
-
-/* Style for the "No messages" div */
 .no-messages {
   font-size: 20px;
   color: gray;

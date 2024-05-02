@@ -39,7 +39,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 100vw;
 }
 
 .mat-paginator {
@@ -47,4 +47,14 @@
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+}
+
+.avatar-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.avatar-wrapper img {
+  width: 40px;
+  height: 40px;
 }

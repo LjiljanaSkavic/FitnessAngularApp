@@ -1,7 +1,24 @@
+<div class="user-wrapper">
+  <div class="avatar-wrapper">
+    <img
+      [src]="userImageMap.get(user.id)  ?? getUrl(user)">
+  </div>
+  <div class="user-name-wrapper">
+    <span class="name-style">{{user.firstName}} {{ user.lastName}}</span>
+    <span class="username-style">{{ user.username }}</span>
+  </div>
+</div>
 <div
-    *ngFor="let user of activatedUsers"
-    class="user-list-wrapper">
-    <div
-        (click)="selectUser(user)"
-        class="username-field"> {{user.username}}</div>
+  *ngFor="let user of activatedUsers"
+  [ngClass]="{'selected-user-list-wrapper': selectedUserId === user.id}"
+  class="user-list-wrapper">
+  <div
+    (click)="selectUser(user)">
+    <div class="avatar-wrapper">
+      <img
+        [src]="userImageMap.get(user.id) ?? getUrl(user)">
+    </div>
+    <span>{{ user.username }}</span>
+    <div [ngClass]="user.isLoggedIn ? 'circle color-green' : 'circle color-gray'"></div>
+  </div>
 </div>
