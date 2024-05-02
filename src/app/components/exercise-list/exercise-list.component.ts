@@ -25,18 +25,18 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subs.add(this._exercisesService.getExercises().subscribe(res => {
       this.exercises = res;
-      this.displayPage(0, 0)
+      this.displayPage(0);
       this.isLoading = false;
     }));
   }
 
   onPageChange(event: any): void {
-    this.displayPage(event.pageIndex, event.previousPageIndex);
+    this.displayPage(event.pageIndex);
   }
 
-  displayPage(currentPageIndex: number, previousPageIndex: number): void {
+  displayPage(currentPageIndex: number): void {
     const startIndex = currentPageIndex * this.pageSize;
-    const endIndex = currentPageIndex >= previousPageIndex ? startIndex + this.pageSize : startIndex - this.pageSize;
+    const endIndex = startIndex + this.pageSize;
     this.pagedExercises = this.exercises.slice(startIndex, endIndex);
   }
 
