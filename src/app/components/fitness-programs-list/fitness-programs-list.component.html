@@ -3,6 +3,13 @@
   class="items-container-column">
   <div class="header-container">
     <form [formGroup]="filterForm">
+      <button
+        (click)="onAddNewFitnessProgramClick()"
+        [matTooltip]="'Add fitness program'"
+        mat-button
+      >
+        <mat-icon>add</mat-icon>
+      </button>
       <mat-form-field *ngIf="!categoriesLoading">
         <mat-label>Choose category</mat-label>
         <mat-select formControlName="category">
@@ -37,13 +44,17 @@
       </mat-form-field>
       <button
         (click)="onFilterClick()"
+        [matTooltip]="'Apply filters'"
         mat-button
-      >Filter
+      >
+        <mat-icon>filter_alt</mat-icon>
       </button>
       <button
-        (click)="onAddNewFitnessProgramClick()"
+        (click)="onResetFiltersClick()"
+        [matTooltip]="'Reset filters'"
         mat-button
-      >Add new fitness program
+      >
+        <mat-icon>filter_alt_off</mat-icon>
       </button>
     </form>
   </div>

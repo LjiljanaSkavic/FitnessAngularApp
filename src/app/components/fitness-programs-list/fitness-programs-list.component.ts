@@ -3,7 +3,7 @@ import { FitnessProgramService } from "../../services/fitness-program.service";
 import { CategoryService } from "../../services/category.service";
 import { Category } from "../../models/dto/Category";
 import { FormControl, FormGroup } from "@angular/forms";
-import { EMPTY, Subscription, switchMap } from "rxjs";
+import { Subscription } from "rxjs";
 import { FitnessProgramCard } from "../../models/FitnessProgramCard";
 import { AddFitnessProgramModalComponent } from "./add-fitness-program-modal/add-fitness-program-modal.component";
 import { MatDialog } from "@angular/material/dialog";
@@ -75,6 +75,12 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
     this.displayCards();
   }
 
+  onResetFiltersClick(): void {
+    this.pageIndex = 0;
+    this.buildFilterForm();
+    this.displayCards();
+  }
+
   displayCards(): void {
     this.isLoading = true;
 
@@ -100,7 +106,7 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
     }));
   }
 
-  buildFilterForm() {
+  buildFilterForm(): void {
     this.filterForm = new FormGroup({
       category: new FormControl(0),
       search: new FormControl(''),
@@ -115,19 +121,14 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
     this.displayCards();
   }
 
-  onAddNewFitnessProgramClick() {
-    this.dialog.open(AddFitnessProgramModalComponent).afterClosed().pipe(switchMap(result => {
+  onAddNewFitnessProgramClick(): void {
+    this.dialog.open(AddFitnessProgramModalComponent).afterClosed().subscribe(result => {
       if (result) {
         //TODO: http call to save fitness program
         this._snackBar.open("Fitness program successfully added.", "OK", snackBarConfig)
         this._router.navigateByUrl(`fitness-program/${result.id}`).catch(err => console.log(err));
-        return EMPTY;
-      } else {
-        return EMPTY
       }
-    })).subscribe(res => {
-      console.log(res);
-    })
+    });
   }
 
   ngOnDestroy(): void {
