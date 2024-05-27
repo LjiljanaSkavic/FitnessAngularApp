@@ -4,6 +4,7 @@ import { ActivityLog, ActivityLogRequest } from "../../../models/ActivityLogRequ
 import { UserStoreService } from "../../../services/user-store.service";
 import { ActivityLogService } from "../../../services/activity-log.service";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { IntensityType } from "../../../models/intensity-type";
 
 export interface ActivityLogModalData {
   activityLog: ActivityLog;
@@ -19,6 +20,11 @@ export class AddActivityLogModalComponent implements OnInit {
   activityLogRequest: ActivityLogRequest;
   userId: number;
   isEditMode = false;
+  intensityTypes: IntensityType[] = [
+    {id: 1, name: 'Low'},
+    {id: 2, name: 'Moderate'},
+    {id: 3, name: 'High'}
+  ];
 
   constructor(private _userStoreService: UserStoreService,
               private _activityLogService: ActivityLogService,
@@ -26,7 +32,7 @@ export class AddActivityLogModalComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: ActivityLogModalData) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this._userStoreService.getIsLoggedIn()) {
       this.userId = this._userStoreService.getLoggedInUser().id;
     }
@@ -34,7 +40,7 @@ export class AddActivityLogModalComponent implements OnInit {
     this.buildActivityLogForm();
   }
 
-  onDialogClose() {
+  onDialogClose(): void {
     this.prepareActivityLog();
   }
 
@@ -48,17 +54,14 @@ export class AddActivityLogModalComponent implements OnInit {
       notes: this.activityLogForm.get('notes').value,
       type: +this.activityLogForm.get('type').value
     }
-    console.log(this.activityLogRequest);
 
     if (this.isEditMode) {
       this.activityLogRequest.id = this.data.activityLog.id;
       this._activityLogService.updateActivityLog(this.activityLogRequest).subscribe(res => {
-        console.log(res);
         this.dialogRef.close(res);
       });
     } else {
       this._activityLogService.createActivityLog(this.activityLogRequest).subscribe(res => {
-        console.log(res);
         this.dialogRef.close(res);
       });
     }

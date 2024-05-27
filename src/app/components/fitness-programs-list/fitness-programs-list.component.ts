@@ -14,124 +14,123 @@ import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { UserStoreService } from "../../services/user-store.service";
 
 const SHOW_PROGRAMS = {
-    ALL: 'all',
-    MY_PROGRAMS: 'myPrograms'
+  ALL: 'all',
+  MY_PROGRAMS: 'myPrograms'
 }
 
 @Component({
-    selector: 'app-fitness-programs-list',
-    templateUrl: './fitness-programs-list.component.html',
-    styleUrls: ['./fitness-programs-list.component.scss']
+  selector: 'app-fitness-programs-list',
+  templateUrl: './fitness-programs-list.component.html',
+  styleUrls: ['./fitness-programs-list.component.scss']
 })
 export class FitnessProgramsList implements OnInit, OnDestroy {
 
-    fitnessProgramCards: FitnessProgramCard[] = [];
-    categories: Category[] = [];
-    filterForm: FormGroup;
-    isLoading = true;
-    categoriesLoading = true;
-    subs = new Subscription();
-    pageSizeOptions: number[] = [5, 10];
-    pageSize = 5;
-    pageIndex = 0;
-    totalItems = 0;
-    userId: number;
-    myProgramsFilterOn = false;
+  fitnessProgramCards: FitnessProgramCard[] = [];
+  categories: Category[] = [];
+  filterForm: FormGroup;
+  isLoading = true;
+  categoriesLoading = true;
+  subs = new Subscription();
+  pageSize = 5;
+  pageIndex = 0;
+  totalItems = 0;
+  userId: number;
+  myProgramsFilterOn = false;
 
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-    constructor(private _fitnessProgramService: FitnessProgramService,
-                private _categoryService: CategoryService,
-                public dialog: MatDialog,
-                private _router: Router,
-                private _snackBar: MatSnackBar,
-                private _userStoreService: UserStoreService) {
+  constructor(private _fitnessProgramService: FitnessProgramService,
+              private _categoryService: CategoryService,
+              public dialog: MatDialog,
+              private _router: Router,
+              private _snackBar: MatSnackBar,
+              private _userStoreService: UserStoreService) {
+  }
+
+  ngOnInit(): void {
+    this.subs.add(this._categoryService.getAll().subscribe(res => {
+      this.categories = res;
+      this.categoriesLoading = false;
+      this.buildFilterForm();
+      this.displayCards();
+      this.addShowProgramsAndStatusSubscriptions();
+    }));
+    if (this._userStoreService.getIsLoggedIn()) {
+      this.userId = this._userStoreService.getLoggedInUser().id;
     }
 
-    ngOnInit(): void {
-        this.subs.add(this._categoryService.getAll().subscribe(res => {
-            this.categories = res;
-            this.categoriesLoading = false;
-            this.buildFilterForm();
-            this.displayCards();
-            this.addShowProgramsAndStatusSubscriptions();
-        }));
-        if (this._userStoreService.getIsLoggedIn()) {
-            this.userId = this._userStoreService.getLoggedInUser().id;
-        }
+  }
 
+  addShowProgramsAndStatusSubscriptions(): void {
+    this.filterForm.get('showPrograms').valueChanges.subscribe(res => {
+      this.myProgramsFilterOn = res === 'myPrograms';
+    });
+    // this.filterForm.get('status').valueChanges.subscribe(res => {
+    //
+    // });
+  }
+
+  onFilterClick() {
+    this.pageIndex = 0;
+    this.displayCards();
+  }
+
+  displayCards(): void {
+    this.isLoading = true;
+
+    const keyword = this.filterForm.get('search').value;
+    const categoryId = this.filterForm.get('category').value;
+    const showPrograms = this.filterForm.get('showPrograms').value;
+    let status = this.filterForm.get('status').value;
+    let isCompleted = false;
+    if (this.myProgramsFilterOn) {
+      isCompleted = status === 1;
+      console.log(isCompleted);
     }
 
-    addShowProgramsAndStatusSubscriptions() {
-        this.filterForm.get('showPrograms').valueChanges.subscribe(res => {
-            this.myProgramsFilterOn = res === 'myPrograms';
-        });
-        // this.filterForm.get('status').valueChanges.subscribe(res => {
-        //
-        // });
-    }
+    this.subs.add(this._fitnessProgramService.search(keyword,
+      categoryId,
+      showPrograms === SHOW_PROGRAMS.ALL ? null : this.userId,
+      isCompleted,
+      this.pageIndex,
+      this.pageSize).subscribe(res => {
+      this.fitnessProgramCards = res.fitnessPrograms;
+      this.totalItems = res.totalElements;
+      this.isLoading = false;
+    }));
+  }
 
-    onFilterClick() {
-        this.pageIndex = 0;
-        this.displayCards();
-    }
+  buildFilterForm() {
+    this.filterForm = new FormGroup({
+      category: new FormControl(0),
+      search: new FormControl(''),
+      showPrograms: new FormControl(SHOW_PROGRAMS.ALL),
+      status: new FormControl(0),
+    });
+  }
 
-    displayCards(): void {
-        this.isLoading = true;
+  onPageChange(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.displayCards();
+  }
 
-        const keyword = this.filterForm.get('search').value;
-        const categoryId = this.filterForm.get('category').value;
-        const showPrograms = this.filterForm.get('showPrograms').value;
-        let status = this.filterForm.get('status').value;
-        let isCompleted = false;
-        if (this.myProgramsFilterOn) {
-            isCompleted = status === 1;
-            console.log(isCompleted);
-        }
+  onAddNewFitnessProgramClick() {
+    this.dialog.open(AddFitnessProgramModalComponent).afterClosed().pipe(switchMap(result => {
+      if (result) {
+        //TODO: http call to save fitness program
+        this._snackBar.open("Fitness program successfully added.", "OK", snackBarConfig)
+        this._router.navigateByUrl(`fitness-program/${result.id}`).catch(err => console.log(err));
+        return EMPTY;
+      } else {
+        return EMPTY
+      }
+    })).subscribe(res => {
+      console.log(res);
+    })
+  }
 
-        this.subs.add(this._fitnessProgramService.search(keyword,
-            categoryId,
-            showPrograms === SHOW_PROGRAMS.ALL ? null : this.userId,
-            isCompleted,
-            this.pageIndex,
-            this.pageSize).subscribe(res => {
-            this.fitnessProgramCards = res.fitnessPrograms;
-            this.totalItems = res.totalElements;
-            this.isLoading = false;
-        }));
-    }
-
-    buildFilterForm() {
-        this.filterForm = new FormGroup({
-            category: new FormControl(0),
-            search: new FormControl(''),
-            showPrograms: new FormControl(SHOW_PROGRAMS.ALL),
-            status: new FormControl(0),
-        });
-    }
-
-    onPageChange(event: PageEvent): void {
-        this.pageIndex = event.pageIndex;
-        this.pageSize = event.pageSize;
-        this.displayCards();
-    }
-
-    onAddNewFitnessProgramClick() {
-        this.dialog.open(AddFitnessProgramModalComponent).afterClosed().pipe(switchMap(result => {
-            if (result) {
-                //TODO: http call to save fitness program
-                this._snackBar.open("Fitness program successfully added.", "OK", snackBarConfig)
-                this._router.navigateByUrl(`fitness-program/${result.id}`).catch(err => console.log(err));
-                return EMPTY;
-            } else {
-                return EMPTY
-            }
-        })).subscribe(res => {
-            console.log(res);
-        })
-    }
-
-    ngOnDestroy(): void {
-        this.subs.unsubscribe();
-    }
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
 }

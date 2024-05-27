@@ -1,6 +1,8 @@
-<h2>{{ rssFeedNewsItem.title }}</h2>
-<p><strong>Description:</strong> {{ rssFeedNewsItem.description }}</p>
-<p><a
+<div class="news-card">
+  <h2>{{ rssFeedNewsItem.title }}</h2>
+  <p class="description">{{ rssFeedNewsItem.description }}</p>
+  <a
     [href]="rssFeedNewsItem.link"
-    target="_blank">Read more</a></p>
-<hr>
+    class="read-more"
+    target="_blank">Read more</a>
+</div>

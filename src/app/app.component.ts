@@ -18,126 +18,127 @@ import { ChatMessage } from "./models/dto/ChatMessage";
 export const DEFAULT_ANIMATION_DURATION = 100;
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    animations: [
-        trigger('collapse', [
-            state('false', style({height: AUTO_STYLE, visibility: AUTO_STYLE})),
-            state('true', style({height: '0', visibility: 'hidden'})),
-            transition('false => true', animate(DEFAULT_ANIMATION_DURATION + 'ms ease-in')),
-            transition('true => false', animate(DEFAULT_ANIMATION_DURATION + 'ms ease-out'))
-        ])
-    ]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  animations: [
+    trigger('collapse', [
+      state('false', style({height: AUTO_STYLE, visibility: AUTO_STYLE})),
+      state('true', style({height: '0', visibility: 'hidden'})),
+      transition('false => true', animate(DEFAULT_ANIMATION_DURATION + 'ms ease-in')),
+      transition('true => false', animate(DEFAULT_ANIMATION_DURATION + 'ms ease-out'))
+    ])
+  ]
 })
 export class AppComponent implements OnInit, OnDestroy {
-    title = 'FitnessAngularApp';
-    collapsed = true;
-    user: AppUser = null;
-    subscription = new Subscription();
-    hasUnreadMessages = false;
+  title = 'FitnessAngularApp';
+  collapsed = true;
+  user: AppUser = null;
+  subscription = new Subscription();
+  hasUnreadMessages = false;
 
-    unreadMessages: ChatMessage[] = [];
+  unreadMessages: ChatMessage[] = [];
 
-    constructor(private _userService: UserService,
-                private _router: Router,
-                private _elRef: ElementRef,
-                private _snackBar: MatSnackBar,
-                private _userStoreService: UserStoreService,
-                private _adviceMessageService: AdviceMessageService,
-                private _chatMessageService: ChatMessageService,
-                public dialog: MatDialog) {
+  constructor(private _userService: UserService,
+              private _router: Router,
+              private _elRef: ElementRef,
+              private _snackBar: MatSnackBar,
+              private _userStoreService: UserStoreService,
+              private _adviceMessageService: AdviceMessageService,
+              private _chatMessageService: ChatMessageService,
+              public dialog: MatDialog) {
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event): void {
+    const clickedToggleProfile = this._elRef.nativeElement.querySelector('.profile-details').contains(event.target);
+    const clickedInsideProfileCard = this._elRef.nativeElement.querySelector('.quick-profile-view-card').contains(event.target);
+
+    if (!clickedToggleProfile && !clickedInsideProfileCard && !this.collapsed) {
+      this.collapsed = true;
     }
+  }
 
-    @HostListener('document:click', ['$event'])
-    onDocumentClick(event: Event): void {
-        const clickedToggleProfile = this._elRef.nativeElement.querySelector('.profile-details').contains(event.target);
-        const clickedInsideProfileCard = this._elRef.nativeElement.querySelector('.quick-profile-view-card').contains(event.target);
+  ngOnInit(): void {
+    //TODO: try with history
+    
+    // this._router.navigateByUrl(`fitness-news`).catch(err => console.log(err));
 
-        if (!clickedToggleProfile && !clickedInsideProfileCard && !this.collapsed) {
-            this.collapsed = true;
-        }
+    this.user = this._userStoreService.getLoggedInUser();
+    if (this.user !== null) {
+      this._userStoreService.setUserAsLoggedIn(this.user);
+
+      this.subscription.add(this._chatMessageService.getUnreadMessagesByUserId(this.user.id).subscribe(res => {
+        console.log(res);
+        this.hasUnreadMessages = !!res;
+        this.unreadMessages = res;
+        //TODO: For every chat add notification
+      }))
     }
+  }
 
-    ngOnInit(): void {
-        //TODO: try with history
-        this._router.navigateByUrl(`fitness-news`).catch(err => console.log(err));
+  onToggleAccountMenuClick(): void {
+    this.user === null ? this._router.navigateByUrl('login').catch(err => console.log(err)) : this.collapsed = !this.collapsed;
+  }
 
-        this.user = this._userStoreService.getLoggedInUser();
-        if (this.user !== null) {
-            this._userStoreService.setUserAsLoggedIn(this.user);
+  onFitnessAppClick(): void {
+    this._router.navigateByUrl(`fitness-news`).catch(err => console.log(err));
+  }
 
-            this.subscription.add(this._chatMessageService.getUnreadMessagesByUserId(this.user.id).subscribe(res => {
-                console.log(res);
-                this.hasUnreadMessages = !!res;
-                this.unreadMessages = res;
-                //TODO: For every chat add notification
-            }))
-        }
-    }
+  onProfileDetailsClick() {
+    this.collapsed = true;
+    this._router.navigateByUrl(`profile-details/${this.user.id}`).catch(err => console.log(err));
+  }
 
-    onToggleAccountMenuClick(): void {
-        this.user === null ? this._router.navigateByUrl('login').catch(err => console.log(err)) : this.collapsed = !this.collapsed;
-    }
+  onChangePasswordClick(): void {
+    this.collapsed = true;
+    this._router.navigateByUrl(`manage-password/${this.user.id}`).catch(err => console.log(err));
+  }
 
-    onFitnessAppClick(): void {
-        this._router.navigateByUrl(`fitness-news`).catch(err => console.log(err));
-    }
-
-    onProfileDetailsClick() {
+  onLogOutClick(): void {
+    this.user = this._userStoreService.getLoggedInUser();
+    if (this.user !== null) {
+      this.subscription.add(this._userService.logoutUser(this.user.id).subscribe(res => {
         this.collapsed = true;
-        this._router.navigateByUrl(`profile-details/${this.user.id}`).catch(err => console.log(err));
+        this._userStoreService.setUserAsLoggedOut();
+        this._userStoreService.isLoggedIn$.next(false);
+        this._router.navigateByUrl('exercises').catch(err => console.log(err));
+      }, err => {
+        this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
+      }));
+    } else {
+      this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
     }
+  }
 
-    onChangePasswordClick(): void {
-        this.collapsed = true;
-        this._router.navigateByUrl(`manage-password/${this.user.id}`).catch(err => console.log(err));
-    }
+  onSendAdviceMessageClick() {
+    this.dialog.open(AdviceMessageModalComponent,
+    ).afterClosed().pipe(switchMap(message => {
+        if (!!message && message !== DIALOG_RESPONSE.DISCARD) {
+          const adviceMessage: AdviceMessage = {
+            text: message,
+            isRead: false,
+            dateTime: new Date(),
+            appUserSender: this.user.id,
+          }
 
-    onLogOutClick(): void {
-        this.user = this._userStoreService.getLoggedInUser();
-        if (this.user !== null) {
-            this.subscription.add(this._userService.logoutUser(this.user.id).subscribe(res => {
-                this.collapsed = true;
-                this._userStoreService.setUserAsLoggedOut();
-                this._userStoreService.isLoggedIn$.next(false);
-                this._router.navigateByUrl('exercises').catch(err => console.log(err));
-            }, err => {
-                this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
-            }));
-        } else {
-            this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
+          return this._adviceMessageService.sendMessage(adviceMessage)
         }
-    }
+        return EMPTY;
+      }
+    )).subscribe((result) => {
+        this._snackBar.open(MESSAGE_SUCCESS, "OK", snackBarConfig)
+      },
+      (err) => {
+        this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig)
+      });
+  }
 
-    onSendAdviceMessageClick() {
-        this.dialog.open(AdviceMessageModalComponent,
-        ).afterClosed().pipe(switchMap(message => {
-                if (!!message && message !== DIALOG_RESPONSE.DISCARD) {
-                    const adviceMessage: AdviceMessage = {
-                        text: message,
-                        isRead: false,
-                        dateTime: new Date(),
-                        appUserSender: this.user.id,
-                    }
+  onOpenChatClick(): void {
+    this._router.navigateByUrl(`chat`).catch(err => console.log(err));
+  }
 
-                    return this._adviceMessageService.sendMessage(adviceMessage)
-                }
-                return EMPTY;
-            }
-        )).subscribe((result) => {
-                this._snackBar.open(MESSAGE_SUCCESS, "OK", snackBarConfig)
-            },
-            (err) => {
-                this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig)
-            });
-    }
-
-    onOpenChatClick(): void {
-        this._router.navigateByUrl(`chat`).catch(err => console.log(err));
-    }
-
-    ngOnDestroy(): void {
-        this.subscription.unsubscribe();
-    }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }

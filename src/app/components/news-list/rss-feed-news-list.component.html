@@ -3,15 +3,14 @@
     <ng-container *ngFor="let item of pagedRssFeedNews">
       <app-rss-feed-news-item [rssFeedNewsItem]="item"></app-rss-feed-news-item>
     </ng-container>
-
-    <mat-paginator
-      (page)="onPageChange($event)"
-      [length]="rssFeedNews.length"
-      [pageSizeOptions]="pageSizeOptions"
-      [pageSize]="pageSize"
-      class="mat-paginator">
-    </mat-paginator>
   </div>
+  <mat-paginator
+    (page)="onPageChange($event)"
+    [length]="rssFeedNews.length"
+    [pageSizeOptions]="pageSizeOptions"
+    [pageSize]="pageSize"
+    class="mat-paginator">
+  </mat-paginator>
 </ng-container>
 
 <ng-template #loading>

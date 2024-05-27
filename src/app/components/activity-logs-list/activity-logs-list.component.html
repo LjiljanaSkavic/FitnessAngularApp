@@ -1,15 +1,20 @@
 <div
   *ngIf="!isLoading"
-  class="items-container">
+  class="items-container-column">
   <div class="header-container">
     <button
       (click)="onAddNewActivityLogClick()"
+      [matTooltip]="'Add activity log'"
+      class="button-primary"
       mat-button
-    >Add activity log
+    >
+      <mat-icon>add</mat-icon>
     </button>
     <button
       (click)="ondDownloadMyActivityLogs()"
-      mat-button>Download
+      [matTooltip]="'Download logs'"
+      class="button-primary"
+      mat-button>
       <mat-icon>download</mat-icon>
     </button>
   </div>
@@ -51,11 +56,12 @@
     <ng-container matColumnDef="type">
       <th
         *matHeaderCellDef
-        mat-header-cell> Type
+        mat-header-cell> Intensity
       </th>
       <td
         *matCellDef="let activityLog"
-        mat-cell> {{activityLog.type}} </td>
+        mat-cell> {{ activityLog.type | intensityType }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="currentWeight">
@@ -85,7 +91,9 @@
         *matCellDef="let activityLog"
         mat-cell>
         <button
-          (click)="onEditActivityLogClick(activityLog)">
+          (click)="onEditActivityLogClick(activityLog)"
+          [matTooltip]="'Edit'"
+          class="button-primary">
           <mat-icon>edit</mat-icon>
         </button>
       </td>
@@ -99,7 +107,9 @@
         *matCellDef="let activityLog"
         mat-cell>
         <button
-          (click)="onDeleteActivityLogClick(activityLog)">
+          (click)="onDeleteActivityLogClick(activityLog)"
+          [matTooltip]="'Remove'"
+          class="button-danger">
           <mat-icon>delete</mat-icon>
         </button>
       </td>
@@ -112,12 +122,11 @@
       *matRowDef="let row; columns: displayedColumns;"
       mat-row></tr>
   </table>
-  <mat-paginator
-    (page)="onPageChange($event)"
-    [length]="totalItems"
-    [pageIndex]="pageIndex"
-    [pageSizeOptions]="pageSizeOptions"
-    [pageSize]="pageSize"
-    class="mat-paginator">
-  </mat-paginator>
 </div>
+<mat-paginator
+  (page)="onPageChange($event)"
+  [length]="totalItems"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  class="mat-paginator">
+</mat-paginator>

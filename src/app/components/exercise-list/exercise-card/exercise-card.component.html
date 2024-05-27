@@ -1,5 +1,5 @@
 <div class="exercise-card">
-    <h3>{{ exercise.name }}</h3>
-    <p><strong>Difficulty level:</strong> {{ exercise.difficulty }}</p>
-    <p><strong>Instructions:</strong> {{ exercise.instructions }}</p>
+  <h2>{{ exercise.name }}</h2>
+  <p class="level">{{ exercise.difficulty }}</p>
+  <p class="description"> {{ exercise.instructions | truncate:280 }}</p>
 </div>

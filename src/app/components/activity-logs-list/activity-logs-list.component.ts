@@ -14,70 +14,61 @@ import { ConfirmationModalComponent } from "../../confirmation-modal/confirmatio
   styleUrls: ['./activity-logs-list.component.scss']
 })
 export class ActivityLogsListComponent implements OnInit, OnDestroy {
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   isLoading = false;
   userId: number;
   activityLogs: ActivityLog[] = [];
   displayedColumns: string[] = ['date', 'duration', 'type', 'currentWeight', 'kcalIntake', 'edit', 'delete'];
   subs = new Subscription();
-  pageSizeOptions: number[] = [5, 10];
   pageSize = 5;
   pageIndex = 0;
   totalItems = 0;
 
   subscription = new Subscription();
 
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
   constructor(private _userStoreService: UserStoreService,
               private _activityLogService: ActivityLogService,
               public dialog: MatDialog) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this._userStoreService.getIsLoggedIn()) {
       this.userId = this._userStoreService.getLoggedInUser().id;
-      this.subscription.add(this._activityLogService.search(this.userId).subscribe(res => {
-        this.activityLogs = res.activityLogs;
-        this.totalItems = res.totalElements;
-        this.isLoading = false;
-        this.displayActivityLogs();
-      }));
+      this.displayActivityLogs();
     }
   }
 
-  onAddNewActivityLogClick() {
-    this.dialog.open(AddActivityLogModalComponent).afterClosed().pipe(switchMap(result => {
+  onAddNewActivityLogClick(): void {
+    this.dialog.open(AddActivityLogModalComponent, {
+      hasBackdrop: true,
+      backdropClass: 'fitness-app-backdrop'
+    }).afterClosed().subscribe(result => {
       if (result) {
-        //TODO: PUSH INTO ARRAY of activity logs
-        return EMPTY;
+        const calculatedPageIndex = Math.ceil((this.totalItems + 1) / 5);
+        this.pageIndex = calculatedPageIndex - 1;
+        this.displayActivityLogs();
       }
-      return EMPTY;
-    })).subscribe(res => {
-      console.log(res)
     });
   }
 
-  ngOnDestroy() {
-    this.subs.unsubscribe();
-  }
-
-  onPageChange(event: PageEvent) {
+  onPageChange(event: PageEvent): void {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
     this.displayActivityLogs();
   }
 
-  displayActivityLogs() {
+  displayActivityLogs(): void {
     this.isLoading = true;
-    this.subs.add(this._activityLogService.search(this.userId).subscribe(res => {
+    this.subs.add(this._activityLogService.search(this.userId, this.pageIndex, this.pageSize).subscribe(res => {
       this.activityLogs = res.activityLogs;
       this.totalItems = res.totalElements;
       this.isLoading = false;
     }));
   }
 
-  ondDownloadMyActivityLogs() {
+  ondDownloadMyActivityLogs(): void {
     this.subscription.add(this._activityLogService.downloadActivityLogs(this.userId).subscribe(
       (data: Blob) => {
         const blob = new Blob([data], {type: 'application/pdf'});
@@ -91,7 +82,6 @@ export class ActivityLogsListComponent implements OnInit, OnDestroy {
       },
       (error) => {
         console.error('Error downloading activity logs:', error);
-        // Handle error as needed
       }
     ));
   }
@@ -100,15 +90,18 @@ export class ActivityLogsListComponent implements OnInit, OnDestroy {
     this.dialog.open(AddActivityLogModalComponent, {
       data: {
         activityLog: activityLog
-      }
-    }).afterClosed().pipe(switchMap(result => {
+      },
+      hasBackdrop: true,
+      backdropClass: 'fitness-app-backdrop'
+    }).afterClosed().subscribe(result => {
       if (result) {
-        //TODO: PUSH INTO ARRAY of activity logs
-        return EMPTY;
+        const activityLogIndex = this.activityLogs.findIndex(activityLog => activityLog.id === result.id);
+
+        if (activityLogIndex !== -1) {
+          this.activityLogs[activityLogIndex] = result;
+          this.activityLogs = [...this.activityLogs];
+        }
       }
-      return EMPTY;
-    })).subscribe(res => {
-      //todo on page change
     });
   }
 
@@ -117,14 +110,20 @@ export class ActivityLogsListComponent implements OnInit, OnDestroy {
       data: {
         title: "Delete activity log",
         text: "Are you sure that you want to delete this activity log?"
-      }
+      },
+      hasBackdrop: true,
+      backdropClass: 'fitness-app-backdrop'
     }).afterClosed().pipe(switchMap(result => {
       return result ? this._activityLogService.deleteById(activityLog.id) : EMPTY
     })).subscribe(res => {
       const index = this.activityLogs.findIndex(aLog => aLog.id === activityLog.id);
       if (index !== -1) {
-        //TODO: On page change
+        this.displayActivityLogs();
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 }

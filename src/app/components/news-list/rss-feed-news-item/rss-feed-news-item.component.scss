@@ -1,2 +1,38 @@
 @import "src/app/shared/colors";
 @import "src/app/shared/classes";
+
+.news-card {
+  display: flex;
+  flex-direction: column;
+  height: 60vh;
+  max-width: 20vw;
+  background-color: $color-blue-1;
+  color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.news-card h2 {
+  color: $color-white;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.description {
+  margin-bottom: 15px;
+  font-size: 12px;
+}
+
+.read-more {
+  color: $color-blue-2;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+  align-self: flex-end;
+}
+
+.read-more:hover {
+  color: $color-orange-1;
+}

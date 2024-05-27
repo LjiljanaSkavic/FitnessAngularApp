@@ -30,9 +30,8 @@ export class ActivityLogService {
     return this._httpClient.get<ActivityLog[]>(allActivityLogsUrl);
   }
 
-  search(userId: number, type?: number, startDate?: Date, endDate?: Date, page?: number, size?: number): Observable<ActivityLogSearchResult> {
-    return this._httpClient.get<ActivityLogSearchResult>(`${this.baseUrl}/search?appUserId=${userId}`);
-    // return this._httpClient.get<ActivityLogSearchResult>(`${this.baseUrl}/search?appUserId=${userId}&type=${type}&startDate=${startDate}&endDate=${endDate}&page=${page}&size=${size}`);
+  search(userId: number, page?: number, size?: number, type?: number, startDate?: Date, endDate?: Date): Observable<ActivityLogSearchResult> {
+    return this._httpClient.get<ActivityLogSearchResult>(`${this.baseUrl}/search?appUserId=${userId}&page=${page}&size=${size}`);
   }
 
   downloadActivityLogs(userId: number): Observable<Blob> {

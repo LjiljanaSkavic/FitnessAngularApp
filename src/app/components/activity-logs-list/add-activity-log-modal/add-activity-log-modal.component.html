@@ -1,63 +1,79 @@
 <div
-    class="add-activity-log-container">
-    <h2>Add activity log</h2>
-    <form [formGroup]="activityLogForm">
-        <mat-form-field>
-            <input
-                [matDatepicker]="picker"
-                formControlName="date"
-                matInput
-                placeholder="Choose a date">
-            <mat-datepicker-toggle
-                [for]="picker"
-                matSuffix></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Duration (hh:mm:ss)</mat-label>
-            <input
-                formControlName="duration"
-                matInput>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Type</mat-label>
-            <input
-                formControlName="type"
-                matInput>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Current Weight (lbs)</mat-label>
-            <input
-                formControlName="currentWeightLbs"
-                matInput>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Kcal Intake</mat-label>
-            <input
-                formControlName="kcalIntake"
-                matInput
-                type="number">
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Notes</mat-label>
-            <textarea
-                formControlName="notes"
-                matInput></textarea>
-        </mat-form-field>
-    </form>
-    <div
-        class="button-wrapper"
-        mat-dialog-actions>
-        <button
-            [mat-dialog-close]="null"
-            class="button-discard"
-            mat-button>Discard
-        </button>
-        <button
-            (click)="onDialogClose()"
-            [disabled]="!activityLogForm.valid"
-            class="button-save"
-            mat-button>Save
-        </button>
+  class="add-activity-log-container">
+  <div
+    class="add-activity-log-container__header"
+    mat-dialog-title> {{ this.isEditMode ? 'Edit activity log' : 'Add activity log'}}
+  </div>
+  <form
+    [formGroup]="activityLogForm"
+    class="form-wrapper">
+    <div class="form-wrapper__field">
+      <mat-form-field>
+        <input
+          [matDatepicker]="picker"
+          formControlName="date"
+          matInput
+          placeholder="Choose a date">
+        <mat-datepicker-toggle
+          [for]="picker"
+          matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Duration (hh:mm:ss)</mat-label>
+        <input
+          formControlName="duration"
+          matInput>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Intensity</mat-label>
+        <mat-select
+          formControlName="type">
+          <mat-option
+            *ngFor="let intensityType of intensityTypes"
+            [value]="intensityType.id">
+            {{ intensityType.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
+
+    <div class="form-wrapper__field">
+      <mat-form-field>
+        <mat-label>Current Weight (lbs)</mat-label>
+        <input
+          formControlName="currentWeightLbs"
+          matInput>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Kcal Intake</mat-label>
+        <input
+          formControlName="kcalIntake"
+          matInput
+          type="number">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Notes</mat-label>
+        <textarea
+          formControlName="notes"
+          matInput></textarea>
+      </mat-form-field>
+    </div>
+  </form>
+  <div
+    class="button-wrapper"
+    mat-dialog-actions>
+    <button
+      [mat-dialog-close]="null"
+      class="button-discard"
+      mat-button>Discard
+    </button>
+    <button
+      (click)="onDialogClose()"
+      [disabled]="!activityLogForm.valid"
+      class="button-save"
+      mat-button>Save
+    </button>
+  </div>
 </div>
