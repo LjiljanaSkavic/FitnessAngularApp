@@ -137,7 +137,9 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
       data: {
         userId: this.userId,
         fitnessProgramId: this.id
-      }
+      },
+      hasBackdrop: true,
+      backdropClass: 'fitness-app-backdrop'
     }).afterClosed().subscribe(res => {
       if (res != null) {
         this.subs.add(this._fitnessProgramPurchaseService.createPurchase(res).subscribe(res => {
@@ -199,7 +201,9 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
       data: {
         title: "Delete fitness program",
         text: "Are you sure that you want to delete this fitness program?"
-      }
+      },
+      hasBackdrop: true,
+      backdropClass: 'fitness-app-backdrop'
     }).afterClosed().pipe(switchMap(result => {
       return result ? this._fitnessProgramService.deleteById(this.fitnessProgram.id) : EMPTY
     })).subscribe(res => {
@@ -215,7 +219,9 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
       data: {
         title: "Complete fitness program",
         text: "Are you sure that you want to set this fitness program as completed?"
-      }
+      },
+      hasBackdrop: true,
+      backdropClass: 'fitness-app-backdrop'
     }).afterClosed().pipe(switchMap(result => {
       return result ? this._fitnessProgramService.setAsCompletedById(this.fitnessProgram.id) : EMPTY
     })).subscribe(res => {
@@ -243,6 +249,8 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
         fitnessProgramImageUrls: this.fitnessProgramImageUrls,
         instructorImageUrl: this.instructorImageUrl
       },
+      hasBackdrop: true,
+      backdropClass: 'fitness-app-backdrop'
     }).afterClosed().pipe(switchMap(result => {
       if (result) {
         //TODO: http call to save fitness program

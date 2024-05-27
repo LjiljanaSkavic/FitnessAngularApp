@@ -61,7 +61,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     //TODO: try with history
-    
+
     // this._router.navigateByUrl(`fitness-news`).catch(err => console.log(err));
 
     this.user = this._userStoreService.getLoggedInUser();
@@ -111,8 +111,11 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSendAdviceMessageClick() {
-    this.dialog.open(AdviceMessageModalComponent,
+  onSendAdviceMessageClick(): void {
+    this.dialog.open(AdviceMessageModalComponent, {
+        hasBackdrop: true,
+        backdropClass: 'fitness-app-backdrop'
+      }
     ).afterClosed().pipe(switchMap(message => {
         if (!!message && message !== DIALOG_RESPONSE.DISCARD) {
           const adviceMessage: AdviceMessage = {
