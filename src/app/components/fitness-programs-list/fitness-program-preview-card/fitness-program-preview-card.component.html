@@ -1,14 +1,16 @@
 <div
-    (click)="onFitnessProgramCardClick()"
-    class="fitness-program-card">
-    <h2>{{ fitnessProgramCard.name }}</h2>
-    <div
-        *ngIf="fileUrl"
-        class="avatar-wrapper">
-        <img
-            [src]="fileUrl"
-            alt="File"
-            class="avatar-image">
-    </div>
-    <p><strong> Price:</strong> {{ fitnessProgramCard.price }} BAM</p>
+  (click)="onFitnessProgramCardClick()"
+  class="fitness-program-card">
+  <div
+    class="fitness-program-card__header"
+    mat-card-title>{{fitnessProgramCard.name}}</div>
+  <div
+    *ngIf="fileUrl"
+    class="avatar-wrapper">
+    <img
+      [src]="fileUrl"
+      alt="File"
+      class="avatar-image">
+  </div>
+  <div class="price">{{ fitnessProgramCard.price }} BAM</div>
 </div>
