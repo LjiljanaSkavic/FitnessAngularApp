@@ -7,6 +7,8 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { FileService } from "../../services/file.service";
 import { UserService } from "../../services/user.service";
 import { UserDTO } from "../../models/dto/UserDTO";
+import { snackBarConfig } from "../../shared/contants";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-profile-details',
@@ -27,7 +29,8 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
   constructor(private _userStoreService: UserStoreService,
               private _fileService: FileService,
               private _userService: UserService,
-              private dialogRef: MatDialogRef<ProfileDetailsComponent>,) {
+              private _snackBar: MatSnackBar,
+              private _dialogRef: MatDialogRef<ProfileDetailsComponent>) {
   }
 
   ngOnInit(): void {
@@ -76,7 +79,7 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
   onDiscardProfileChanges(): void {
     this.buildProfileForm(this.user);
     this.fileUrl = this.fileUrlOriginal;
-    this.dialogRef.close();
+    this._dialogRef.close();
   }
 
   onSaveProfileChanges(): void {
@@ -95,7 +98,7 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
     } else {
       this.saveUser({...editedUser, password: null, imageId: this.user.id});
     }
-    this.dialogRef.close();
+    this._dialogRef.close();
   }
 
   onFileSelected(event: any): void {
@@ -120,6 +123,7 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
     this._userService.editUser(user).subscribe(res => {
       this._userStoreService.setUserAsLoggedIn(res);
       this.user = this._userStoreService.getLoggedInUser();
+      this._snackBar.open("User details successfully updated.", "OK", snackBarConfig);
     });
   }
 

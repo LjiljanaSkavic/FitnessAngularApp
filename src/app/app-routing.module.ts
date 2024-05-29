@@ -10,7 +10,6 @@ import { FitnessProgramsList } from "./components/fitness-programs-list/fitness-
 import {
   FitnessProgramDetailsComponent
 } from "./components/fitness-programs-list/fitness-program-details/fitness-program-details.component";
-import { ManagePasswordComponent } from "./components/manage-password/manage-password.component";
 import { FitnessPurchasesListComponent } from "./components/fitness-purchases-list/fitness-purchases-list.component";
 import { ActivityLogsListComponent } from "./components/activity-logs-list/activity-logs-list.component";
 import { StatisticsComponent } from "./components/statistics/statistics.component";
@@ -62,10 +61,6 @@ const routes: Routes = [
   {
     path: "fitness-program/:id",
     component: FitnessProgramDetailsComponent
-  },
-  {
-    path: "manage-password/:id",
-    component: ManagePasswordComponent
   },
   {
     path: "fitness-program-purchases/:id",

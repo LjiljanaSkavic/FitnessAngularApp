@@ -15,6 +15,7 @@ import { AdviceMessageService } from "./services/advice-message.service";
 import { ChatMessageService } from "./services/chat-message.service";
 import { ChatMessage } from "./models/dto/ChatMessage";
 import { ProfileDetailsComponent } from "./components/profile-details/profile-details.component";
+import { ManagePasswordComponent } from "./components/manage-password/manage-password.component";
 
 export const DEFAULT_ANIMATION_DURATION = 100;
 
@@ -88,8 +89,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onProfileDetailsClick(): void {
     this.collapsed = true;
-    // this._router.navigateByUrl(`profile-details/${this.user.id}`).catch(err => console.log(err));
-
     this.dialog.open(ProfileDetailsComponent, {
         hasBackdrop: true,
         backdropClass: 'fitness-app-backdrop'
@@ -100,7 +99,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onChangePasswordClick(): void {
     this.collapsed = true;
-    this._router.navigateByUrl(`manage-password/${this.user.id}`).catch(err => console.log(err));
+    this.dialog.open(ManagePasswordComponent, {
+        hasBackdrop: true,
+        backdropClass: 'fitness-app-backdrop'
+      }
+    ).afterClosed().subscribe(() => {
+    });
   }
 
   onLogOutClick(): void {

@@ -4,7 +4,9 @@ import { Subscription } from "rxjs";
 import * as sha512 from "js-sha512";
 import { UserService } from "../../services/user.service";
 import { UserStoreService } from "../../services/user-store.service";
-import { Router } from "@angular/router";
+import { MatDialogRef } from "@angular/material/dialog";
+import { snackBarConfig } from "../../shared/contants";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-manage-password',
@@ -14,18 +16,23 @@ import { Router } from "@angular/router";
 export class ManagePasswordComponent implements OnInit, OnDestroy {
   passwordForm: FormGroup;
   subs = new Subscription();
-  oldPassword: string;
-  oldPasswordInputHash = "";
   userId: number;
+  disableSave = false;
+  hasPasswordsMatchError = false;
 
   constructor(private _userService: UserService,
               private _userStoreService: UserStoreService,
-              private _router: Router) {
+              private _snackBar: MatSnackBar,
+              private _dialogRef: MatDialogRef<ManagePasswordComponent>,) {
   }
 
   ngOnInit(): void {
-    this.userId = this._userStoreService.getLoggedInUser().id; //TODO: Handle error here
+    this.userId = this._userStoreService.getLoggedInUser().id;
     this.buildEmptyForm();
+    this.passwordForm.valueChanges.subscribe(
+      () => {
+        this.updateDisableSave();
+      })
   }
 
   buildEmptyForm() {
@@ -34,13 +41,14 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
       newPassword: new FormControl(null, [Validators.required]),
       repeatNewPassword: new FormControl(null, [Validators.required])
     });
+    this.updateDisableSave();
   }
 
-  onDiscardPasswordClick() {
-    this._router.navigateByUrl(`exercises`).catch(err => console.log(err));
+  onDiscardPasswordClick(): void {
+    this._dialogRef.close();
   }
 
-  onSubmitPasswordClick() {
+  onSubmitPasswordClick(): void {
     const currentPassword = this.passwordForm.get('currentPassword')?.value;
     const currentPasswordHash = this.getPasswordHash(currentPassword);
 
@@ -49,11 +57,11 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
 
     this._userService.changePassword(this.userId, currentPasswordHash, newPasswordHash).subscribe(
       () => {
-        this.passwordForm.reset();
-        //TODO: navigate router
+        this._dialogRef.close();
+        this._snackBar.open("Password successfully changed.", "OK", snackBarConfig);
       },
       error => {
-        console.error('Error changing password:', error);
+        this._snackBar.open('Error while changing password.', "OK", snackBarConfig);
       }
     );
   }
@@ -62,12 +70,13 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
     return sha512.sha512(password);
   }
 
-  hasOldPasswordError() {
-    return undefined;
+  updateDisableSave(): void {
+    this.disableSave = !this.passwordForm.valid || this.checkPasswordsMatchError();
   }
 
-  hasPasswordsMatchError() {
-    return false;
+  checkPasswordsMatchError(): boolean {
+    this.hasPasswordsMatchError = this.passwordForm.get('newPassword').value !== this.passwordForm.get('repeatNewPassword').value
+    return this.hasPasswordsMatchError;
   }
 
   ngOnDestroy(): void {

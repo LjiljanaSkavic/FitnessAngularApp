@@ -328,8 +328,6 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
         this.fitnessProgramForm.addControl(controlName,
           this._formBuilder.control('', Validators.required));
       }
-
-      console.log(this.fitnessProgramForm);
     });
   }
 
