@@ -14,6 +14,7 @@ import { AdviceMessage } from "./models/AdviceMessage";
 import { AdviceMessageService } from "./services/advice-message.service";
 import { ChatMessageService } from "./services/chat-message.service";
 import { ChatMessage } from "./models/dto/ChatMessage";
+import { ProfileDetailsComponent } from "./components/profile-details/profile-details.component";
 
 export const DEFAULT_ANIMATION_DURATION = 100;
 
@@ -85,9 +86,16 @@ export class AppComponent implements OnInit, OnDestroy {
     this._router.navigateByUrl(`fitness-news`).catch(err => console.log(err));
   }
 
-  onProfileDetailsClick() {
+  onProfileDetailsClick(): void {
     this.collapsed = true;
-    this._router.navigateByUrl(`profile-details/${this.user.id}`).catch(err => console.log(err));
+    // this._router.navigateByUrl(`profile-details/${this.user.id}`).catch(err => console.log(err));
+
+    this.dialog.open(ProfileDetailsComponent, {
+        hasBackdrop: true,
+        backdropClass: 'fitness-app-backdrop'
+      }
+    ).afterClosed().subscribe(() => {
+    });
   }
 
   onChangePasswordClick(): void {

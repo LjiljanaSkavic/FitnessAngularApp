@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from "@angular/material/dialog";
+import { MatDialogRef } from "@angular/material/dialog";
 import { AppUser } from "../../models/AppUser";
 import { Subscription, switchMap } from "rxjs";
 import { UserStoreService } from "../../services/user-store.service";
@@ -15,7 +15,7 @@ import { UserDTO } from "../../models/dto/UserDTO";
 })
 export class ProfileDetailsComponent implements OnInit, OnDestroy {
 
-  isEditMode = false;
+  isEditMode = true;
   profileForm: FormGroup;
   user: AppUser = null;
   subs = new Subscription();
@@ -27,7 +27,7 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
   constructor(private _userStoreService: UserStoreService,
               private _fileService: FileService,
               private _userService: UserService,
-              public dialog: MatDialog) {
+              private dialogRef: MatDialogRef<ProfileDetailsComponent>,) {
   }
 
   ngOnInit(): void {
@@ -73,16 +73,10 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  onEditProfilePageClick(): void {
-    this.isEditMode = true;
-    this.profileForm.enable();
-  }
-
   onDiscardProfileChanges(): void {
     this.buildProfileForm(this.user);
     this.fileUrl = this.fileUrlOriginal;
-    this.isEditMode = false;
-    this.profileForm.disable();
+    this.dialogRef.close();
   }
 
   onSaveProfileChanges(): void {
@@ -98,13 +92,10 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
     }
     if (this.user.image?.name !== this.selectedFileName) {
       this.uploadNewPictureAndSaveUser(editedUser);
-      this.isEditMode = false;
-      this.profileForm.disable();
     } else {
       this.saveUser({...editedUser, password: null, imageId: this.user.id});
-      this.isEditMode = false;
-      this.profileForm.disable();
     }
+    this.dialogRef.close();
   }
 
   onFileSelected(event: any): void {
@@ -123,21 +114,6 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
       this.profileForm.get('profilePicture').setValue(file.name);
     };
     reader.readAsDataURL(file);
-  }
-
-  uploadFile(): void {
-    this._fileService.uploadFile(this.selectedFile)
-      .subscribe(
-        response => {
-          this.fileUrl = response.path;
-          //TODO: Message success
-          console.log('File uploaded successfully:', response);
-        },
-        error => {
-          //TODO: Error message
-          console.error('Error uploading file:', error);
-        }
-      );
   }
 
   saveUser(user: UserDTO) {
