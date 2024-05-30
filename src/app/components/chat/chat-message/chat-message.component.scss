@@ -2,35 +2,46 @@
 @import "src/app/shared/classes";
 
 .message {
-  padding: 8px;
-  width: 100%;
+  margin: 8px;
 }
 
 .my-message-wrapper {
-  background-color: $color-blue-1;
   display: flex;
-  flex-grow: 1;
-  flex-direction: row-reverse;
-  align-items: center;
-  gap: 16px;
-
-  .mat-mdc-form-field {
-    width: 100%;
-  }
+  justify-content: flex-end;
 }
 
 .other-user-message-wrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.my-message-wrapper .content-wrapper {
   background-color: $color-gray-1;
   display: flex;
-  flex-grow: 1;
+  flex-direction: row-reverse;
   align-items: center;
   gap: 16px;
+  padding: 8px;
+  border: 1px solid white;
+  border-radius: 8px;
 
-  .mat-mdc-form-field {
-    width: 100%;
+  input {
+    border: none;
   }
 }
 
+.other-user-message-wrapper .content-wrapper {
+  background-color: $color-blue-8;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px;
+  border-radius: 8px;
+
+  input {
+    border: none;
+  }
+}
 
 .avatar-wrapper {
   display: flex;
@@ -38,6 +49,11 @@
 }
 
 .avatar-wrapper img {
-  width: 40px;
-  height: 40px;
+  width: 24px;
+  height: 24px;
+}
+
+.message-wrapper {
+  display: flex;
+  align-items: center;
 }

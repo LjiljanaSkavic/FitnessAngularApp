@@ -13,7 +13,7 @@ export class ChatComponent implements OnInit {
   constructor(private _userService: UserService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
   onSelectUser(user: AppUserShort) {

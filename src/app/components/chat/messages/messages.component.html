@@ -1,25 +1,31 @@
-<div class="messages-wrapper">
-    <div class="part-header"></div>
-    <div *ngFor="let message of messages">
-        <app-chat-message
-            [message]="message"
-            [selectedUser]="selectedUser"
-        ></app-chat-message>
+<div
+  class="messages-container">
+  <div
+    #messagesWrapper
+    class="messages-wrapper">
+    <div
+      *ngFor="let message of messages">
+      <app-chat-message
+        [message]="message"
+        [selectedUser]="selectedUser"
+      ></app-chat-message>
     </div>
-    <form
-        *ngIf="chatId"
-        [formGroup]="sendMessageForm">
-        <mat-form-field class="comment-card__field">
+  </div>
+  <form
+    *ngIf="chatId"
+    [formGroup]="sendMessageForm"
+    class="send-message-form">
+    <mat-form-field class="message-input-field">
       <textarea
-          class="comment-content"
-          formControlName="messageText"
-          matInput></textarea>
-        </mat-form-field>
-        <button
-            (click)="onSendMessageClick()"
-            [disabled]="sendMessageForm.invalid"
-            mat-icon-button>
-            <mat-icon>send</mat-icon>
-        </button>
-    </form>
+        class="message-textarea"
+        formControlName="messageText"
+        matInput></textarea>
+    </mat-form-field>
+    <button
+      (click)="onSendMessageClick()"
+      [disabled]="sendMessageForm.invalid"
+      mat-icon-button>
+      <mat-icon>send</mat-icon>
+    </button>
+  </form>
 </div>

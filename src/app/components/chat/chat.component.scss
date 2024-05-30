@@ -1,18 +1,20 @@
 @import "src/app/shared/colors";
 @import "src/app/shared/classes";
 
+.center-container {
+  display: flex;
+  height: 90vh;
+}
+
 .app-user-list {
-  height: 100vw;
-  flex: 1 1 auto;
+  height: 100%;
+  flex: 1;
   border-right: 1px solid white;
 }
 
 .chat-messages {
-  flex: 2 1 auto;
-  padding: 0 20px;
-}
-
-.no-messages {
-  font-size: 20px;
-  color: gray;
+  height: 100%;
+  flex: 3 1 auto;
+  display: flex;
+  flex-direction: column;
 }

@@ -3,9 +3,23 @@
 
 .user-wrapper {
   display: flex;
-  padding: 24px;
+  padding: 8px;
   border-bottom: 1px solid white;
-  margin-bottom: 24px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #f0f0f0;
+  }
+}
+
+.current-user-wrapper {
+  cursor: default !important;
+  background-color: white;
+  padding: 32px;
+
+  &:hover {
+    background-color: white;
+  }
 }
 
 .user-name-wrapper {
@@ -14,13 +28,12 @@
   margin-left: 16px;
 }
 
-.user-list-wrapper {
-  cursor: pointer;
-  border-bottom: 1px solid #ccc;
-
-  &:hover {
-    background-color: #f0f0f0;
-  }
+.user-data-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 16px;
 }
 
 .username-style {
@@ -33,7 +46,7 @@
 }
 
 .selected-user-list-wrapper {
-  background-color: lightblue;
+  background-color: $color-blue-8;
 }
 
 .username-field {

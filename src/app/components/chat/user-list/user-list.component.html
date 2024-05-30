@@ -1,7 +1,6 @@
-<div class="user-wrapper">
+<div class="user-wrapper current-user-wrapper">
   <div class="avatar-wrapper">
-    <img
-      [src]="userImageMap.get(user.id)  ?? getUrl(user)">
+    <img [src]="userImageMap.get(user.id) ?? getUrl(user)">
   </div>
   <div class="user-name-wrapper">
     <span class="name-style">{{user.firstName}} {{ user.lastName}}</span>
@@ -13,12 +12,16 @@
   [ngClass]="{'selected-user-list-wrapper': selectedUserId === user.id}"
   class="user-list-wrapper">
   <div
-    (click)="selectUser(user)">
+    (click)="selectUser(user)"
+    class="user-wrapper">
     <div class="avatar-wrapper">
-      <img
-        [src]="userImageMap.get(user.id) ?? getUrl(user)">
+      <img [src]="userImageMap.get(user.id) ?? getUrl(user)">
     </div>
-    <span>{{ user.username }}</span>
-    <div [ngClass]="user.isLoggedIn ? 'circle color-green' : 'circle color-gray'"></div>
+    <div class="user-data-wrapper">
+      <div>{{ user.username }}</div>
+      <div
+        [matTooltip]="user.loggedIn ? 'active' : 'away'"
+        [ngClass]="user.loggedIn ? 'circle color-green' : 'circle color-gray'"></div>
+    </div>
   </div>
 </div>

@@ -15,5 +15,5 @@ export interface AppUserShort {
   id: number;
   username: string;
   image: IFile;
-  isLoggedIn: boolean;
+  loggedIn: boolean;
 }
