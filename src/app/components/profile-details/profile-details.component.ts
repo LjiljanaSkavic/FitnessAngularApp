@@ -33,6 +33,7 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
               private _dialogRef: MatDialogRef<ProfileDetailsComponent>) {
   }
 
+
   ngOnInit(): void {
     this.user = this._userStoreService.getLoggedInUser();
     if (this.user === null) {

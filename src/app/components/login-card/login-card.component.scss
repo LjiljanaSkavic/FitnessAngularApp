@@ -2,11 +2,21 @@
 @import "src/app/shared/classes";
 
 .login-card {
-  display: flex;
-  justify-content: center;
-  gap: 32px;
-  max-width: 432px;
-  padding: 128px 32px;
+
+  &__header {
+    background-color: $color-blue-1;
+    color: $color-white;
+    text-align: center;
+    font-size: 20px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+    padding: 32px;
+  }
 }
 
 .login-form {

@@ -16,6 +16,7 @@ import { ChatMessageService } from "./services/chat-message.service";
 import { ChatMessage } from "./models/dto/ChatMessage";
 import { ProfileDetailsComponent } from "./components/profile-details/profile-details.component";
 import { ManagePasswordComponent } from "./components/manage-password/manage-password.component";
+import { LoginCardComponent } from "./components/login-card/login-card.component";
 
 export const DEFAULT_ANIMATION_DURATION = 100;
 
@@ -80,7 +81,16 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onToggleAccountMenuClick(): void {
-    this.user === null ? this._router.navigateByUrl('login').catch(err => console.log(err)) : this.collapsed = !this.collapsed;
+    if (this.user === null) {
+      this.dialog.open(LoginCardComponent, {
+          hasBackdrop: true,
+          backdropClass: 'fitness-app-backdrop'
+        }
+      ).afterClosed().subscribe(() => {
+      });
+    } else {
+      this.collapsed = !this.collapsed;
+    }
   }
 
   onFitnessAppClick(): void {

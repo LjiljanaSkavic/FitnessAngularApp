@@ -1,84 +1,96 @@
-<div class="center-container">
-  <mat-card class="sign-up-card">
-    <mat-label>Create account</mat-label>
+<mat-card class="sign-up-card">
+  <mat-card-title
+    class="sign-up-card__header"
+    mat-dialog-title>
+    Create account
+  </mat-card-title>
+  <mat-card-content class="sign-up-card__content">
     <form
       [formGroup]="signUpForm"
       class="sign-up-form">
-      <mat-form-field appearance="fill">
-        <mat-label>First name</mat-label>
-        <input
-          formControlName="firstName"
-          matInput>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Last name</mat-label>
-        <input
-          formControlName="lastName"
-          matInput>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Username</mat-label>
-        <input
-          formControlName="username"
-          matInput>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input
-          formControlName="email"
-          matInput
-          type="email">
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Password</mat-label>
-        <input
-          formControlName="password"
-          matInput
-          type="password">
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Repeat password</mat-label>
-        <input
-          formControlName="repeatPassword"
-          matInput
-          type="password">
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>City</mat-label>
-        <input
-          formControlName="city"
-          matInput>
-      </mat-form-field>
-      <div
-        *ngIf="fileUrl"
-        class="avatar-wrapper">
-        <img
-          [src]="fileUrl"
-          alt="File"
-          class="avatar-image">
-      </div>
-      <div
-        class="upload-button">
-        <label
-          class="file-label"
-          for="fileInput">
-          <span>Upload new picture</span>
+      <div class="sign-up-form sign-up-form--row">
+        <mat-form-field>
+          <mat-label>Username</mat-label>
           <input
-            (change)="onFileSelected($event)"
-            id="fileInput"
-            style="display: none;"
-            type="file">
-        </label>
+            formControlName="username"
+            matInput>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>First name</mat-label>
+          <input
+            formControlName="firstName"
+            matInput>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Last name</mat-label>
+          <input
+            formControlName="lastName"
+            matInput>
+        </mat-form-field>
       </div>
+      <div class="sign-up-form sign-up-form--row">
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input
+            formControlName="email"
+            matInput
+            type="email">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>City</mat-label>
+          <input
+            formControlName="city"
+            matInput>
+        </mat-form-field>
+        <div
+          *ngIf="fileUrl"
+          class="avatar-wrapper">
+          <img
+            [src]="fileUrl"
+            alt="File"
+            class="avatar-image">
+        </div>
+        <div
+          class="upload-button">
+          <label
+            class="file-label"
+            for="fileInput">
+            <span>Upload picture</span>
+            <input
+              (change)="onFileSelected($event)"
+              id="fileInput"
+              style="display: none;"
+              type="file">
+          </label>
+        </div>
+      </div>
+      <div class="sign-up-form sign-up-form--row">
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input
+            formControlName="password"
+            matInput
+            type="password">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Repeat password</mat-label>
+          <input
+            formControlName="repeatPassword"
+            matInput
+            type="password">
+        </mat-form-field>
+      </div>
+    </form>
+    <div class="button-wrapper">
       <button
         (click)="onSignUpClick($event)"
         [disabled]="!signUpForm.valid"
         mat-button>Sign up
       </button>
-    </form>
-    <button
-      (click)="onLogInClick($event)"
-      mat-button>Already have a account? Sign in
-    </button>
-  </mat-card>
-</div>
+      <button
+        (click)="onLogInClick($event)"
+        mat-button>Already have a account? Sign in
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -5,6 +5,9 @@ import { Router } from "@angular/router";
 import * as sha512 from 'js-sha512';
 import { UserService } from "../../services/user.service";
 import { UserStoreService } from "../../services/user-store.service";
+import { SignUpComponent } from "../sign-up/sign-up.component";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { ActivationCardComponent } from "../activation-card/activation-card.component";
 
 @Component({
   selector: 'app-login-card',
@@ -17,10 +20,12 @@ export class LoginCardComponent implements OnInit, OnDestroy {
   invalidCredentials = false;
   subs = new Subscription();
 
-  constructor(private readonly _formBuilder: UntypedFormBuilder,
+  constructor(public dialog: MatDialog,
+              private readonly _formBuilder: UntypedFormBuilder,
               private _router: Router,
               private _userService: UserService,
-              private _userStoreService: UserStoreService) {
+              private _userStoreService: UserStoreService,
+              private _dialogRef: MatDialogRef<LoginCardComponent>) {
   }
 
   ngOnInit(): void {
@@ -49,9 +54,20 @@ export class LoginCardComponent implements OnInit, OnDestroy {
         if (user.activated) {
           this._userStoreService.isLoggedIn$.next(true);
           this._userStoreService.setUserAsLoggedIn(user);
-          this._router.navigateByUrl('exercises').catch(err => console.log(err));
+          this._dialogRef.close();
+          // this._router.navigateByUrl('exercises').catch(err => console.log(err));
         } else {
-          this._router.navigate(['profile-activation'], {queryParams: {id: user.id}}).catch(err => console.log(err));
+          this._dialogRef.close();
+          this.dialog.open(ActivationCardComponent, {
+              data: {
+                userId: user.id
+              },
+              hasBackdrop: true,
+              backdropClass: 'fitness-app-backdrop'
+            }
+          ).afterClosed().subscribe(() => {
+          });
+          // this._router.navigate(['profile-activation'], {queryParams: {id: user.id}}).catch(err => console.log(err));
         }
       },
       error => {
@@ -65,7 +81,13 @@ export class LoginCardComponent implements OnInit, OnDestroy {
   }
 
   onSignUpClick($event: MouseEvent) {
-    this._router.navigateByUrl('sign-up').catch(err => console.log(err));
+    this._dialogRef.close();
+    this.dialog.open(SignUpComponent, {
+        hasBackdrop: true,
+        backdropClass: 'fitness-app-backdrop'
+      }
+    ).afterClosed().subscribe(() => {
+    });
   }
 
   ngOnDestroy(): void {
