@@ -6,6 +6,7 @@
   </div>
   <mat-paginator
     (page)="onPageChange($event)"
+    *ngIf="rssFeedNews"
     [length]="rssFeedNews.length"
     [pageSizeOptions]="pageSizeOptions"
     [pageSize]="pageSize"

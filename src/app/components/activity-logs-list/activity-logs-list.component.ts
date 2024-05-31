@@ -27,6 +27,7 @@ export class ActivityLogsListComponent implements OnInit, OnDestroy {
   totalItems = 0;
 
   subscription = new Subscription();
+  protected readonly localStorage = localStorage;
 
   constructor(private _userStoreService: UserStoreService,
               private _activityLogService: ActivityLogService,

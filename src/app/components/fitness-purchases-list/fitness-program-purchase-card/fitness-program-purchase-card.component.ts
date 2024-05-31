@@ -21,7 +21,7 @@ export class FitnessProgramPurchaseCardComponent implements OnDestroy {
 
   }
 
-  onDeletePurchase(id: number) {
+  onDeletePurchase(id: number): void {
     this.dialog.open(ConfirmationModalComponent, {
       data: {
         title: "Delete purchase history",
@@ -36,7 +36,7 @@ export class FitnessProgramPurchaseCardComponent implements OnDestroy {
     })
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 }

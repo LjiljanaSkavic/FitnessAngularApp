@@ -1,5 +1,5 @@
 <div
-  *ngIf="!isLoading"
+  *ngIf="!isLoading; else loading"
   class="items-container-column">
   <div class="header-container">
     <button
@@ -125,8 +125,12 @@
 </div>
 <mat-paginator
   (page)="onPageChange($event)"
+  *ngIf="activityLogs"
   [length]="totalItems"
   [pageIndex]="pageIndex"
   [pageSize]="pageSize"
   class="mat-paginator">
 </mat-paginator>
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>

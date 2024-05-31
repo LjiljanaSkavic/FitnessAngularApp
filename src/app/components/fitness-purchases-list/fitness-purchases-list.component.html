@@ -1,7 +1,20 @@
-<div class="fitness-card-container">
+<div
+  *ngIf="!isLoading; else loading"
+  class="items-container">
   <ng-container *ngFor="let purchase of purchases">
     <app-fitness-program-purchase-card
       (purchaseDeletedEmitter)="purchaseDeleted($event)"
       [purchase]="purchase"></app-fitness-program-purchase-card>
   </ng-container>
 </div>
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>
+<mat-paginator
+  (page)="onPageChange($event)"
+  *ngIf="purchases"
+  [length]="totalItems"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  class="mat-paginator">
+</mat-paginator>
