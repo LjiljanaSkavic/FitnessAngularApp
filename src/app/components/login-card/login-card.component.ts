@@ -52,10 +52,9 @@ export class LoginCardComponent implements OnInit, OnDestroy {
     const password = this.getPasswordHash(this.loginForm.get('password').value);
     this.subs.add(this._userService.findUserByUsernameAndPassword(username, password).subscribe(user => {
         if (user.activated) {
-          this._userStoreService.isLoggedIn$.next(true);
           this._userStoreService.setUserAsLoggedIn(user);
+          this._userStoreService.isLoggedIn$.next(true);
           this._dialogRef.close();
-          // this._router.navigateByUrl('exercises').catch(err => console.log(err));
         } else {
           this._dialogRef.close();
           this.dialog.open(ActivationCardComponent, {
@@ -67,7 +66,6 @@ export class LoginCardComponent implements OnInit, OnDestroy {
             }
           ).afterClosed().subscribe(() => {
           });
-          // this._router.navigate(['profile-activation'], {queryParams: {id: user.id}}).catch(err => console.log(err));
         }
       },
       error => {

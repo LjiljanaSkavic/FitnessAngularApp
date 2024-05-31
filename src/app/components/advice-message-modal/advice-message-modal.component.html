@@ -1,31 +1,32 @@
 <div class="advice-message-wrapper">
-    <div
-        class="advice-message-wrapper__header"
-        mat-dialog-title>Ask for fitness advice
-    </div>
-    <form
-        [formGroup]="adviceMessageFrom"
-        class="comment-card">
-        <mat-form-field class="comment-card__field">
-            <mat-label>Leave a message</mat-label>
-            <textarea
-                class="comment-content"
-                formControlName="messageControl"
-                matInput></textarea>
-        </mat-form-field>
-    </form>
-    <div
-        class="button-wrapper"
-        mat-dialog-actions>
-        <button
-            [mat-dialog-close]="DIALOG_RESPONSE.DISCARD"
-            class="button-discard"
-            mat-button>Discard
-        </button>
-        <button
-            [mat-dialog-close]="messageControl.value"
-            class="button-save"
-            mat-button>Send
-        </button>
-    </div>
+  <div
+    class="advice-message-wrapper__header"
+    mat-dialog-title>Need help with a fitness plan?
+  </div>
+  <form
+    [formGroup]="adviceMessageFrom"
+    class="comment-card">
+    <mat-form-field class="comment-card__field">
+      <mat-label>Ask for advice</mat-label>
+      <textarea
+        class="comment-content"
+        formControlName="messageControl"
+        matInput
+        placeholder="e.g., Hi, I'm working every day from 9 to 5. Can you help me choose a program?"></textarea>
+    </mat-form-field>
+  </form>
+  <div
+    class="button-wrapper"
+    mat-dialog-actions>
+    <button
+      [mat-dialog-close]="DIALOG_RESPONSE.DISCARD"
+      class="button-discard"
+      mat-button>Discard
+    </button>
+    <button
+      [mat-dialog-close]="messageControl.value"
+      class="button-save"
+      mat-button>Send
+    </button>
+  </div>
 </div>

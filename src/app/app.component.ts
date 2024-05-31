@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from "@angular/material/dialog";
 import { UserService } from "./services/user.service";
 import { Router } from "@angular/router";
@@ -49,7 +49,8 @@ export class AppComponent implements OnInit, OnDestroy {
               private _userStoreService: UserStoreService,
               private _adviceMessageService: AdviceMessageService,
               private _chatMessageService: ChatMessageService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              private _changeDetectorRef: ChangeDetectorRef,) {
   }
 
   @HostListener('document:click', ['$event'])
@@ -63,21 +64,28 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    //TODO: try with history
-
-    // this._router.navigateByUrl(`fitness-news`).catch(err => console.log(err));
-
     this.user = this._userStoreService.getLoggedInUser();
     if (this.user !== null) {
       this._userStoreService.setUserAsLoggedIn(this.user);
 
       this.subscription.add(this._chatMessageService.getUnreadMessagesByUserId(this.user.id).subscribe(res => {
-        console.log(res);
         this.hasUnreadMessages = !!res;
         this.unreadMessages = res;
         //TODO: For every chat add notification
       }))
     }
+
+    this._userStoreService.isLoggedIn$.subscribe(res => {
+      if (res) {
+        this.user = this._userStoreService.getLoggedInUser();
+        this._changeDetectorRef.detectChanges();
+        console.log('logged in', this.user);
+      } else {
+        this.user = null;
+        this._changeDetectorRef.detectChanges();
+        console.log('logged out', this.user);
+      }
+    });
   }
 
   onToggleAccountMenuClick(): void {
@@ -118,7 +126,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onLogOutClick(): void {
-    this.user = this._userStoreService.getLoggedInUser();
     if (this.user !== null) {
       this.subscription.add(this._userService.logoutUser(this.user.id).subscribe(res => {
         this.collapsed = true;
