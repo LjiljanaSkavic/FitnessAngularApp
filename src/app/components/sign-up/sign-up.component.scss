@@ -19,11 +19,23 @@
   }
 }
 
-.file-label {
+.upload-button {
+  display: flex;
+}
 
-  span {
-    cursor: pointer;
-  }
+.file-label {
+  width: 100%;
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.file-label:hover {
+  background-color: #0056b3;
 }
 
 

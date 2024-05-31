@@ -8,6 +8,7 @@ import { UserDTO } from "../../models/dto/UserDTO";
 import { FileService } from "../../services/file.service";
 import { ActivationCardComponent } from "../activation-card/activation-card.component";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { LoginCardComponent } from "../login-card/login-card.component";
 
 @Component({
   selector: 'app-sign-up',
@@ -47,7 +48,12 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   onLogInClick($event: Event) {
-    this._router.navigateByUrl('login').catch(err => console.log(err));
+    this._dialogRef.close();
+    this.dialog.open(LoginCardComponent, {
+      hasBackdrop: true,
+      backdropClass: 'fitness-app-backdrop'
+    }).afterClosed().subscribe();
+    // this._router.navigateByUrl('login').catch(err => console.log(err));
   }
 
   onSignUpClick($event: MouseEvent) {

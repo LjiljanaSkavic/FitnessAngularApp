@@ -6,7 +6,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  width: 200px;
+  max-width: 20vw;
   height: 45vh;
   display: flex;
   flex-direction: column;
@@ -25,7 +25,6 @@
     text-align: center;
     font-size: 24px;
     padding: 12px;
-    font-weight: bold;
   }
 }
 

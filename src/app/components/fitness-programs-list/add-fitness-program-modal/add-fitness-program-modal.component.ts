@@ -15,7 +15,7 @@ import { DIFFICULTY_LEVELS } from "../../../constants/difficulty-levels";
 import { Attribute } from "../../../models/dto/Attribute";
 import { AttributeService } from "../../../services/attribute.service";
 
-export interface ModalData {
+interface ModalData {
   fitnessProgram: FitnessProgram;
   fitnessProgramImageUrls: string[];
   instructorImageUrl: string;

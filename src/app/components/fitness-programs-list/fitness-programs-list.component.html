@@ -58,16 +58,22 @@
       </button>
     </form>
   </div>
-  <div class="fitness-card-container">
-    <ng-container *ngFor="let fitnessProgramCard of fitnessProgramCards">
-      <app-fitness-program-preview-card [fitnessProgramCard]="fitnessProgramCard"></app-fitness-program-preview-card>
-    </ng-container>
-  </div>
+  <ng-container *ngIf="!isLoading; else loading">
+    <div class="fitness-card-container">
+      <ng-container *ngFor="let fitnessProgramCard of fitnessProgramCards">
+        <app-fitness-program-preview-card [fitnessProgramCard]="fitnessProgramCard"></app-fitness-program-preview-card>
+      </ng-container>
+    </div>
+  </ng-container>
 </div>
 <mat-paginator
   (page)="onPageChange($event)"
+  *ngIf="fitnessProgramCards"
   [length]="totalItems"
   [pageIndex]="pageIndex"
   [pageSize]="pageSize"
   class="mat-paginator">
 </mat-paginator>
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>

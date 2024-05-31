@@ -16,8 +16,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   styleUrls: ['./profile-details.component.scss']
 })
 export class ProfileDetailsComponent implements OnInit, OnDestroy {
-
-  isEditMode = true;
+  
   profileForm: FormGroup;
   user: AppUser = null;
   subs = new Subscription();
