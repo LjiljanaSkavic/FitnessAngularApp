@@ -45,8 +45,8 @@ import {
 } from './components/fitness-purchases-list/fitness-program-purchase-card/fitness-program-purchase-card.component';
 import { PaymentTypePipe } from "./pipes/payment-type.pipe";
 import {
-  AddFitnessProgramModalComponent
-} from './components/fitness-programs-list/add-fitness-program-modal/add-fitness-program-modal.component';
+  FitnessProgramModalComponent
+} from './components/fitness-programs-list/add-fitness-program-modal/fitness-program-modal.component';
 import { AdviceMessageModalComponent } from './components/advice-message-modal/advice-message-modal.component';
 import { ActivityLogsListComponent } from './components/activity-logs-list/activity-logs-list.component';
 import {
@@ -112,7 +112,7 @@ export const ANGULAR_MATERIAL_MODULES = [
     FitnessPurchasesListComponent,
     FitnessProgramPurchaseCardComponent,
     PaymentTypePipe,
-    AddFitnessProgramModalComponent,
+    FitnessProgramModalComponent,
     AdviceMessageModalComponent,
     ActivityLogsListComponent,
     ActivityLogDetailsComponent,

@@ -23,14 +23,15 @@ interface ModalData {
 
 @Component({
   selector: 'app-add-fitness-program-modal',
-  templateUrl: './add-fitness-program-modal.component.html',
-  styleUrls: ['./add-fitness-program-modal.component.scss']
+  templateUrl: './fitness-program-modal.component.html',
+  styleUrls: ['./fitness-program-modal.component.scss']
 })
-export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
+export class FitnessProgramModalComponent implements OnInit, OnDestroy {
   fitnessProgramForm: FormGroup;
   instructorForm: FormGroup;
   userId: number;
 
+  isEditMode = false;
   selectedImages: File[] = [];
   fitnessProgramImageUrls: string[] = [];
 
@@ -55,7 +56,7 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
 
   currentFitnessProgramIds: number[] = [];
 
-  constructor(private dialogRef: MatDialogRef<AddFitnessProgramModalComponent>,
+  constructor(private dialogRef: MatDialogRef<FitnessProgramModalComponent>,
               private _categoryService: CategoryService,
               private _userStoreService: UserStoreService,
               private _fileService: FileService,
@@ -65,11 +66,8 @@ export class AddFitnessProgramModalComponent implements OnInit, OnDestroy {
               @Inject(MAT_DIALOG_DATA) public data: ModalData) {
   }
 
-  ngOnInit() {
-
-    //TODO: Add variable isEditMode or isAddNewMode
-
-
+  ngOnInit(): void {
+    this.isEditMode = !!this.data;
     this.subs.add(this._categoryService.getAll().subscribe(res => {
       this.categories = res;
       this.categoriesLoading = false;

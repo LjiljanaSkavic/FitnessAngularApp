@@ -1,21 +1,19 @@
-<mat-card>
-    <mat-card-header>
-        <mat-card-title>{{ purchase.fitnessProgramCard.name }}</mat-card-title>
-        <mat-card-actions>
-            <button
-                (click)="onDeletePurchase(purchase.id)"
-                color="warn"
-                mat-icon-button>
-                <mat-icon>delete</mat-icon>
-            </button>
-        </mat-card-actions>
-    </mat-card-header>
-    <mat-card-content>
-        <div class="purchase-details">
-            <p><strong>Order ID:</strong> {{ purchase.orderId }}</p>
-            <p><strong>Date Time:</strong> {{ purchase.dateTime | date }}</p>
-            <p><strong>Payment Type:</strong> {{ purchase.paymentType | paymentType}}</p>
-            <p><strong>Price:</strong> {{ purchase.fitnessProgramCard.price }}</p>
-        </div>
-    </mat-card-content>
-</mat-card>
+<div class="fitness-program-purchase-card">
+  <mat-card-header class="fitness-program-purchase-card__header">
+    <mat-card-title>{{ purchase.fitnessProgramCard.name }}</mat-card-title>
+    <mat-card-actions>
+      <button
+        (click)="onDeletePurchase(purchase.id)"
+        color="warn"
+        mat-icon-button>
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card-header>
+  <mat-card-content class="fitness-program-purchase-card__container">
+    <div>Order ID: {{ purchase.orderId }}</div>
+    <div>Date: {{ purchase.dateTime | date }}</div>
+    <div>Payment Type: {{ purchase.paymentType | paymentType}}</div>
+    <div>Price: {{ purchase.fitnessProgramCard.price }} BAM</div>
+  </mat-card-content>
+</div>

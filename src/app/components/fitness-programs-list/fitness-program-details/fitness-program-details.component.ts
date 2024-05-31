@@ -16,7 +16,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { CommentService } from "../../../services/comment.service";
 import { ConfirmationModalComponent } from "../../../confirmation-modal/confirmation-modal.component";
 import { DIFFICULTY_LEVELS } from "../../../constants/difficulty-levels";
-import { AddFitnessProgramModalComponent } from "../add-fitness-program-modal/add-fitness-program-modal.component";
+import { FitnessProgramModalComponent } from "../add-fitness-program-modal/fitness-program-modal.component";
 
 @Component({
   selector: 'app-fitness-program-details',
@@ -242,9 +242,8 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
   }
 
   onEditFitnessProgramClick() {
-    this.dialog.open(AddFitnessProgramModalComponent, {
+    this.dialog.open(FitnessProgramModalComponent, {
       data: {
-        editMode: true,
         fitnessProgram: this.fitnessProgram,
         fitnessProgramImageUrls: this.fitnessProgramImageUrls,
         instructorImageUrl: this.instructorImageUrl

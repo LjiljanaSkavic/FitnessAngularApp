@@ -1,2 +1,40 @@
 @import "src/app/shared/colors";
 @import "src/app/shared/classes";
+
+.fitness-program-purchase-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  max-width: 20vw;
+  height: 65vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    cursor: default;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $color-blue-1;
+    color: $color-white;
+    font-size: 24px;
+    padding: 12px;
+  }
+
+  &__container {
+    height: 100%;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 0.875rem;
+  }
+}

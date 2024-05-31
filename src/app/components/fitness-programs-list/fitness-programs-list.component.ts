@@ -5,7 +5,7 @@ import { Category } from "../../models/dto/Category";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { FitnessProgramCard } from "../../models/FitnessProgramCard";
-import { AddFitnessProgramModalComponent } from "./add-fitness-program-modal/add-fitness-program-modal.component";
+import { FitnessProgramModalComponent } from "./add-fitness-program-modal/fitness-program-modal.component";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { snackBarConfig } from "../../shared/contants";
@@ -122,7 +122,7 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
   }
 
   onAddNewFitnessProgramClick(): void {
-    this.dialog.open(AddFitnessProgramModalComponent, {
+    this.dialog.open(FitnessProgramModalComponent, {
       hasBackdrop: true,
       backdropClass: 'fitness-app-backdrop'
     }).afterClosed().subscribe(result => {
