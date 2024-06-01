@@ -111,18 +111,18 @@
     </ng-container>
     <p *ngIf="fitnessProgram.completed"><strong>Status:</strong> Completed</p>
   </form>
-  <div
-    *ngIf="instructorImageUrl"
-    class="avatar-wrapper">
-    <img
-      [src]="instructorImageUrl"
-      alt="File"
-      class="avatar-image">
-  </div>
   <form
     [formGroup]="instructorForm"
     class="instructor-form">
     <div class="part-header">Instructor details</div>
+    <div
+      *ngIf="instructorImageUrl"
+      class="avatar-wrapper">
+      <img
+        [src]="instructorImageUrl"
+        alt="File"
+        class="avatar-image">
+    </div>
     <mat-form-field class="form-field">
       <mat-label>First Name</mat-label>
       <input
