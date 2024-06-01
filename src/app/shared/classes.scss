@@ -71,3 +71,26 @@
   width: 40px;
   height: 40px;
 }
+
+
+.upload-button {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.file-label {
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.file-label:hover {
+  background-color: #0056b3;
+}
+
+.file-input {
+  display: none;
+}

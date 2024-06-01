@@ -2,84 +2,101 @@
   *ngIf="!categoriesLoading"
   class="fitness-program-details">
   <div class="fitness-program-details__header">{{isEditMode ? 'Edit fitness program' : 'Add fitness program'}}</div>
-  <div class="">
-    <form [formGroup]="fitnessProgramForm">
-      <mat-form-field>
-        <mat-label>Choose category</mat-label>
-        <mat-select
-          (selectionChange)="onCategoryChange($event)"
-          formControlName="category">
-          <mat-option
-            *ngFor="let category of categories"
-            [value]="category.id">
-            {{ category.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <ng-container *ngFor="let controlName of dynamicFormControls">
+  <div class="fitness-program-details__container">
+    <form
+      [formGroup]="fitnessProgramForm"
+      class="form-wrapper">
+      <h3>Fitness program details</h3>
+      <div class="category-section">
         <mat-form-field>
-          <mat-label>{{ controlName }}</mat-label>
+          <mat-label>Choose category</mat-label>
+          <mat-select
+            (selectionChange)="onCategoryChange($event)"
+            formControlName="category">
+            <mat-option
+              *ngFor="let category of categories"
+              [value]="category.id">
+              {{ category.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <ng-container *ngFor="let controlName of dynamicFormControls">
+          <mat-form-field>
+            <mat-label>{{ controlName }}</mat-label>
+            <input
+              formControlName="{{ controlName }}"
+              matInput>
+          </mat-form-field>
+        </ng-container>
+      </div>
+      <div class="row">
+        <mat-form-field class="form-field">
+          <mat-label>Name</mat-label>
           <input
-            formControlName="{{ controlName }}"
+            formControlName="name"
             matInput>
         </mat-form-field>
-      </ng-container>
-      <mat-form-field class="form-field">
-        <mat-label>Name</mat-label>
-        <input
-          formControlName="name"
-          matInput>
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Description</mat-label>
-        <input
-          formControlName="description"
-          matInput>
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Price</mat-label>
-        <input
-          formControlName="price"
-          matInput>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Difficulty level</mat-label>
-        <mat-select formControlName="difficultyLevel">
-          <mat-option
-            *ngFor="let difficultyLevel of difficultyLevels; let i = index"
-            [value]="i + 1">
-            {{ difficultyLevel }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Duration (hh:mm:ss)</mat-label>
-        <input
-          formControlName="duration"
-          matInput>
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Location</mat-label>
-        <input
-          formControlName="location"
-          matInput>
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Contact</mat-label>
-        <input
-          formControlName="contactEmail"
-          matInput>
-      </mat-form-field>
-      <div>
+        <mat-form-field class="form-field">
+          <mat-label>Price</mat-label>
+          <input
+            formControlName="price"
+            matInput
+            type="number">
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field>
+          <mat-label>Difficulty level</mat-label>
+          <mat-select formControlName="difficultyLevel">
+            <mat-option
+              *ngFor="let difficultyLevel of difficultyLevels; let i = index"
+              [value]="i + 1">
+              {{ difficultyLevel }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>Duration (hh:mm:ss)</mat-label>
+          <input
+            formControlName="duration"
+            matInput>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="form-field">
+          <mat-label>Location</mat-label>
+          <input
+            formControlName="location"
+            matInput>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>Contact</mat-label>
+          <input
+            formControlName="contactEmail"
+            matInput>
+        </mat-form-field>
+      </div>
+      <div
+        class="full-width-row">
+        <mat-form-field class="form-field">
+          <mat-label>Description</mat-label>
+          <input
+            formControlName="description"
+            matInput>
+        </mat-form-field>
+      </div>
+      <div
+        class="upload-button">
         <label
-          class="custom-file-input"
-          for="fileInput">Choose fitness program photos</label>
-        <input
-          (change)="onFileChange($event)"
-          class="file-input"
-          id="fileInput"
-          multiple
-          type="file">
+          class="file-label"
+          for="fileInput">
+          <span>Choose fitness program photos</span>
+          <input
+            (change)="onFileChange($event)"
+            class="file-input"
+            id="fileInput"
+            type="file">
+        </label>
       </div>
       <div class="image-preview-container">
         <div
@@ -97,55 +114,65 @@
     </form>
     <form
       [formGroup]="instructorForm"
-      class="instructor-form">
+      class="form-wrapper">
       <h3>Instructor details</h3>
-      <mat-form-field class="form-field">
-        <mat-label>First Name</mat-label>
-        <input
-          formControlName="firstName"
-          matInput>
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Last Name</mat-label>
-        <input
-          formControlName="lastName"
-          matInput>
-      </mat-form-field>
-      <div class="form-field">
-        <mat-radio-group formControlName="sex">
-          <mat-radio-button value="male">Male</mat-radio-button>
-          <mat-radio-button value="female">Female</mat-radio-button>
-        </mat-radio-group>
+      <div class="row">
+        <mat-form-field class="form-field">
+          <mat-label>First Name</mat-label>
+          <input
+            formControlName="firstName"
+            matInput>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>Last Name</mat-label>
+          <input
+            formControlName="lastName"
+            matInput>
+        </mat-form-field>
       </div>
-      <mat-form-field class="form-field">
-        <mat-label>Age</mat-label>
-        <input
-          formControlName="age"
-          matInput
-          type="number">
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Height</mat-label>
-        <input
-          formControlName="height"
-          matInput>
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Weight</mat-label>
-        <input
-          formControlName="weight"
-          matInput>
-      </mat-form-field>
-
-      <div>
+      <div class="row">
+        <div class="form-field">
+          <mat-radio-group formControlName="sex">
+            <mat-radio-button value="male">Male</mat-radio-button>
+            <mat-radio-button value="female">Female</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <mat-form-field class="form-field">
+          <mat-label>Age</mat-label>
+          <input
+            formControlName="age"
+            matInput
+            type="number">
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="form-field">
+          <mat-label>Height</mat-label>
+          <input
+            formControlName="height"
+            matInput
+            type="number">
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>Weight</mat-label>
+          <input
+            formControlName="weight"
+            matInput
+            type="number">
+        </mat-form-field>
+      </div>
+      <div
+        class="upload-button">
         <label
-          class="custom-file-input"
-          for="instructorFileInput">Choose instructor photo</label>
-        <input
-          (change)="onInstructorFileChange($event)"
-          class="file-input"
-          id="instructorFileInput"
-          type="file">
+          class="file-label"
+          for="instructorFileInput">
+          <span>Choose instructor photo</span>
+          <input
+            (change)="onInstructorFileChange($event)"
+            class="file-input"
+            id="instructorFileInput"
+            type="file">
+        </label>
       </div>
 
       <div class="image-preview-container">
@@ -162,20 +189,19 @@
         </div>
       </div>
     </form>
-
-    <div
-      class="button-wrapper"
-      mat-dialog-actions>
-      <button
-        [mat-dialog-close]="null"
-        class="button-discard"
-        mat-button>Discard
-      </button>
-      <button
-        (click)="onDialogClose()"
-        class="button-save"
-        mat-button>Save
-      </button>
-    </div>
+  </div>
+  <div
+    class="button-wrapper"
+    mat-dialog-actions>
+    <button
+      [mat-dialog-close]="null"
+      class="button-discard"
+      mat-button>Discard
+    </button>
+    <button
+      (click)="onDialogClose()"
+      class="button-save"
+      mat-button>Save
+    </button>
   </div>
 </div>

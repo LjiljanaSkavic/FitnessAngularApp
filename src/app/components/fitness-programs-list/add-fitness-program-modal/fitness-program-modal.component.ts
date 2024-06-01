@@ -165,7 +165,6 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
         };
         reader.readAsDataURL(file);
       }
-
     }
   }
 
