@@ -5,27 +5,3 @@
 .fitness-app-backdrop {
   background-color: rgba(0, 0, 0, 0.8);
 }
-
-.button-primary {
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-
-  mat-icon {
-    color: $color-blue-1;
-  }
-}
-
-.button-danger {
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-
-  mat-icon {
-    color: $color-red-1;
-  }
-}

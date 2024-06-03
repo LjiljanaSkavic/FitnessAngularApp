@@ -7,7 +7,7 @@
 }
 
 .my-comment-wrapper {
-  background-color: $color-blue-1;
+  background-color: $color-gray-1;
   display: flex;
   flex-grow: 1;
   flex-direction: row-reverse;
@@ -20,7 +20,7 @@
 }
 
 .other-people-comment-wrapper {
-  background-color: $color-gray-1;
+  background-color: $color-blue-1;
   display: flex;
   flex-grow: 1;
   align-items: center;
@@ -39,11 +39,4 @@
 .avatar-wrapper img {
   width: 40px;
   height: 40px;
-}
-
-.button-wrapper button {
-  background-color: transparent;
-  border: none;
-  color: white;
-  cursor: pointer;
 }

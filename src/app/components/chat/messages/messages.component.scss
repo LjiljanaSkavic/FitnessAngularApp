@@ -16,8 +16,8 @@
   display: flex;
   align-items: center;
   padding: 4px;
-  background-color: #f8f8f8; /* Light background color */
-  border-top: 1px solid #e0e0e0; /* Subtle top border */
+  background-color: #f8f8f8;
+  border-top: 1px solid #e0e0e0;
 }
 
 .message-input-field {
@@ -38,7 +38,7 @@
   border: 1px solid #ccc; /* Adjust as needed */
 }
 
-button[mat-icon-button] {
+.button-send {
   background-color: #007bff; /* Button background color */
   color: white; /* Button text color */
   border: none;
@@ -49,17 +49,12 @@ button[mat-icon-button] {
   justify-content: center;
   cursor: pointer;
   transition: background-color 0.3s ease;
-}
 
-button[mat-icon-button] mat-icon {
-  font-size: 20px; /* Reduced icon size if needed */
-}
+  &:hover {
+    background-color: #0056b3;
+  }
 
-button[mat-icon-button]:hover {
-  background-color: #0056b3; /* Darker shade on hover */
-}
-
-button[mat-icon-button][disabled] {
-  background-color: #ccc; /* Disabled button color */
-  cursor: not-allowed;
+  &:disabled {
+    background-color: #ccc; /* Disabled button color */
+  }
 }

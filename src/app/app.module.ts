@@ -72,6 +72,7 @@ import { ChatMessageComponent } from './components/chat/chat-message/chat-messag
 import { MatBadgeModule } from "@angular/material/badge";
 import { TruncatePipe } from "./pipes/truncate.pipe";
 import { ActivityLogTypePipe } from "./pipes/activity-log-type.pipe";
+import { DifficultyLevelPipe } from "./pipes/difficulty-level.pipe";
 
 export const ANGULAR_MATERIAL_MODULES = [
   MatIconModule,
@@ -128,7 +129,8 @@ export const ANGULAR_MATERIAL_MODULES = [
     MessagesComponent,
     ChatMessageComponent,
     TruncatePipe,
-    ActivityLogTypePipe
+    ActivityLogTypePipe,
+    DifficultyLevelPipe
   ],
   imports: [
     BrowserModule,

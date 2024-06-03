@@ -5,17 +5,15 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { FitnessProgramService } from "../../../services/fitness-program.service";
 import { FileService } from "../../../services/file.service";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { Instructor } from "../../../models/Instructor";
 import { BuyProgramComponent } from "../../buy-program/buy-program.component";
 import { MatDialog } from "@angular/material/dialog";
 import { UserStoreService } from "../../../services/user-store.service";
 import { FitnessProgramPurchaseService } from "../../../services/fitness-program-purchase.service";
 import { CommentRequest } from "../../../models/dto/CommentRequest";
-import { ERROR_HAS_OCCURRED_MESSAGE, MESSAGE_SUCCESS, snackBarConfig } from "../../../shared/contants";
+import { ERROR_HAS_OCCURRED_MESSAGE, snackBarConfig } from "../../../shared/contants";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { CommentService } from "../../../services/comment.service";
 import { ConfirmationModalComponent } from "../../../confirmation-modal/confirmation-modal.component";
-import { DIFFICULTY_LEVELS } from "../../../constants/difficulty-levels";
 import { FitnessProgramModalComponent } from "../add-fitness-program-modal/fitness-program-modal.component";
 
 @Component({
@@ -27,7 +25,6 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
 
   id: number;
   isLoading = true;
-  isEditMode = false;
   fitnessProgram: FitnessProgram = {} as FitnessProgram;
   fitnessProgramForm: FormGroup;
   instructorForm: FormGroup;
@@ -38,14 +35,11 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
   selectedFile: File | null = null;
   selectedFileName = '';
   fileUrl: string | ArrayBuffer | null = null;
-  fileUrlOriginal = null;
   isLoggedIn = false;
   leaveCommentForm: FormGroup;
   isMyFitnessProgram: boolean = false;
-  difficultyLevels = DIFFICULTY_LEVELS;
   fitnessProgramImageUrls: string[] = [];
   instructorImageUrl: string = '';
-  activeIndex = 0;
   dynamicFormControls: string[] = [];
 
 
@@ -74,7 +68,6 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
       this.fitnessProgram = res;
       this.isMyFitnessProgram = this.userId === this.fitnessProgram.appUserCreatorId;
       this.buildFitnessForm(this.fitnessProgram);
-      this.buildInstructorForm(this.fitnessProgram.instructor);
       this.getAllImageUrls();
       this.getInstructorImageUrl();
       this.buildAttributes();
@@ -84,14 +77,6 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
       {
         commentContent: new FormControl('', Validators.required)
       });
-  }
-
-  onFileSelected(event: any): void {
-    const file: File = event.target.files[0];
-    if (file) {
-      this.displaySelectedFile(file);
-    }
-    this.selectedFile = event.target.files[0];
   }
 
   displaySelectedFile(file: File) {
@@ -113,6 +98,8 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
       contactEmail: new FormControl(fitnessProgram.contactEmail),
       category: new FormControl(fitnessProgram.category.name),
     });
+
+    this.fitnessProgramForm.disable();
   }
 
   getAllImageUrls(): void {
@@ -150,18 +137,7 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
     })
   }
 
-  buildInstructorForm(instructor: Instructor) {
-    this.instructorForm = new FormGroup({
-      firstName: new FormControl(instructor.firstName),
-      lastName: new FormControl(instructor.lastName),
-      age: new FormControl(instructor.age),
-      height: new FormControl(instructor.height),
-      weight: new FormControl(instructor.weight),
-      sex: new FormControl(instructor.sex),
-    });
-  }
-
-  onPostCommentClick() {
+  onPostCommentClick(): void {
     const commentContent = this.leaveCommentForm.get('commentContent')?.value;
     const commentRequest: CommentRequest = {
       content: commentContent,
@@ -174,9 +150,7 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
       this._commentService.createComment(commentRequest).subscribe(
         newComment => {
           this.fitnessProgram.comments.push(newComment);
-          this._snackBar.open(MESSAGE_SUCCESS, "OK", snackBarConfig);
-
-          //TODO: push comments in the list of comments in program
+          this._snackBar.open('Comment posted successfully', "OK", snackBarConfig);
           this.leaveCommentForm.reset();
         },
         err => {
@@ -185,18 +159,14 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
       ));
   }
 
-  commentDeleted(id: number) {
+  commentDeleted(id: number): void {
     const index = this.fitnessProgram.comments.findIndex(comment => comment.id === id);
     if (index !== -1) {
       this.fitnessProgram.comments.splice(index, 1);
     }
   }
 
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
-  }
-
-  onDeleteFitnessProgramClick() {
+  onDeleteFitnessProgramClick(): void {
     this.dialog.open(ConfirmationModalComponent, {
       data: {
         title: "Delete fitness program",
@@ -214,7 +184,7 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  onCompleteFitnessProgramClick() {
+  onCompleteFitnessProgramClick(): void {
     this.dialog.open(ConfirmationModalComponent, {
       data: {
         title: "Complete fitness program",
@@ -236,12 +206,13 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
 
     this.dynamicFormControls.forEach((controlName, index) => {
       const attributeValue = this.fitnessProgram.attributes[index].value;
-      this.fitnessProgramForm.addControl(controlName,
-        this._formBuilder.control(attributeValue, Validators.required));
+      const control = this._formBuilder.control({value: attributeValue, disabled: true});
+      this.fitnessProgramForm.addControl(controlName, control);
     });
   }
 
-  onEditFitnessProgramClick() {
+
+  onEditFitnessProgramClick(): void {
     this.dialog.open(FitnessProgramModalComponent, {
       data: {
         fitnessProgram: this.fitnessProgram,
@@ -262,5 +233,9 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
     })).subscribe(res => {
       console.log(res);
     })
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 }

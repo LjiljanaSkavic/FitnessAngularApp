@@ -1,38 +1,42 @@
 <div class="comment">
-    <form
-        [formGroup]="commentForm"
-        [ngClass]="isMyComment ? 'my-comment-wrapper' : 'other-people-comment-wrapper'">
-        <div class="avatar-wrapper">
-            <img
-                [matTooltip]="comment.appUser.username"
-                [src]="imageURL">
-        </div>
-        <mat-form-field class="form-field">
-            <input
-                formControlName="myComment"
-                matInput>
-        </mat-form-field>
-        <div class="button-wrapper">
-            <button
-                (click)="onEditCommentClick()"
-                *ngIf="isMyComment && !isEditMode">
-                <mat-icon>edit</mat-icon>
-            </button>
-            <button
-                (click)="onSaveEditCommentClick()"
-                *ngIf="isMyComment && isEditMode">
-                <mat-icon>done</mat-icon>
-            </button>
-            <button
-                (click)="onDiscardEditCommentClick()"
-                *ngIf="isMyComment && isEditMode">
-                <mat-icon>cancel</mat-icon>
-            </button>
-            <button
-                (click)="onDeleteCommentClick()"
-                *ngIf="isMyComment && !isEditMode">
-                <mat-icon>delete</mat-icon>
-            </button>
-        </div>
-    </form>
+  <form
+    [formGroup]="commentForm"
+    [ngClass]="isMyComment ? 'my-comment-wrapper' : 'other-people-comment-wrapper'">
+    <div class="avatar-wrapper">
+      <img
+        [matTooltip]="comment.appUser.username"
+        [src]="imageURL">
+    </div>
+    <mat-form-field class="form-field">
+      <input
+        formControlName="myComment"
+        matInput>
+    </mat-form-field>
+    <div class="button-wrapper">
+      <button
+        (click)="onEditCommentClick()"
+        *ngIf="isMyComment && !isEditMode"
+        class="button-primary">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        (click)="onSaveEditCommentClick()"
+        *ngIf="isMyComment && isEditMode"
+        class="button-primary">
+        <mat-icon>done</mat-icon>
+      </button>
+      <button
+        (click)="onDiscardEditCommentClick()"
+        *ngIf="isMyComment && isEditMode"
+        class="button-primary">
+        <mat-icon>cancel</mat-icon>
+      </button>
+      <button
+        (click)="onDeleteCommentClick()"
+        *ngIf="isMyComment && !isEditMode"
+        class="button-danger">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </form>
 </div>
