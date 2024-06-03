@@ -1,96 +1,101 @@
 <div class="buy-product-wrapper">
-  <form [formGroup]="selectPayingForm">
-    <mat-radio-group
-      aria-label="Select paying option"
-      formControlName="payingOption">
-      <mat-radio-button
-        checked
-        value="0">Cash on delivery (COD)
-      </mat-radio-button>
-      <mat-radio-button value="1">Credit card</mat-radio-button>
-    </mat-radio-group>
-  </form>
-  <div [ngSwitch]="codPayingSelected">
-    <ng-container *ngSwitchCase="true">
-      <form
-        [formGroup]="codPayingForm"
-        class="buy-product-form">
-        <mat-label>Please enter your address data:</mat-label>
-        <mat-form-field class="form-field">
-          <mat-label>Country</mat-label>
-          <input
-            formControlName="country"
-            matInput>
-        </mat-form-field>
-        <mat-form-field class="form-field">
-          <mat-label>City</mat-label>
-          <input
-            formControlName="city"
-            matInput>
-        </mat-form-field>
-        <mat-form-field class="form-field">
-          <mat-label>Postal code</mat-label>
-          <input
-            formControlName="postalCode"
-            matInput>
-        </mat-form-field>
-        <mat-form-field class="form-field">
-          <mat-label>Street address</mat-label>
-          <input
-            formControlName="streetAddress"
-            matInput>
-        </mat-form-field>
-        <mat-form-field class="form-field">
-          <mat-label>Street number</mat-label>
-          <input
-            formControlName="streetNumber"
-            matInput>
-        </mat-form-field>
-      </form>
-    </ng-container>
+  <div class="buy-product-wrapper__header">Buy product</div>
+  <div class="buy-product-wrapper__container">
+    <form [formGroup]="selectPayingForm">
+      <mat-radio-group
+        aria-label="Select paying option"
+        formControlName="payingOption">
+        <mat-radio-button
+          checked
+          value="0">Cash on delivery (COD)
+        </mat-radio-button>
+        <mat-radio-button value="1">Credit card</mat-radio-button>
+      </mat-radio-group>
+    </form>
+    <div [ngSwitch]="codPayingSelected">
+      <ng-container *ngSwitchCase="true">
+        <form
+          [formGroup]="codPayingForm"
+          class="buy-product-form">
+          <div class="buy-product-form__column">
+            <mat-form-field class="form-field">
+              <mat-label>Country</mat-label>
+              <input
+                formControlName="country"
+                matInput>
+            </mat-form-field>
+            <mat-form-field class="form-field">
+              <mat-label>City</mat-label>
+              <input
+                formControlName="city"
+                matInput>
+            </mat-form-field>
+          </div>
+          <div class="buy-product-form__column">
+            <mat-form-field class="form-field">
+              <mat-label>Postal code</mat-label>
+              <input
+                formControlName="postalCode"
+                matInput>
+            </mat-form-field>
+            <mat-form-field class="form-field">
+              <mat-label>Street address</mat-label>
+              <input
+                formControlName="streetAddress"
+                matInput>
+            </mat-form-field>
+            <mat-form-field class="form-field">
+              <mat-label>Street number</mat-label>
+              <input
+                formControlName="streetNumber"
+                matInput>
+            </mat-form-field>
+          </div>
+        </form>
+      </ng-container>
 
-    <ng-container *ngSwitchCase="false">
-      <form
-        [formGroup]="creditCardPayingForm"
-        class="buy-product-form">
-        <mat-label>Please enter your credit card data:</mat-label>
-        <mat-form-field class="form-field">
-          <mat-label>Credit card number</mat-label>
-          <input
-            formControlName="creditCardNumber"
-            matInput>
-        </mat-form-field>
-        <mat-form-field class="form-field">
-          <mat-label>First and last name</mat-label>
-          <input
-            formControlName="firstAndLastName"
-            matInput>
-        </mat-form-field>
-        <mat-form-field class="form-field">
-          <mat-label>CVV2/CVC2</mat-label>
-          <input
-            formControlName="cvvNumber"
-            matInput>
-        </mat-form-field>
-        <mat-radio-group formControlName="confirmProcessing">
-          <mat-radio-button value="1">I confirm the processing of the credit
-            card data
-          </mat-radio-button>
-        </mat-radio-group>
-      </form>
-    </ng-container>
-  </div>
-  <div class="button-wrapper">
-    <button
-      [mat-dialog-close]="null"
-      class="button-discard"
-      mat-button>Discard
-    </button>
-    <button
-      [mat-dialog-close]="purchase"
-      class="button-save"
-      mat-button>
-      Save
-    </button>
+      <ng-container *ngSwitchCase="false">
+        <form
+          [formGroup]="creditCardPayingForm"
+          class="buy-product-credit-form">
+          <mat-form-field class="form-field">
+            <mat-label>Credit card number</mat-label>
+            <input
+              formControlName="creditCardNumber"
+              matInput>
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>First and last name</mat-label>
+            <input
+              formControlName="firstAndLastName"
+              matInput>
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>CVV2/CVC2</mat-label>
+            <input
+              formControlName="cvvNumber"
+              matInput>
+          </mat-form-field>
+          <mat-radio-group formControlName="confirmProcessing">
+            <mat-radio-button value="1">I confirm the processing of the credit
+              card data
+            </mat-radio-button>
+          </mat-radio-group>
+        </form>
+      </ng-container>
+    </div>
+    <div class="button-wrapper">
+      <button
+        [mat-dialog-close]="null"
+        class="button-discard"
+        mat-button>Discard
+      </button>
+      <button
+        [mat-dialog-close]="purchase"
+        class="button-save"
+        mat-button>
+        Save
+      </button>
+    </div>
   </div>
 </div>

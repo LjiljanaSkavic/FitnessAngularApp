@@ -1,2 +1,36 @@
 @import "src/app/shared/colors";
 @import "src/app/shared/classes";
+
+.buy-product-wrapper {
+  max-height: 500px;
+  overflow: hidden;
+
+  &__header {
+    background-color: $color-blue-1;
+    color: $color-white;
+    text-align: center;
+    font-size: 20px;
+    padding: 20px 0;
+  }
+
+  &__container {
+    padding: 16px;
+  }
+}
+
+.buy-product-form {
+  display: flex;
+  gap: 16px;
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+.buy-product-credit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
