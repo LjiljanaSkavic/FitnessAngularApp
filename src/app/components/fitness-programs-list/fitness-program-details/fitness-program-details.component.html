@@ -79,8 +79,21 @@
             formControlName="contactEmail"
             matInput>
         </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>Creation date</mat-label>
+          <input
+            formControlName="creationDate"
+            matInput>
+        </mat-form-field>
       </div>
       <div class="column">
+        <mat-form-field class="form-field">
+          <mat-label>Status</mat-label>
+          <input
+            formControlName="status"
+            matInput
+          >
+        </mat-form-field>
         <mat-form-field class="form-field">
           <mat-label>Category</mat-label>
           <input
@@ -96,8 +109,6 @@
               matInput>
           </mat-form-field>
         </ng-container>
-        <div *ngIf="fitnessProgram.completed"><strong>Status:</strong> Completed</div>
-        <div *ngIf="!fitnessProgram.completed"><strong>Status:</strong> Active</div>
       </div>
     </form>
     <div class="instructor-details">

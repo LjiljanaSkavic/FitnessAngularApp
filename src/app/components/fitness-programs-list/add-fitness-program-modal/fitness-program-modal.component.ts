@@ -271,6 +271,7 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
     this.fitnessProgramDTO = {
       categoryId: this.fitnessProgramForm.get('category').value,
       contactEmail: this.fitnessProgramForm.get('contactEmail').value,
+      creationDate: new Date(),
       description: this.fitnessProgramForm.get('description').value,
       difficultyLevel: +this.fitnessProgramForm.get('difficultyLevel').value,
       duration: this.fitnessProgramForm.get('duration').value,

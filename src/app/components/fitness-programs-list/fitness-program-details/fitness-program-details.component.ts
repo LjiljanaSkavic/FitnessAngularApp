@@ -15,6 +15,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { CommentService } from "../../../services/comment.service";
 import { ConfirmationModalComponent } from "../../../confirmation-modal/confirmation-modal.component";
 import { FitnessProgramModalComponent } from "../add-fitness-program-modal/fitness-program-modal.component";
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: 'app-fitness-program-details',
@@ -50,6 +51,7 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
               private _commentService: CommentService,
               private _router: Router,
               private _formBuilder: FormBuilder,
+              private _datePipe: DatePipe,
               public dialog: MatDialog) {
   }
 
@@ -77,7 +79,9 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
-  buildFitnessForm(fitnessProgram: FitnessProgram) {
+  buildFitnessForm(fitnessProgram: FitnessProgram): void {
+
+    const formattedCreationDate = this._datePipe.transform(fitnessProgram.creationDate, 'MMM d, y');
     this.fitnessProgramForm = new FormGroup({
       price: new FormControl(fitnessProgram.price),
       difficultyLevel: new FormControl(fitnessProgram.difficultyLevel),
@@ -85,6 +89,8 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
       location: new FormControl(fitnessProgram.location),
       contactEmail: new FormControl(fitnessProgram.contactEmail),
       category: new FormControl(fitnessProgram.category.name),
+      creationDate: new FormControl(formattedCreationDate),
+      status: new FormControl(this.fitnessProgram.completed ? 'Completed' : 'Active')
     });
 
     this.fitnessProgramForm.disable();

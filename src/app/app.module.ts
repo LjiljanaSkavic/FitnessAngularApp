@@ -38,7 +38,7 @@ import { ManagePasswordComponent } from './components/manage-password/manage-pas
 import { BuyProgramComponent } from './components/buy-program/buy-program.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
-import { NgOptimizedImage } from "@angular/common";
+import { DatePipe, NgOptimizedImage } from "@angular/common";
 import { FitnessPurchasesListComponent } from './components/fitness-purchases-list/fitness-purchases-list.component';
 import {
   FitnessProgramPurchaseCardComponent
@@ -90,6 +90,7 @@ export const ANGULAR_MATERIAL_MODULES = [
   MatPaginatorModule,
   MatDatepickerModule,
   MatNativeDateModule,
+  MatTableModule
 ]
 
 @NgModule({
@@ -139,10 +140,9 @@ export const ANGULAR_MATERIAL_MODULES = [
     ReactiveFormsModule,
     ANGULAR_MATERIAL_MODULES,
     NgOptimizedImage,
-    MatTableModule,
     GoogleChartsModule
   ],
-  providers: [HttpClient],
+  providers: [HttpClient, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {

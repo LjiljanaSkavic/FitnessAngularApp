@@ -44,7 +44,6 @@ export class FitnessProgramService {
   }
 
   create(fitnessProgram: FitnessProgramRequest): Observable<FitnessProgramRequest> {
-    console.log('create', fitnessProgram)
     return this._httpClient.post<FitnessProgramRequest>(this.baseUrl, fitnessProgram);
   }
 
