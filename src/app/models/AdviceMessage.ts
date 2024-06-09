@@ -3,4 +3,5 @@ export interface AdviceMessage {
   isRead: boolean;
   dateTime: Date;
   appUserSender: number;
+  fileIds: number[];
 }

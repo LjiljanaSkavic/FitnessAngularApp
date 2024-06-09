@@ -77,16 +77,6 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
-  displaySelectedFile(file: File) {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      this.fileUrl = event.target.result.toString();
-      this.selectedFileName = file.name;
-      // this.fitnessProgramForm.get('image').setValue(file.name); //add form for edit mode
-    };
-    reader.readAsDataURL(file);
-  }
-
   buildFitnessForm(fitnessProgram: FitnessProgram) {
     this.fitnessProgramForm = new FormGroup({
       price: new FormControl(fitnessProgram.price),

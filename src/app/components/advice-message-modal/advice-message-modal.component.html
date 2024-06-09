@@ -1,10 +1,11 @@
 <div class="advice-message-wrapper">
   <div
     class="advice-message-wrapper__header"
-    mat-dialog-title>Need help with a fitness plan?
+    mat-dialog-title>
+    Need help with a fitness plan?
   </div>
   <form
-    [formGroup]="adviceMessageFrom"
+    [formGroup]="adviceMessageForm"
     class="comment-card">
     <mat-form-field class="comment-card__field">
       <mat-label>Ask for advice</mat-label>
@@ -14,19 +15,61 @@
         matInput
         placeholder="e.g., Hi, I'm working every day from 9 to 5. Can you help me choose a program?"></textarea>
     </mat-form-field>
+
+    <div class="upload-button">
+      <label
+        class="file-label"
+        for="fileInput">
+        <span>Upload attachments</span>
+        <input
+          (change)="onFilesSelected($event)"
+          class="file-input"
+          id="fileInput"
+          multiple
+          type="file"
+        />
+      </label>
+    </div>
+
+    <div
+      *ngIf="files.length > 0"
+      class="file-preview">
+      <div
+        *ngFor="let file of files; let i = index"
+        class="file-wrapper">
+        <mat-icon
+          *ngIf="!file.isImage"
+          class="file-icon">file_present
+        </mat-icon>
+        <img
+          *ngIf="file.isImage"
+          [src]="file.url"
+          alt="File"
+          class="file-wrapper__image"/>
+        <span class="file-name">{{ file.name }}</span>
+        <button
+          (click)="removeFile(i)"
+          class="remove-button"
+          type="button">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
   </form>
   <div
     class="button-wrapper"
     mat-dialog-actions>
     <button
-      [mat-dialog-close]="DIALOG_RESPONSE.DISCARD"
+      (click)="onDiscardClick()"
       class="button-discard"
-      mat-button>Discard
+      mat-button>
+      Discard
     </button>
     <button
-      [mat-dialog-close]="messageControl.value"
+      (click)="onSendAdviceMessageClick()"
       class="button-save"
-      mat-button>Send
+      mat-button>
+      Send
     </button>
   </div>
 </div>

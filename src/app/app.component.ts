@@ -6,11 +6,9 @@ import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular
 import { UserStoreService } from "./services/user-store.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ERROR_HAS_OCCURRED_MESSAGE, MESSAGE_SUCCESS, snackBarConfig } from "./shared/contants";
-import { EMPTY, Subscription, switchMap } from "rxjs";
+import { Subscription } from "rxjs";
 import { AppUser } from "./models/AppUser";
 import { AdviceMessageModalComponent } from "./components/advice-message-modal/advice-message-modal.component";
-import { DIALOG_RESPONSE } from "./confirmation-modal/confirmation-modal.component";
-import { AdviceMessage } from "./models/AdviceMessage";
 import { AdviceMessageService } from "./services/advice-message.service";
 import { ProfileDetailsComponent } from "./components/profile-details/profile-details.component";
 import { ManagePasswordComponent } from "./components/manage-password/manage-password.component";
@@ -131,26 +129,17 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onSendAdviceMessageClick(): void {
     this.dialog.open(AdviceMessageModalComponent, {
+        data: {
+          userId: this.user.id
+        },
         hasBackdrop: true,
         backdropClass: 'fitness-app-backdrop'
-      }
-    ).afterClosed().pipe(switchMap(message => {
-        if (!!message && message !== DIALOG_RESPONSE.DISCARD) {
-          const adviceMessage: AdviceMessage = {
-            text: message,
-            isRead: false,
-            dateTime: new Date(),
-            appUserSender: this.user.id,
-          }
-
-          return this._adviceMessageService.sendMessage(adviceMessage)
-        }
-        return EMPTY;
-      }
-    )).subscribe((result) => {
-        this._snackBar.open(MESSAGE_SUCCESS, "OK", snackBarConfig)
       },
-      (err) => {
+    ).afterClosed().subscribe(
+      (res) => {
+        res ? this._snackBar.open(MESSAGE_SUCCESS, "OK", snackBarConfig) : this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
+      },
+      () => {
         this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig)
       });
   }

@@ -31,3 +31,26 @@
 .comment-content {
   width: 100%;
 }
+
+.file-wrapper {
+  display: flex;
+  align-items: center;
+  height: 32px;
+
+  img {
+    width: 32px;
+  }
+}
+
+.remove-button {
+  background: none;
+  border: none;
+  color: red;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+
+  mat-icon {
+    font-size: 16px;
+  }
+}
