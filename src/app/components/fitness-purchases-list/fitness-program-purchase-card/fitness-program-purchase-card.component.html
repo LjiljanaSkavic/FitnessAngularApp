@@ -11,9 +11,28 @@
     </mat-card-actions>
   </mat-card-header>
   <mat-card-content class="fitness-program-purchase-card__container">
-    <div>Order ID: {{ purchase.orderId }}</div>
-    <div>Date: {{ purchase.dateTime | date }}</div>
-    <div>Payment Type: {{ purchase.paymentType | paymentType}}</div>
-    <div>Price: {{ purchase.fitnessProgramCard.price }} BAM</div>
+    <div
+      *ngIf="fileUrl"
+      class="avatar-wrapper">
+      <img
+        [src]="fileUrl"
+        alt="File"
+        class="avatar-image">
+    </div>
+    <div class="order-info">
+      <div class="order-info__field">
+        <span class="text">Order ID:</span><span class="value"> {{ purchase.orderId }}</span>
+      </div>
+      <div class="order-info__field">
+        <span class="text">Date:</span><span class="value"> {{ purchase.dateTime | date }}</span>
+      </div>
+      <div class="order-info__field">
+        <span class="text">Payment Type:</span><span class="value"> {{ purchase.paymentType | paymentType}}</span>
+      </div>
+      <div class="order-info__field">
+        <span class="text">Price:</span><span class="value"> {{ purchase.fitnessProgramCard.price }}
+        BAM</span>
+      </div>
+    </div>
   </mat-card-content>
 </div>

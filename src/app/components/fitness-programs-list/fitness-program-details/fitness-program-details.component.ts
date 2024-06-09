@@ -27,12 +27,10 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
   isLoading = true;
   fitnessProgram: FitnessProgram = {} as FitnessProgram;
   fitnessProgramForm: FormGroup;
-  instructorForm: FormGroup;
   userId: number;
 
   subs = new Subscription();
 
-  selectedFile: File | null = null;
   selectedFileName = '';
   fileUrl: string | ArrayBuffer | null = null;
   isLoggedIn = false;

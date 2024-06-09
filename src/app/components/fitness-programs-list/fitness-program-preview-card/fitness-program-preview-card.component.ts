@@ -5,44 +5,45 @@ import { FileService } from "../../../services/file.service";
 import { Subscription } from "rxjs";
 
 @Component({
-    selector: 'app-fitness-program-preview-card',
-    templateUrl: './fitness-program-preview-card.component.html',
-    styleUrls: ['./fitness-program-preview-card.component.scss']
+  selector: 'app-fitness-program-preview-card',
+  templateUrl: './fitness-program-preview-card.component.html',
+  styleUrls: ['./fitness-program-preview-card.component.scss']
 })
 export class FitnessProgramPreviewCardComponent implements OnInit, OnDestroy {
 
-    @Input() fitnessProgramCard: FitnessProgramCard = {} as FitnessProgramCard;
-    fileUrl: any;
-    subs = new Subscription();
+  @Input() fitnessProgramCard: FitnessProgramCard = {} as FitnessProgramCard;
+  fileUrl: any;
+  subs = new Subscription();
 
-    constructor(private _router: Router, private _fileService: FileService) {
-    }
+  constructor(private _router: Router,
+              private _fileService: FileService) {
+  }
 
-    ngOnInit() {
-        this.getFile();
-    }
+  ngOnInit() {
+    this.getFile();
+  }
 
-    getFile(): void {
-        this.subs.add(this._fileService.getFileById(this.fitnessProgramCard.id).subscribe(
-            (data: Blob) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(data);
-                reader.onloadend = () => {
-                    this.fileUrl = reader.result;
-                };
-            },
-            error => {
-                //TODO: Handle error
-                console.error('Error retrieving file:', error);
-            }
-        ));
-    }
+  getFile(): void {
+    this.subs.add(this._fileService.getFileById(this.fitnessProgramCard.id).subscribe(
+      (data: Blob) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(data);
+        reader.onloadend = () => {
+          this.fileUrl = reader.result;
+        };
+      },
+      error => {
+        //TODO: Handle error
+        console.error('Error retrieving file:', error);
+      }
+    ));
+  }
 
-    onFitnessProgramCardClick() {
-        this._router.navigateByUrl(`fitness-program/${this.fitnessProgramCard.id}`);
-    }
+  onFitnessProgramCardClick() {
+    this._router.navigateByUrl(`fitness-program/${this.fitnessProgramCard.id}`);
+  }
 
-    ngOnDestroy() {
-        this.subs.unsubscribe();
-    }
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
 }

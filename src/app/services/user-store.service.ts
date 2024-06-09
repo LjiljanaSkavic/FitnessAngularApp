@@ -29,7 +29,6 @@ export class UserStoreService {
 
   getLoggedInUser(): AppUser | null {
     const userString = this._localStoreService.getData('loggedUser');
-    console.log('string', userString);
     if (userString !== null) {
       const user: AppUser = JSON.parse(userString);
       return user;

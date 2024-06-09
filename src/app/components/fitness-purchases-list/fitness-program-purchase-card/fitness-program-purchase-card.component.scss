@@ -34,7 +34,31 @@
     padding: 12px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     font-size: 0.875rem;
+  }
+}
+
+.avatar-wrapper {
+  text-align: center;
+  margin: 20px 0;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar-image {
+  width: 20vh !important;
+  height: 20vh !important;
+  object-fit: cover;
+}
+
+.order-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .text {
+    color: $color-blue-1;
   }
 }

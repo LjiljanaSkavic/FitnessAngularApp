@@ -96,7 +96,8 @@
               matInput>
           </mat-form-field>
         </ng-container>
-        <p *ngIf="fitnessProgram.completed"><strong>Status:</strong> Completed</p>
+        <div *ngIf="fitnessProgram.completed"><strong>Status:</strong> Completed</div>
+        <div *ngIf="!fitnessProgram.completed"><strong>Status:</strong> Active</div>
       </div>
     </form>
     <div class="instructor-details">

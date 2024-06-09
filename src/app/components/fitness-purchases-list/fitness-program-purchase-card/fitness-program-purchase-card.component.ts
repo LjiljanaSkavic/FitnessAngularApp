@@ -1,24 +1,31 @@
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FitnessProgramPurchase } from "../../../models/FitnessProgramPurchase";
 import { ConfirmationModalComponent } from "../../../confirmation-modal/confirmation-modal.component";
 import { EMPTY, Subscription, switchMap } from "rxjs";
 import { MatDialog } from "@angular/material/dialog";
 import { FitnessProgramPurchaseService } from "../../../services/fitness-program-purchase.service";
+import { FileService } from "../../../services/file.service";
 
 @Component({
   selector: 'app-fitness-program-purchase-card',
   templateUrl: './fitness-program-purchase-card.component.html',
   styleUrls: ['./fitness-program-purchase-card.component.scss']
 })
-export class FitnessProgramPurchaseCardComponent implements OnDestroy {
+export class FitnessProgramPurchaseCardComponent implements OnInit, OnDestroy {
 
   @Input() purchase: FitnessProgramPurchase;
   @Output() purchaseDeletedEmitter = new EventEmitter<number>();
   subscription = new Subscription();
+  fileUrl: any;
 
   constructor(private _fitnessProgramPurchaseService: FitnessProgramPurchaseService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              private _fileService: FileService) {
 
+  }
+
+  ngOnInit() {
+    this.getFile();
   }
 
   onDeletePurchase(id: number): void {
@@ -34,6 +41,22 @@ export class FitnessProgramPurchaseCardComponent implements OnDestroy {
     })).subscribe(res => {
       this.purchaseDeletedEmitter.emit(id);
     })
+  }
+
+  getFile(): void {
+    this.subscription.add(this._fileService.getFileById(this.purchase.id).subscribe(
+      (data: Blob) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(data);
+        reader.onloadend = () => {
+          this.fileUrl = reader.result;
+        };
+      },
+      error => {
+        //TODO: Handle error
+        console.error('Error retrieving file:', error);
+      }
+    ));
   }
 
   ngOnDestroy(): void {
