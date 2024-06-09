@@ -19,8 +19,6 @@ export class UserListComponent {
   userImageMap: Map<number, string> = new Map();
   selectedUserId: number;
 
-  loggedUserUrlImage: string = '';
-
   constructor(private _userService: UserService,
               private _userStoreService: UserStoreService,
               private _fileService: FileService) {

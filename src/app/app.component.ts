@@ -12,8 +12,6 @@ import { AdviceMessageModalComponent } from "./components/advice-message-modal/a
 import { DIALOG_RESPONSE } from "./confirmation-modal/confirmation-modal.component";
 import { AdviceMessage } from "./models/AdviceMessage";
 import { AdviceMessageService } from "./services/advice-message.service";
-import { ChatMessageService } from "./services/chat-message.service";
-import { ChatMessage } from "./models/dto/ChatMessage";
 import { ProfileDetailsComponent } from "./components/profile-details/profile-details.component";
 import { ManagePasswordComponent } from "./components/manage-password/manage-password.component";
 import { LoginCardComponent } from "./components/login-card/login-card.component";
@@ -40,15 +38,12 @@ export class AppComponent implements OnInit, OnDestroy {
   subscription = new Subscription();
   hasUnreadMessages = false;
 
-  unreadMessages: ChatMessage[] = [];
-
   constructor(private _userService: UserService,
               private _router: Router,
               private _elRef: ElementRef,
               private _snackBar: MatSnackBar,
               private _userStoreService: UserStoreService,
               private _adviceMessageService: AdviceMessageService,
-              private _chatMessageService: ChatMessageService,
               public dialog: MatDialog,
               private _changeDetectorRef: ChangeDetectorRef,) {
   }
@@ -67,12 +62,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.user = this._userStoreService.getLoggedInUser();
     if (this.user !== null) {
       this._userStoreService.setUserAsLoggedIn(this.user);
-
-      this.subscription.add(this._chatMessageService.getUnreadMessagesByUserId(this.user.id).subscribe(res => {
-        this.hasUnreadMessages = !!res;
-        this.unreadMessages = res;
-        //TODO: For every chat add notification
-      }))
     }
 
     this._userStoreService.isLoggedIn$.subscribe(res => {
@@ -164,10 +153,6 @@ export class AppComponent implements OnInit, OnDestroy {
       (err) => {
         this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig)
       });
-  }
-
-  onOpenChatClick(): void {
-    this._router.navigateByUrl(`chat`).catch(err => console.log(err));
   }
 
   ngOnDestroy(): void {

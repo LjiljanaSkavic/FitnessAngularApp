@@ -14,14 +14,6 @@
 
   <div class="toolbar-container-right">
     <button
-      (click)="onOpenChatClick()"
-      *ngIf="user && hasUnreadMessages"
-      [matBadge]=unreadMessages.length
-      class="icon-label-wrapper"
-      mat-icon-button>
-      <mat-icon>mark_email_unread</mat-icon>
-    </button>
-    <button
       (click)="onSendAdviceMessageClick()"
       *ngIf="user"
       [matTooltip]="'Need help with a fitness plan?'"

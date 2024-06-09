@@ -69,7 +69,6 @@ import { ChatComponent } from './components/chat/chat.component';
 import { UserListComponent } from './components/chat/user-list/user-list.component';
 import { MessagesComponent } from './components/chat/messages/messages.component';
 import { ChatMessageComponent } from './components/chat/chat-message/chat-message.component';
-import { MatBadgeModule } from "@angular/material/badge";
 import { TruncatePipe } from "./pipes/truncate.pipe";
 import { ActivityLogTypePipe } from "./pipes/activity-log-type.pipe";
 import { DifficultyLevelPipe } from "./pipes/difficulty-level.pipe";
@@ -141,8 +140,7 @@ export const ANGULAR_MATERIAL_MODULES = [
     ANGULAR_MATERIAL_MODULES,
     NgOptimizedImage,
     MatTableModule,
-    GoogleChartsModule,
-    MatBadgeModule
+    GoogleChartsModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]
