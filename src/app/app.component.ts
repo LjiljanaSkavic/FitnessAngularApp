@@ -161,9 +161,12 @@ export class AppComponent implements OnInit, OnDestroy {
       },
     ).afterClosed().subscribe(
       (res) => {
-        res ? this._snackBar.open('Successfully subscribed to a category. You will receive news about it every day!', "OK", snackBarConfig) : this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
+        if (res) {
+          this._snackBar.open('Successfully subscribed to a category. You will receive news about it every day!', "OK", snackBarConfig);
+        }
       },
       () => {
+        console.log('error');
         this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig)
       });
   }

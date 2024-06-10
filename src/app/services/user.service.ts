@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AppUser, AppUserShort } from "../models/AppUser";
 import { Observable } from "rxjs";
 import { UserDTO } from "../models/dto/UserDTO";
@@ -25,6 +25,14 @@ export class UserService {
 
   getActiveUsers(): Observable<AppUserShort[]> {
     return this._httpClient.get<AppUserShort[]>(`${this.baseUrl}/activated`);
+  }
+
+  subscribeToCategory(userId: number, categoryId: number): Observable<any> {
+    const url = `${this.baseUrl}/subscribe`;
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const body = {userId, categoryId};
+
+    return this._httpClient.post(url, null, {headers, params: body});
   }
 
   sendEmail(userId: number): Observable<string> {

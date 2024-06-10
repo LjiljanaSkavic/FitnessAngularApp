@@ -4,6 +4,8 @@ import { Category } from "../../models/dto/Category";
 import { Subscription } from "rxjs";
 import { CategoryService } from "../../services/category.service";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { UserService } from "../../services/user.service";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 interface DialogData {
   userId: number,
@@ -19,9 +21,12 @@ export class SubscribeToCategoryModalComponent implements OnInit, OnDestroy {
   subscriptions = new Subscription();
   categoriesLoading = true;
   dialogData: DialogData;
+  categoryForm: FormGroup;
+  selectedCategoryId: number | null = null;
 
   constructor(private _dialogRef: MatDialogRef<SubscribeToCategoryModalComponent>,
               private _categoryService: CategoryService,
+              private _userService: UserService,
               @Inject(MAT_DIALOG_DATA) public data: DialogData) {
     this.dialogData = data;
   }
@@ -31,6 +36,10 @@ export class SubscribeToCategoryModalComponent implements OnInit, OnDestroy {
       this.categories = res;
       this.categoriesLoading = false;
     }));
+
+    this.categoryForm = new FormGroup({
+      category: new FormControl(null, Validators.required),
+    });
   }
 
 
@@ -39,11 +48,18 @@ export class SubscribeToCategoryModalComponent implements OnInit, OnDestroy {
   }
 
   onSubscribeToCategoryClick(): void {
-
+    this.subscriptions.add(this._userService.subscribeToCategory(this.data.userId, this.selectedCategoryId)
+      .subscribe(
+        () => {
+          this._dialogRef.close(true);
+        },
+        () => {
+          this._dialogRef.close(false);
+        }));
   }
 
-  onCategoryChange($event: MatSelectChange) {
-
+  onCategoryChange($event: MatSelectChange): void {
+    this.selectedCategoryId = this.categoryForm.get('category').value;
   }
 
   ngOnDestroy(): void {

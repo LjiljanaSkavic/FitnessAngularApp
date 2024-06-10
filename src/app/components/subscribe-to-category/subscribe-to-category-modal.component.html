@@ -9,16 +9,18 @@
       You will receive daily updates about new fitness programs available in this category.
     </div>
     <mat-form-field>
-      <mat-label>Choose category</mat-label>
-      <mat-select
-        (selectionChange)="onCategoryChange($event)"
-        formControlName="category">
-        <mat-option
-          *ngFor="let category of categories"
-          [value]="category.id">
-          {{ category.name }}
-        </mat-option>
-      </mat-select>
+      <form [formGroup]="categoryForm">
+        <mat-label>Choose category</mat-label>
+        <mat-select
+          (selectionChange)="onCategoryChange($event)"
+          formControlName="category">
+          <mat-option
+            *ngFor="let category of categories"
+            [value]="category.id">
+            {{ category.name }}
+          </mat-option>
+        </mat-select>
+      </form>
     </mat-form-field>
     <div class="text">
       Stay tuned for the latest programs designed to help you achieve your fitness goals!

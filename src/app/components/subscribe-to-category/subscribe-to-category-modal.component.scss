@@ -29,3 +29,7 @@
   color: $color-orange-1;
   line-height: 1.5;
 }
+
+::ng-deep .mat-mdc-select-panel {
+  height: 120px !important;
+}
