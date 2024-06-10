@@ -13,6 +13,9 @@ import { AdviceMessageService } from "./services/advice-message.service";
 import { ProfileDetailsComponent } from "./components/profile-details/profile-details.component";
 import { ManagePasswordComponent } from "./components/manage-password/manage-password.component";
 import { LoginCardComponent } from "./components/login-card/login-card.component";
+import {
+  SubscribeToCategoryModalComponent
+} from "./components/subscribe-to-category/subscribe-to-category-modal.component";
 
 export const DEFAULT_ANIMATION_DURATION = 100;
 
@@ -146,5 +149,22 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  onSubscribeToCategoryClick() {
+    this.dialog.open(SubscribeToCategoryModalComponent, {
+        data: {
+          userId: this.user.id
+        },
+        hasBackdrop: true,
+        backdropClass: 'fitness-app-backdrop'
+      },
+    ).afterClosed().subscribe(
+      (res) => {
+        res ? this._snackBar.open('Successfully subscribed to a category. You will receive news about it every day!', "OK", snackBarConfig) : this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
+      },
+      () => {
+        this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig)
+      });
   }
 }

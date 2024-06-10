@@ -72,6 +72,9 @@ import { ChatMessageComponent } from './components/chat/chat-message/chat-messag
 import { TruncatePipe } from "./pipes/truncate.pipe";
 import { ActivityLogTypePipe } from "./pipes/activity-log-type.pipe";
 import { DifficultyLevelPipe } from "./pipes/difficulty-level.pipe";
+import {
+  SubscribeToCategoryModalComponent
+} from './components/subscribe-to-category/subscribe-to-category-modal.component';
 
 export const ANGULAR_MATERIAL_MODULES = [
   MatIconModule,
@@ -130,7 +133,8 @@ export const ANGULAR_MATERIAL_MODULES = [
     ChatMessageComponent,
     TruncatePipe,
     ActivityLogTypePipe,
-    DifficultyLevelPipe
+    DifficultyLevelPipe,
+    SubscribeToCategoryModalComponent
   ],
   imports: [
     BrowserModule,

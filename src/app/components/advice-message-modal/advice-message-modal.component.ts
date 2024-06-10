@@ -32,7 +32,6 @@ export class AdviceMessageModalComponent {
   });
   files: FilePreview[] = [];
   dialogData: DialogData;
-  private uploadedFiles: any[];
 
   constructor(private _dialogRef: MatDialogRef<AdviceMessageModalComponent>,
               private _fileService: FileService,

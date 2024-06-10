@@ -1,0 +1,43 @@
+<div class="subscribe-category-wrapper">
+  <div
+    class="subscribe-category-wrapper__header"
+    mat-dialog-title>
+    Subscribe to a category?
+  </div>
+  <div class="subscribe-category-wrapper__container">
+    <div class="text">
+      You will receive daily updates about new fitness programs available in this category.
+    </div>
+    <mat-form-field>
+      <mat-label>Choose category</mat-label>
+      <mat-select
+        (selectionChange)="onCategoryChange($event)"
+        formControlName="category">
+        <mat-option
+          *ngFor="let category of categories"
+          [value]="category.id">
+          {{ category.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="text">
+      Stay tuned for the latest programs designed to help you achieve your fitness goals!
+    </div>
+  </div>
+  <div
+    class="button-wrapper"
+    mat-dialog-actions>
+    <button
+      (click)="onDiscardClick()"
+      class="button-discard"
+      mat-button>
+      Discard
+    </button>
+    <button
+      (click)="onSubscribeToCategoryClick()"
+      class="button-save"
+      mat-button>
+      Subscribe
+    </button>
+  </div>
+</div>

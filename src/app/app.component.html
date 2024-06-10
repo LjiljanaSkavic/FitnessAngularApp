@@ -14,6 +14,14 @@
 
   <div class="toolbar-container-right">
     <button
+      (click)="onSubscribeToCategoryClick()"
+      *ngIf="user"
+      [matTooltip]="'Subscribe to a category?'"
+      class="icon-label-wrapper"
+      mat-icon-button>
+      <mat-icon>subscriptions</mat-icon>
+    </button>
+    <button
       (click)="onSendAdviceMessageClick()"
       *ngIf="user"
       [matTooltip]="'Need help with a fitness plan?'"
