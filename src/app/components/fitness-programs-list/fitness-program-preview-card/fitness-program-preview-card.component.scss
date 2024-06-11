@@ -50,3 +50,22 @@
   font-weight: bold;
   color: $color-blue-1;
 }
+
+.details-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.beginner {
+  background-color: $color-green-1;
+}
+
+.intermediate {
+  background-color: $color-orange-1;
+}
+
+.expert {
+  background-color: $color-red-1;
+}

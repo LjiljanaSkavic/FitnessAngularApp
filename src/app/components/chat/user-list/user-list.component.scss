@@ -53,18 +53,10 @@
   font-weight: bold;
 }
 
-.circle {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-left: 5px;
-}
-
 .color-green {
-  background-color: #4caf50;
+  background-color: $color-green-1;
 }
 
 .color-gray {
-  background-color: gray;
+  background-color: $color-gray-3;
 }
