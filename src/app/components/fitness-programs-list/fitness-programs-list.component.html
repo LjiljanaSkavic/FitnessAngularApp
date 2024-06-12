@@ -1,98 +1,108 @@
 <div
   *ngIf="!isLoading; else loading"
   class="items-container-column">
-  <div class="header-container">
-    <form
-      [formGroup]="filterForm"
-      class="filter-form">
-      <div class="form-row">
-        <button
-          (click)="onAddNewFitnessProgramClick()"
-          [matTooltip]="'Add fitness program'"
-          class="button-save"
-          mat-button
-        >
-          <mat-icon class="button-icon">add</mat-icon>
-        </button>
+  <div>
+    <div
+      (click)="toggleFilters()"
+      [matTooltip]="filtersVisible ? 'Hide filters' : 'Show filters'"
+      class="filter-toggle">
+      <mat-icon [ngClass]="{'rotated': filtersVisible}">arrow_drop_down</mat-icon>
+    </div>
+    <div
+      [@filterAnimation]="filtersVisible ? 'visible' : 'hidden'"
+      class="header-container">
+      <form
+        [formGroup]="filterForm"
+        class="filter-form">
+        <div class="form-row">
+          <button
+            (click)="onAddNewFitnessProgramClick()"
+            [matTooltip]="'Add fitness program'"
+            class="button-save"
+            mat-button
+          >
+            <mat-icon class="button-icon">add</mat-icon>
+          </button>
 
-        <mat-form-field *ngIf="!categoriesLoading">
-          <mat-label>Choose category</mat-label>
-          <mat-select formControlName="category">
-            <mat-option [value]=0>All</mat-option>
-            <mat-option
-              *ngFor="let category of categories"
-              [value]="category.id">
-              {{ category.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+          <mat-form-field *ngIf="!categoriesLoading">
+            <mat-label>Choose category</mat-label>
+            <mat-select formControlName="category">
+              <mat-option [value]=0>All</mat-option>
+              <mat-option
+                *ngFor="let category of categories"
+                [value]="category.id">
+                {{ category.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Difficulty level</mat-label>
-          <mat-select formControlName="difficultyLevel">
-            <mat-option
-              *ngFor="let difficultyLevel of difficultyLevels; let i = index"
-              [value]="i + 1">
-              {{ difficultyLevel }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+          <mat-form-field>
+            <mat-label>Difficulty level</mat-label>
+            <mat-select formControlName="difficultyLevel">
+              <mat-option
+                *ngFor="let difficultyLevel of difficultyLevels; let i = index"
+                [value]="i + 1">
+                {{ difficultyLevel }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-        <mat-form-field *ngIf="userId">
-          <mat-label>Show programs</mat-label>
-          <mat-select formControlName="showPrograms">
-            <mat-option value="all">All</mat-option>
-            <mat-option value="myPrograms">My programs</mat-option>
-          </mat-select>
-        </mat-form-field>
+          <mat-form-field *ngIf="userId">
+            <mat-label>Show programs</mat-label>
+            <mat-select formControlName="showPrograms">
+              <mat-option value="all">All</mat-option>
+              <mat-option value="myPrograms">My programs</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-        <mat-form-field *ngIf="myProgramsFilterOn">
-          <mat-label>Choose status</mat-label>
-          <mat-select formControlName="status">
-            <mat-option [value]=0>Active</mat-option>
-            <mat-option [value]=1>Completed</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="form-row">
-        <div class="price-wrapper">
-          <label>Price {{ filterForm.get('minPrice').value }} - {{ filterForm.get('maxPrice').value }}</label>
-          <mat-slider class="price-slider">
-            <input
-              formControlName="minPrice"
-              matSliderStartThumb>
-            <input
-              formControlName="maxPrice"
-              matSliderEndThumb>
-          </mat-slider>
+          <mat-form-field *ngIf="myProgramsFilterOn">
+            <mat-label>Choose status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option [value]=0>Active</mat-option>
+              <mat-option [value]=1>Completed</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
 
-        <mat-form-field appearance="fill">
-          <mat-label>Search</mat-label>
-          <input
-            formControlName="search"
-            matInput
-            placeholder="Type to search">
-        </mat-form-field>
+        <div class="form-row">
+          <div class="price-wrapper">
+            <label>Price {{ filterForm.get('minPrice').value }} - {{ filterForm.get('maxPrice').value }}</label>
+            <mat-slider class="price-slider">
+              <input
+                formControlName="minPrice"
+                matSliderStartThumb>
+              <input
+                formControlName="maxPrice"
+                matSliderEndThumb>
+            </mat-slider>
+          </div>
 
-        <button
-          (click)="onFilterClick()"
-          class="button-save"
-          mat-button>
-          <mat-icon>filter_alt</mat-icon>
-          Apply filters
-        </button>
-        <button
-          (click)="onResetFiltersClick()"
-          class="button-discard"
-          mat-button>
-          <mat-icon>filter_alt_off
-          </mat-icon>
-          Reset filters
-        </button>
-      </div>
-    </form>
+          <mat-form-field appearance="fill">
+            <mat-label>Search</mat-label>
+            <input
+              formControlName="search"
+              matInput
+              placeholder="Type to search">
+          </mat-form-field>
+
+          <button
+            (click)="onFilterClick()"
+            class="button-save"
+            mat-button>
+            <mat-icon>filter_alt</mat-icon>
+            Apply filters
+          </button>
+          <button
+            (click)="onResetFiltersClick()"
+            class="button-discard"
+            mat-button>
+            <mat-icon>filter_alt_off
+            </mat-icon>
+            Reset filters
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
   <ng-container *ngIf="!isLoading; else loading">
     <div

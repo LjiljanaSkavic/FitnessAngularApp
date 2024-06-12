@@ -13,6 +13,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { UserStoreService } from "../../services/user-store.service";
 import { DIFFICULTY_LEVELS } from "../../constants/difficulty-levels";
+import { animate, state, style, transition, trigger } from "@angular/animations";
 
 const SHOW_PROGRAMS = {
   ALL: 'all',
@@ -22,7 +23,24 @@ const SHOW_PROGRAMS = {
 @Component({
   selector: 'app-fitness-programs-list',
   templateUrl: './fitness-programs-list.component.html',
-  styleUrls: ['./fitness-programs-list.component.scss']
+  styleUrls: ['./fitness-programs-list.component.scss'],
+  animations: [
+    trigger('filterAnimation', [
+      state('hidden', style({
+        transform: 'scaleY(0)',
+        opacity: 0,
+        transformOrigin: 'top'
+      })),
+      state('visible', style({
+        transform: 'scaleY(1)',
+        opacity: 1,
+        transformOrigin: 'top'
+      })),
+      transition('hidden <=> visible', [
+        animate('0.4s ease-in-out')
+      ])
+    ])
+  ]
 })
 export class FitnessProgramsList implements OnInit, OnDestroy {
 
@@ -37,9 +55,10 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
   totalItems = 0;
   userId: number;
   myProgramsFilterOn = false;
+  filtersVisible: boolean = false;
+  difficultyLevels = DIFFICULTY_LEVELS;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  difficultyLevels = DIFFICULTY_LEVELS;
 
   constructor(private _fitnessProgramService: FitnessProgramService,
               private _categoryService: CategoryService,
@@ -47,6 +66,10 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
               private _router: Router,
               private _snackBar: MatSnackBar,
               private _userStoreService: UserStoreService) {
+  }
+
+  get filterState() {
+    return this.filtersVisible ? 'visible' : 'hidden';
   }
 
   ngOnInit(): void {
@@ -67,9 +90,10 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
     this.filterForm.get('showPrograms').valueChanges.subscribe(res => {
       this.myProgramsFilterOn = res === 'myPrograms';
     });
-    // this.filterForm.get('status').valueChanges.subscribe(res => {
-    //
-    // });
+  }
+
+  toggleFilters(): void {
+    this.filtersVisible = !this.filtersVisible;
   }
 
   onFilterClick() {
