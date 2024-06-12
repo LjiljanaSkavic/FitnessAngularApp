@@ -13,7 +13,7 @@ export class FitnessProgramService {
   constructor(private _httpClient: HttpClient) {
   }
 
-  search(keyword: string, categoryId: number, userId: number, isCompleted: boolean, page: number, size: number): Observable<FitnessProgramSearchResult> {
+  search(keyword: string, categoryId: number, userId: number, isCompleted: boolean, difficultyLevel: number, minPrice: number, maxPrice: number, page: number, size: number): Observable<FitnessProgramSearchResult> {
     let url = `${this.baseUrl}/search`;
 
     const queryParams = {};
@@ -34,6 +34,15 @@ export class FitnessProgramService {
     }
     if (size) {
       queryParams['size'] = size;
+    }
+    if (difficultyLevel) {
+      queryParams['difficultyLevel'] = difficultyLevel;
+    }
+    if (minPrice) {
+      queryParams['minPrice'] = minPrice;
+    }
+    if (maxPrice) {
+      queryParams['maxPrice'] = maxPrice;
     }
 
     const queryString = Object.keys(queryParams).map(key => key + '=' + queryParams[key]).join('&');

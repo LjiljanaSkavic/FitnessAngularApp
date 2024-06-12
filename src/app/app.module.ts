@@ -75,6 +75,7 @@ import { DifficultyLevelPipe } from "./pipes/difficulty-level.pipe";
 import {
   SubscribeToCategoryModalComponent
 } from './components/subscribe-to-category/subscribe-to-category-modal.component';
+import { MatSliderModule } from "@angular/material/slider";
 
 export const ANGULAR_MATERIAL_MODULES = [
   MatIconModule,
@@ -93,7 +94,8 @@ export const ANGULAR_MATERIAL_MODULES = [
   MatPaginatorModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatTableModule
+  MatTableModule,
+  MatSliderModule
 ]
 
 @NgModule({
@@ -144,7 +146,7 @@ export const ANGULAR_MATERIAL_MODULES = [
     ReactiveFormsModule,
     ANGULAR_MATERIAL_MODULES,
     NgOptimizedImage,
-    GoogleChartsModule
+    GoogleChartsModule,
   ],
   providers: [HttpClient, DatePipe],
   bootstrap: [AppComponent]

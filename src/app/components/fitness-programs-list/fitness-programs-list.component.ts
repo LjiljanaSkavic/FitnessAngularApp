@@ -12,6 +12,7 @@ import { snackBarConfig } from "../../shared/contants";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { UserStoreService } from "../../services/user-store.service";
+import { DIFFICULTY_LEVELS } from "../../constants/difficulty-levels";
 
 const SHOW_PROGRAMS = {
   ALL: 'all',
@@ -38,6 +39,7 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
   myProgramsFilterOn = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  difficultyLevels = DIFFICULTY_LEVELS;
 
   constructor(private _fitnessProgramService: FitnessProgramService,
               private _categoryService: CategoryService,
@@ -89,15 +91,20 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
     const showPrograms = this.filterForm.get('showPrograms').value;
     let status = this.filterForm.get('status').value;
     let isCompleted = false;
+    const minPrice = this.filterForm.get('minPrice').value;
+    const maxPrice = this.filterForm.get('maxPrice').value;
     if (this.myProgramsFilterOn) {
       isCompleted = status === 1;
-      console.log(isCompleted);
     }
+    const difficultyLevel = this.filterForm.get('difficultyLevel').value;
 
     this.subs.add(this._fitnessProgramService.search(keyword,
       categoryId,
       showPrograms === SHOW_PROGRAMS.ALL ? null : this.userId,
       isCompleted,
+      difficultyLevel,
+      minPrice,
+      maxPrice,
       this.pageIndex,
       this.pageSize).subscribe(res => {
       this.fitnessProgramCards = res.fitnessPrograms;
@@ -112,6 +119,9 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
       search: new FormControl(''),
       showPrograms: new FormControl(SHOW_PROGRAMS.ALL),
       status: new FormControl(0),
+      difficultyLevel: new FormControl(0),
+      minPrice: new FormControl(0),
+      maxPrice: new FormControl(100),
     });
   }
 
