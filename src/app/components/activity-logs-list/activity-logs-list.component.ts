@@ -109,8 +109,8 @@ export class ActivityLogsListComponent implements OnInit, OnDestroy {
   onDeleteActivityLogClick(activityLog: ActivityLog): void {
     this.dialog.open(ConfirmationModalComponent, {
       data: {
-        title: "Delete activity log",
-        text: "Are you sure that you want to delete this activity log?"
+        title: "Delete activity",
+        text: "Are you sure that you want to delete this activity?"
       },
       hasBackdrop: true,
       backdropClass: 'fitness-app-backdrop'
