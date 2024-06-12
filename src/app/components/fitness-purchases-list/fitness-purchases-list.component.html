@@ -1,15 +1,22 @@
 <div
-  *ngIf="!isLoading; else loading"
-  class="items-container">
-  <ng-container *ngFor="let purchase of purchases">
-    <app-fitness-program-purchase-card
-      (purchaseDeletedEmitter)="purchaseDeleted($event)"
-      [purchase]="purchase"></app-fitness-program-purchase-card>
-  </ng-container>
+  *ngIf="!isLoading; else loading">
+  <div
+    *ngIf="purchases.length; else noData"
+    class="items-container">
+    <ng-container *ngFor="let purchase of purchases">
+      <app-fitness-program-purchase-card
+        (purchaseDeletedEmitter)="purchaseDeleted($event)"
+        [purchase]="purchase"></app-fitness-program-purchase-card>
+    </ng-container>
+  </div>
 </div>
 <ng-template #loading>
   <app-loader></app-loader>
 </ng-template>
+<ng-template #noData>
+  <app-no-data></app-no-data>
+</ng-template>
+
 <mat-paginator
   (page)="onPageChange($event)"
   *ngIf="purchases"

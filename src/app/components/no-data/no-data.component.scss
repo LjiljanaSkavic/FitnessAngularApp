@@ -1,0 +1,25 @@
+@import "src/app/shared/colors";
+@import "src/app/shared/classes";
+
+.no-data-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: $color-blue-1;
+  background-color: $color-gray-1;
+  padding: 20px;
+  text-align: center;
+}
+
+.no-data-icon {
+  font-size: 48px;
+  color: $color-blue-2;
+  margin-bottom: 10px;
+}
+
+.no-data-message {
+  font-size: 18px;
+  color: $color-gray-3;
+}

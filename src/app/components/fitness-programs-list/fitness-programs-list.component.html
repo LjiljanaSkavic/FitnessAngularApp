@@ -95,7 +95,9 @@
     </form>
   </div>
   <ng-container *ngIf="!isLoading; else loading">
-    <div class="fitness-card-container">
+    <div
+      *ngIf="fitnessProgramCards.length; else noData"
+      class="fitness-card-container">
       <ng-container *ngFor="let fitnessProgramCard of fitnessProgramCards">
         <app-fitness-program-preview-card [fitnessProgramCard]="fitnessProgramCard"></app-fitness-program-preview-card>
       </ng-container>
@@ -112,4 +114,7 @@
 </mat-paginator>
 <ng-template #loading>
   <app-loader></app-loader>
+</ng-template>
+<ng-template #noData>
+  <app-no-data></app-no-data>
 </ng-template>

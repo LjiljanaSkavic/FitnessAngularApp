@@ -1,10 +1,19 @@
 <div
-    *ngIf="!isLoading"
+  *ngIf="!isLoading; else loading">
+  <div
+    *ngIf="activityLogs; else noData"
     class="center-container">
     <div class="chart">
-        <canvas id="kcalChart"></canvas>
+      <canvas id="kcalChart"></canvas>
     </div>
     <div class="chart">
-        <canvas id="weightLossChart"></canvas>
+      <canvas id="weightLossChart"></canvas>
     </div>
+  </div>
 </div>
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>
+<ng-template #noData>
+  <app-no-data></app-no-data>
+</ng-template>

@@ -8,8 +8,10 @@
     <div class="text">
       You will receive daily updates about new fitness programs available in this category.
     </div>
-    <mat-form-field>
-      <form [formGroup]="categoryForm">
+    <form
+      [formGroup]="categoryForm"
+      class="full-width">
+      <mat-form-field class="full-width">
         <mat-label>Choose category</mat-label>
         <mat-select
           (selectionChange)="onCategoryChange($event)"
@@ -20,8 +22,8 @@
             {{ category.name }}
           </mat-option>
         </mat-select>
-      </form>
-    </mat-form-field>
+      </mat-form-field>
+    </form>
     <div class="text">
       Stay tuned for the latest programs designed to help you achieve your fitness goals!
     </div>

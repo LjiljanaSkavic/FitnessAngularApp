@@ -19,6 +19,7 @@
     </button>
   </div>
   <table
+    *ngIf="activityLogs else noData"
     [dataSource]="activityLogs"
     class="mat-elevation-z8"
     mat-table>
@@ -133,4 +134,7 @@
 </mat-paginator>
 <ng-template #loading>
   <app-loader></app-loader>
+</ng-template>
+<ng-template #noData>
+  <app-no-data></app-no-data>
 </ng-template>
