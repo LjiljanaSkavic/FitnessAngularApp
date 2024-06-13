@@ -1,7 +1,7 @@
 <div
   *ngIf="!isLoading; else loading"
   class="items-container-column">
-  <div>
+  <div class="filter-wrapper">
     <div
       (click)="toggleFilters()"
       [matTooltip]="filtersVisible ? 'Hide filters' : 'Show filters'"

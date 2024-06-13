@@ -68,10 +68,6 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
               private _userStoreService: UserStoreService) {
   }
 
-  get filterState() {
-    return this.filtersVisible ? 'visible' : 'hidden';
-  }
-
   ngOnInit(): void {
     this.subs.add(this._categoryService.getAll().subscribe(res => {
       this.categories = res;

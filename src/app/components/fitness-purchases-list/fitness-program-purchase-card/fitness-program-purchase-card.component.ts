@@ -44,7 +44,7 @@ export class FitnessProgramPurchaseCardComponent implements OnInit, OnDestroy {
   }
 
   getFile(): void {
-    this.subscription.add(this._fileService.getFileById(this.purchase.id).subscribe(
+    this.subscription.add(this._fileService.getFileById(this.purchase.fitnessProgramCard.image.id).subscribe(
       (data: Blob) => {
         const reader = new FileReader();
         reader.readAsDataURL(data);
