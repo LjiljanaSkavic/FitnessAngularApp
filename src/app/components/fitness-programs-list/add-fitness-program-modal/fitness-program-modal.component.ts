@@ -53,6 +53,8 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
   contact: string;
   difficultyLevels = DIFFICULTY_LEVELS;
   categoryDisabled = false;
+  showLocation = false;
+  location: string = ''
 
   currentFitnessProgramIds: number[] = [];
 
@@ -95,6 +97,7 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
         difficultyLevel: new FormControl(null, Validators.required),
         duration: new FormControl(null, Validators.required),
         description: new FormControl(null, Validators.required),
+        isOnline: new FormControl(null, Validators.required),
         location: new FormControl(null, Validators.required),
         contactEmail: new FormControl(this.contact, [Validators.required, Validators.email]),
         category: new FormControl(null, Validators.required),
@@ -106,6 +109,7 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
         difficultyLevel: new FormControl(this.data.fitnessProgram.difficultyLevel, Validators.required),
         duration: new FormControl(this.data.fitnessProgram.duration, Validators.required),
         description: new FormControl(this.data.fitnessProgram.description, Validators.required),
+        isOnline: new FormControl(this.data.fitnessProgram.online, Validators.required),
         location: new FormControl(this.data.fitnessProgram.location, Validators.required),
         contactEmail: new FormControl(this.data.fitnessProgram.contactEmail, [Validators.required, Validators.email]),
         category: new FormControl(this.data.fitnessProgram.category.id, Validators.required),
@@ -113,11 +117,12 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
 
       this.currentFitnessProgramIds = this.data.fitnessProgram.images.map(image => image.id);
 
-      console.log(this.currentFitnessProgramIds);
       this.fitnessProgramForm.get('category').disable();
       this.fitnessProgramImageUrls = Array.from(this.data.fitnessProgramImageUrls);
       this.buildAttributes();
     }
+
+    this.trackIsOnlineChange();
   }
 
   buildAttributes(): void {
@@ -277,6 +282,7 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
       duration: this.fitnessProgramForm.get('duration').value,
       imageIds: this.uploadedImages.map(image => image.id),
       instructor: instructor,
+      online: this.fitnessProgramForm.get('isOnline').value === 'online',
       location: this.fitnessProgramForm.get('location').value,
       name: this.fitnessProgramForm.get('name').value,
       price: +this.fitnessProgramForm.get('price').value,
@@ -300,6 +306,21 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
       }
     }
     return attributes;
+  }
+
+  trackIsOnlineChange(): void {
+    console.log('change');
+    this.subs.add(
+      this.fitnessProgramForm.get('isOnline').valueChanges.subscribe(res => {
+        console.log(res);
+        this.showLocation = res !== null;
+
+        if (res === 'online') {
+          this.location = 'Youtube link';
+        } else if (res === 'location') {
+          this.location = 'Location';
+        }
+      }));
   }
 
   onInstructorFileChange(event: any): void {

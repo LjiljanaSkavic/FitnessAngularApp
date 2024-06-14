@@ -69,6 +69,7 @@ export class FitnessProgramService {
   }
 
   update(id: number, fitnessProgramDTO: FitnessProgramRequest): Observable<FitnessProgram> {
+    console.log(fitnessProgramDTO);
     return this._httpClient.post<FitnessProgram>(`${this.baseUrl}/update/${id}`, fitnessProgramDTO);
   }
 }

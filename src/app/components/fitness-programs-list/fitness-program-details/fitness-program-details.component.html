@@ -3,6 +3,7 @@
   class="fitness-program-details">
   <h3>{{ fitnessProgram.name }}</h3>
   <h2>{{fitnessProgram.difficultyLevel | difficultyLevel}}</h2>
+  <h2 *ngIf="fitnessProgram.online">online</h2>
   <div class="button-wrapper">
     <button
       (click)="onBuyProgramClick()"
@@ -67,7 +68,9 @@
             formControlName="duration"
             matInput>
         </mat-form-field>
-        <mat-form-field class="form-field">
+        <mat-form-field
+          *ngIf="!fitnessProgram.online"
+          class="form-field">
           <mat-label>Location</mat-label>
           <input
             formControlName="location"

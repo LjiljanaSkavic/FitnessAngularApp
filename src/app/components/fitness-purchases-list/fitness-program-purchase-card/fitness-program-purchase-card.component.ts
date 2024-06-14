@@ -59,6 +59,10 @@ export class FitnessProgramPurchaseCardComponent implements OnInit, OnDestroy {
     ));
   }
 
+  openYouTubeVideo(): void {
+    window.open(this.purchase.fitnessProgramCard.location, '_blank');
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

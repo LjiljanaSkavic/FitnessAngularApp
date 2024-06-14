@@ -32,7 +32,7 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
 
   subs = new Subscription();
 
-  selectedFileName = '';
+  location = '';
   fileUrl: string | ArrayBuffer | null = null;
   isLoggedIn = false;
   leaveCommentForm: FormGroup;
@@ -80,6 +80,12 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
   }
 
   buildFitnessForm(fitnessProgram: FitnessProgram): void {
+    console.log(fitnessProgram);
+    if (fitnessProgram.online) {
+      this.location = 'online';
+    } else {
+      this.location = 'Location';
+    }
 
     const formattedCreationDate = this._datePipe.transform(fitnessProgram.creationDate, 'MMM d, y');
     this.fitnessProgramForm = new FormGroup({

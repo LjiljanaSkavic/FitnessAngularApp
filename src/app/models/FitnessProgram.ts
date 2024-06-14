@@ -11,6 +11,7 @@ export interface FitnessProgram {
   price: number;
   difficultyLevel: number;
   duration: string;
+  online: boolean;
   location: string;
   completed: boolean;
   deleted: boolean;
@@ -31,6 +32,7 @@ export interface FitnessProgramRequest {
   difficultyLevel: number;
   duration: string;
   location: string;
+  online: boolean;
   isCompleted: boolean;
   isDeleted: boolean;
   contactEmail: string;

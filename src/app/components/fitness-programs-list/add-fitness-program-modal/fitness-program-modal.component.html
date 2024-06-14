@@ -63,16 +63,18 @@
         </mat-form-field>
       </div>
       <div class="row">
-        <mat-form-field class="form-field">
-          <mat-label>Location</mat-label>
+        <div class="form-field">
+          <mat-radio-group formControlName="isOnline">
+            <mat-radio-button value="online">Online</mat-radio-button>
+            <mat-radio-button value="location">On location</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <mat-form-field
+          *ngIf="showLocation"
+          class="form-field">
+          <mat-label>{{ location }}</mat-label>
           <input
             formControlName="location"
-            matInput>
-        </mat-form-field>
-        <mat-form-field class="form-field">
-          <mat-label>Contact</mat-label>
-          <input
-            formControlName="contactEmail"
             matInput>
         </mat-form-field>
       </div>
@@ -82,6 +84,15 @@
           <mat-label>Description</mat-label>
           <input
             formControlName="description"
+            matInput>
+        </mat-form-field>
+      </div>
+      <div
+        class="full-width-row">
+        <mat-form-field class="form-field">
+          <mat-label>Contact</mat-label>
+          <input
+            formControlName="contactEmail"
             matInput>
         </mat-form-field>
       </div>
