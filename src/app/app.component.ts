@@ -69,11 +69,9 @@ export class AppComponent implements OnInit, OnDestroy {
       if (res) {
         this.user = this._userStoreService.getLoggedInUser();
         this._changeDetectorRef.detectChanges();
-        console.log('logged in', this.user);
       } else {
         this.user = null;
         this._changeDetectorRef.detectChanges();
-        console.log('logged out', this.user);
       }
     });
   }
