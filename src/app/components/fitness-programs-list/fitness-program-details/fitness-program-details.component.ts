@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FitnessProgram } from "../../../models/FitnessProgram";
-import { EMPTY, forkJoin, Subscription, switchMap } from "rxjs";
+import { EMPTY, filter, forkJoin, Subscription, switchMap } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FitnessProgramService } from "../../../services/fitness-program.service";
 import { FileService } from "../../../services/file.service";
@@ -60,6 +60,16 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
       this.userId = this._userStoreService.getLoggedInUser().id;
       this.isLoggedIn = true;
     }
+
+    this.getFitnessProgram();
+
+    this.leaveCommentForm = new FormGroup(
+      {
+        commentContent: new FormControl('', Validators.required)
+      });
+  }
+
+  getFitnessProgram(): void {
     this.subs.add(this._activatedRoute.params.pipe(
       switchMap(params => {
         this.id = params['id'];
@@ -72,15 +82,9 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
       this.getInstructorImageUrl();
       this.buildAttributes();
     }));
-
-    this.leaveCommentForm = new FormGroup(
-      {
-        commentContent: new FormControl('', Validators.required)
-      });
   }
 
   buildFitnessForm(fitnessProgram: FitnessProgram): void {
-    console.log(fitnessProgram);
     if (fitnessProgram.online) {
       this.location = 'online';
     } else {
@@ -127,14 +131,17 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
       },
       hasBackdrop: true,
       backdropClass: 'fitness-app-backdrop'
-    }).afterClosed().subscribe(res => {
-      if (res != null) {
-        this.subs.add(this._fitnessProgramPurchaseService.createPurchase(res).subscribe(res => {
-          console.log(res);
-          //TODO: Handle message
-        }))
+    }).afterClosed().pipe(
+      filter(res => res != null),
+      switchMap(res => this._fitnessProgramPurchaseService.createPurchase(res))
+    ).subscribe(
+      res => {
+        this._snackBar.open('Successfully purchased fitness program ' + this.fitnessProgram.name, "OK", snackBarConfig);
+      },
+      error => {
+        this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
       }
-    })
+    );
   }
 
   onPostCommentClick(): void {
@@ -174,13 +181,10 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
       },
       hasBackdrop: true,
       backdropClass: 'fitness-app-backdrop'
-    }).afterClosed().pipe(switchMap(result => {
-      return result ? this._fitnessProgramService.deleteById(this.fitnessProgram.id) : EMPTY
-    })).subscribe(res => {
-      //TODO: Handle this
-      this._router.navigateByUrl(`fitness-program`).catch(err => console.log(err));
-
-      // this.commentDeletedEmitter.emit(this.comment.id);
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        this._fitnessProgramService.deleteById(this.fitnessProgram.id);
+      }
     });
   }
 
@@ -221,18 +225,13 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
       },
       hasBackdrop: true,
       backdropClass: 'fitness-app-backdrop'
-    }).afterClosed().pipe(switchMap(result => {
+    }).afterClosed().subscribe(result => {
       if (result) {
-        //TODO: http call to save fitness program
-        this._snackBar.open("Fitness program successfully edited.", "OK", snackBarConfig)
+        this._snackBar.open("Fitness program successfully edited.", "OK", snackBarConfig);
+        this.getFitnessProgram();
         this._router.navigateByUrl(`fitness-program/${result.id}`).catch(err => console.log(err));
-        return EMPTY;
-      } else {
-        return EMPTY
       }
-    })).subscribe(res => {
-      console.log(res);
-    })
+    });
   }
 
   ngOnDestroy(): void {
