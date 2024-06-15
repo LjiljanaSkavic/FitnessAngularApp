@@ -70,6 +70,12 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.isEditMode = !!this.data;
+    this.showLocation = !!this.data;
+
+    if (this.data) {
+      this.location = this.data.fitnessProgram.online ? 'Youtube link' : 'Location';
+    }
+
     this.subs.add(this._categoryService.getAll().subscribe(res => {
       this.categories = res;
       this.categoriesLoading = false;
@@ -109,14 +115,13 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
         difficultyLevel: new FormControl(this.data.fitnessProgram.difficultyLevel, Validators.required),
         duration: new FormControl(this.data.fitnessProgram.duration, Validators.required),
         description: new FormControl(this.data.fitnessProgram.description, Validators.required),
-        isOnline: new FormControl(this.data.fitnessProgram.online, Validators.required),
+        isOnline: new FormControl(this.data.fitnessProgram.online ? 'online' : 'location', Validators.required),
         location: new FormControl(this.data.fitnessProgram.location, Validators.required),
         contactEmail: new FormControl(this.data.fitnessProgram.contactEmail, [Validators.required, Validators.email]),
         category: new FormControl(this.data.fitnessProgram.category.id, Validators.required),
       });
 
       this.currentFitnessProgramIds = this.data.fitnessProgram.images.map(image => image.id);
-
       this.fitnessProgramForm.get('category').disable();
       this.fitnessProgramImageUrls = Array.from(this.data.fitnessProgramImageUrls);
       this.buildAttributes();
@@ -313,8 +318,10 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
 
         if (res === 'online') {
           this.location = 'Youtube link';
+          this.fitnessProgramForm.get('location').setValue('');
         } else if (res === 'location') {
           this.location = 'Location';
+          this.fitnessProgramForm.get('location').setValue('');
         }
       }));
   }
