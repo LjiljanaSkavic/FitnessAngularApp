@@ -194,10 +194,6 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
       return this._fileService.uploadFile(image);
     });
 
-    console.log(this.instructorImagePreview);
-    console.log(this.data.instructorImageUrl);
-    console.log(this.instructorImagePreview !== this.data.instructorImageUrl);
-
     const uploadInstructorObservable = this.instructorImagePreview !== this.data.instructorImageUrl ? this._fileService.uploadFile(this.instructorImage) : of(null);
 
     forkJoin([...uploadFitnessProgramObservables, uploadInstructorObservable]).subscribe((responses: any[]) => {
@@ -206,22 +202,13 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
 
       this.uploadedImages = fitnessProgramResponses;
 
-      console.log(this.uploadedImages);
-
       if (instructorResponse) {
         this.uploadedInstructorImage = instructorResponse;
-        console.log(this.uploadedInstructorImage);
       }
 
       this.populateFitnessProgram();
       this.fitnessProgramDTO.imageIds.push(...this.currentFitnessProgramIds);
-
-      console.log(this.fitnessProgramDTO.imageIds);
-
-      console.log(this.fitnessProgramDTO.instructor.imageId);
-
       this._fitnessProgramService.update(this.data.fitnessProgram.id, this.fitnessProgramDTO).subscribe(res => {
-        //TODO: Add success message
         this.dialogRef.close(res);
       });
     });
@@ -247,7 +234,6 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
       this.populateFitnessProgram();
 
       this._fitnessProgramService.create(this.fitnessProgramDTO).subscribe(res => {
-        //TODO: Add success message
         this.dialogRef.close(res);
       })
 
