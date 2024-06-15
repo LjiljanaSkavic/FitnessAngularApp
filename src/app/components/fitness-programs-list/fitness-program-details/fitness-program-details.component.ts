@@ -114,7 +114,7 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
   }
 
   getInstructorImageUrl(): void {
-    this._fileService.getFileById(this.fitnessProgram.instructor.id).subscribe(res => {
+    this._fileService.getFileById(this.fitnessProgram.instructor.image.id).subscribe(res => {
       this.instructorImageUrl = URL.createObjectURL(res);
     });
   }

@@ -157,7 +157,7 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
     }
   }
 
-  onFileChange(event: any): void {
+  onFitnessProgramFileChange(event: any): void {
     const files: FileList = event.target.files;
     if (files && files.length > 0) {
       for (let i = 0; i < files.length; i++) {
@@ -176,8 +176,6 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
   removeFitnessProgramImage(index: number) {
     if (this.data !== null) {
       this.currentFitnessProgramIds.splice(index, 1);
-
-      console.log(this.currentFitnessProgramIds);
     }
     if (this.selectedImages.length > 0) {
       const indexOfUploaded = this.currentFitnessProgramIds.length - index;
@@ -309,10 +307,8 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
   }
 
   trackIsOnlineChange(): void {
-    console.log('change');
     this.subs.add(
       this.fitnessProgramForm.get('isOnline').valueChanges.subscribe(res => {
-        console.log(res);
         this.showLocation = res !== null;
 
         if (res === 'online') {
