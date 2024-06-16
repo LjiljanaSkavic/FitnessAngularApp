@@ -116,7 +116,7 @@
 </div>
 <mat-paginator
   (page)="onPageChange($event)"
-  *ngIf="fitnessProgramCards"
+  *ngIf="fitnessProgramCards.length"
   [length]="totalItems"
   [pageIndex]="pageIndex"
   [pageSize]="pageSize"

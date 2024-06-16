@@ -19,7 +19,7 @@
 
 <mat-paginator
   (page)="onPageChange($event)"
-  *ngIf="purchases"
+  *ngIf="purchases.length"
   [length]="totalItems"
   [pageIndex]="pageIndex"
   [pageSize]="pageSize"

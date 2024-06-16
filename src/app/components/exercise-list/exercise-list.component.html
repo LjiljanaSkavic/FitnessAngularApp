@@ -6,7 +6,7 @@
   </div>
   <mat-paginator
     (page)="onPageChange($event)"
-    *ngIf="exercises"
+    *ngIf="exercises.length"
     [length]="exercises.length"
     [pageSizeOptions]="pageSizeOptions"
     [pageSize]="pageSize"

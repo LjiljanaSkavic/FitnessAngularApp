@@ -126,7 +126,7 @@
 </div>
 <mat-paginator
   (page)="onPageChange($event)"
-  *ngIf="activityLogs"
+  *ngIf="activityLogs.length"
   [length]="totalItems"
   [pageIndex]="pageIndex"
   [pageSize]="pageSize"
