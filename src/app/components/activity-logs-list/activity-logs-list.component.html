@@ -12,6 +12,7 @@
     </button>
     <button
       (click)="ondDownloadMyActivityLogs()"
+      [disabled]="activityLogs.length === 0"
       [matTooltip]="'Download logs'"
       class="button-primary"
       mat-button>
@@ -19,7 +20,7 @@
     </button>
   </div>
   <table
-    *ngIf="activityLogs else noData"
+    *ngIf="activityLogs.length else noData"
     [dataSource]="activityLogs"
     class="mat-elevation-z8"
     mat-table>

@@ -7,41 +7,41 @@ import { ERROR_HAS_OCCURRED_MESSAGE, snackBarConfig } from "../../shared/contant
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
-    selector: 'app-activate',
-    templateUrl: './activate.component.html',
-    styleUrls: ['./activate.component.scss']
+  selector: 'app-activate',
+  templateUrl: './activate.component.html',
+  styleUrls: ['./activate.component.scss']
 })
 export class ActivateComponent implements OnInit, OnDestroy {
-    userId: number;
-    link: string;
-    subscription = new Subscription();
+  userId: number;
+  link: string;
+  subscription = new Subscription();
 
-    constructor(private _activatedRoute: ActivatedRoute,
-                private _userService: UserService,
-                private _userStoreService: UserStoreService,
-                private _router: Router,
-                private _snackBar: MatSnackBar) {
-    }
+  constructor(private _activatedRoute: ActivatedRoute,
+              private _userService: UserService,
+              private _userStoreService: UserStoreService,
+              private _router: Router,
+              private _snackBar: MatSnackBar) {
+  }
 
-    ngOnInit(): void {
-        this.subscription.add(this._activatedRoute.queryParams.pipe(switchMap(params => {
-            this.userId = params['id'];
-            this.link = params['link']
-            return this._userService.activateUser(this.userId, this.link);
-        })).subscribe(user => {
-                this._userStoreService.isLoggedIn$.next(true);
-                this._userStoreService.setUserAsLoggedIn(user);
-                this._router.navigateByUrl('exercises').catch(err => console.log(err));
-                this._snackBar.open("You successfully logged in. Enjoy with GymGuru!", "OK", snackBarConfig);
-            },
-            error => {
-                this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
-            }
-        ));
-    }
+  ngOnInit(): void {
+    this.subscription.add(this._activatedRoute.queryParams.pipe(switchMap(params => {
+      this.userId = params['id'];
+      this.link = params['link']
+      return this._userService.activateUser(this.userId, this.link);
+    })).subscribe(user => {
+        this._userStoreService.setUserAsLoggedIn(user);
+        this._userStoreService.isLoggedIn$.next(true);
+        this._router.navigateByUrl('exercises').catch(err => console.log(err));
+        this._snackBar.open("You successfully logged in. Enjoy with GymGuru!", "OK", snackBarConfig);
+      },
+      error => {
+        this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
+      }
+    ));
+  }
 
-    ngOnDestroy(): void {
-        this.subscription.unsubscribe();
-    }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
 }

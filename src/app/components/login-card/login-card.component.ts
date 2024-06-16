@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, UntypedFormBuilder, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
-import { Router } from "@angular/router";
 import * as sha512 from 'js-sha512';
 import { UserService } from "../../services/user.service";
 import { UserStoreService } from "../../services/user-store.service";
@@ -22,7 +21,6 @@ export class LoginCardComponent implements OnInit, OnDestroy {
 
   constructor(public dialog: MatDialog,
               private readonly _formBuilder: UntypedFormBuilder,
-              private _router: Router,
               private _userService: UserService,
               private _userStoreService: UserStoreService,
               private _dialogRef: MatDialogRef<LoginCardComponent>) {
@@ -50,7 +48,8 @@ export class LoginCardComponent implements OnInit, OnDestroy {
   onLoginClick($event: MouseEvent) {
     const username = this.loginForm.get('username').value;
     const password = this.getPasswordHash(this.loginForm.get('password').value);
-    this.subs.add(this._userService.findUserByUsernameAndPassword(username, password).subscribe(user => {
+    this.subs.add(this._userService.findUserByUsernameAndPassword(username, password).subscribe(
+      (user) => {
         if (user.activated) {
           this._userStoreService.setUserAsLoggedIn(user);
           this._userStoreService.isLoggedIn$.next(true);
@@ -68,9 +67,8 @@ export class LoginCardComponent implements OnInit, OnDestroy {
           });
         }
       },
-      error => {
-        //TODO: (Handle invalid login)
-        console.log('error', error);
+      (error) => {
+        this.invalidCredentials = true;
       }));
   }
 
