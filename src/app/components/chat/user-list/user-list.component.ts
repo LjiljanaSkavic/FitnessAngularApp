@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { AppUser, AppUserShort } from "../../../models/AppUser";
+import { AppUser, AppUserShort, AppUserShortWithUnreadMessages } from "../../../models/AppUser";
 import { Subscription } from "rxjs";
 import { UserService } from "../../../services/user.service";
 import { UserStoreService } from "../../../services/user-store.service";
@@ -14,7 +14,7 @@ export class UserListComponent {
 
   @Output() selectedUserEmitter = new EventEmitter<AppUserShort>();
   user: AppUser;
-  activatedUsers: AppUserShort[] = [];
+  activatedUsers: AppUserShortWithUnreadMessages[] = [];
   subscriptions = new Subscription();
   userImageMap: Map<number, string> = new Map();
   selectedUserId: number;
@@ -24,7 +24,7 @@ export class UserListComponent {
               private _fileService: FileService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this._userStoreService.getIsLoggedIn()) {
       this.user = this._userStoreService.getLoggedInUser();
       this.subscriptions.add(
@@ -35,7 +35,7 @@ export class UserListComponent {
         })
       );
     }
-    this.subscriptions.add(this._userService.getActiveUsers().subscribe(res => {
+    this.subscriptions.add(this._userService.getActiveUsers(this.user.id).subscribe(res => {
       this.activatedUsers = res.filter(user => user.id !== this.user.id);
     }));
   }
@@ -51,7 +51,8 @@ export class UserListComponent {
     return '';
   }
 
-  selectUser(user: AppUserShort): void {
+  selectUser(user: AppUserShortWithUnreadMessages): void {
+    user.unreadMessages = 0;
     this.selectedUserEmitter.emit(user);
     this.selectedUserId = user.id;
   }

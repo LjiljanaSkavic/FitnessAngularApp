@@ -77,6 +77,7 @@ import {
 } from './components/subscribe-to-category/subscribe-to-category-modal.component';
 import { MatSliderModule } from "@angular/material/slider";
 import { NoDataComponent } from './components/no-data/no-data.component';
+import { MatBadgeModule } from "@angular/material/badge";
 
 export const ANGULAR_MATERIAL_MODULES = [
   MatIconModule,
@@ -96,7 +97,8 @@ export const ANGULAR_MATERIAL_MODULES = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatTableModule,
-  MatSliderModule
+  MatSliderModule,
+  MatBadgeModule
 ]
 
 @NgModule({

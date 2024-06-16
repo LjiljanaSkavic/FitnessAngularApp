@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { AppUser, AppUserShort } from "../models/AppUser";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { AppUser, AppUserShortWithUnreadMessages } from "../models/AppUser";
 import { Observable } from "rxjs";
 import { UserDTO } from "../models/dto/UserDTO";
 
@@ -19,12 +19,15 @@ export class UserService {
       username: username,
       password: password
     }
+
     const loginUrl = `${this.baseUrl}/login`;
     return this._httpClient.post<AppUser>(loginUrl, loginUserInfo);
   }
 
-  getActiveUsers(): Observable<AppUserShort[]> {
-    return this._httpClient.get<AppUserShort[]>(`${this.baseUrl}/activated`);
+  getActiveUsers(userId: number): Observable<AppUserShortWithUnreadMessages[]> {
+    const url = `${this.baseUrl}/activated`;
+    const params = new HttpParams().set('userId', userId.toString());
+    return this._httpClient.get<AppUserShortWithUnreadMessages[]>(url, {params});
   }
 
   subscribeToCategory(userId: number, categoryId: number): Observable<any> {

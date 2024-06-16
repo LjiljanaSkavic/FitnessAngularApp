@@ -41,7 +41,7 @@ export class MessagesComponent implements OnInit, OnChanges {
           .pipe(
             switchMap(res => {
               this.chatId = res;
-              return this._chatService.getChatMessages(this.chatId);
+              return this._chatService.retrieveAndMarkMessagesAsRead(this.chatId, this.userId);
             })
           )
           .subscribe(messages => {

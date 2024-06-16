@@ -17,3 +17,7 @@ export interface AppUserShort {
   image: IFile;
   loggedIn: boolean;
 }
+
+export interface AppUserShortWithUnreadMessages extends AppUserShort {
+  unreadMessages: number;
+}

@@ -53,10 +53,15 @@
   font-weight: bold;
 }
 
-.color-green {
-  background-color: $color-green-1;
+.avatar-wrapper {
+  padding: 4px;
+  border-radius: 50%;
 }
 
-.color-gray {
-  background-color: $color-gray-3;
+.border-color-green {
+  border: 2px solid $color-green-1;
+}
+
+.border-color-gray {
+  border: 2px solid $color-gray-3;
 }

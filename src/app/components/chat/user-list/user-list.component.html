@@ -14,14 +14,21 @@
   <div
     (click)="selectUser(user)"
     class="user-wrapper">
-    <div class="avatar-wrapper">
+    <div
+      [matTooltip]="user.loggedIn ? 'online' : 'away'"
+      [ngClass]="user.loggedIn ? 'border-color-green' : 'border-color-gray'"
+      class="avatar-wrapper">
       <img [src]="userImageMap.get(user.id) ?? getUrl(user)">
     </div>
     <div class="user-data-wrapper">
-      <div>{{ user.username }}</div>
-      <div
-        [matTooltip]="user.loggedIn ? 'active' : 'away'"
-        [ngClass]="user.loggedIn ? 'circle color-green' : 'circle color-gray'"></div>
+      <div>{{ user.username }}
+        <span
+          *ngIf="user.unreadMessages > 0"
+          matBadge="{{ user.unreadMessages }}"
+          matBadgeColor="warn"
+          matBadgeOverlap="false">
+        </span>
+      </div>
     </div>
   </div>
 </div>
