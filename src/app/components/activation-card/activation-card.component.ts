@@ -28,10 +28,8 @@ export class ActivationCardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription.add(this._userService.sendEmail(this.dialogData.userId).subscribe(res => {
-        this._snackBar.open('Email successfully sent, check your inbox!', "OK", snackBarConfig);
       },
       error => {
-        console.log(error);
         this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
       }
     ));

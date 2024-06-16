@@ -1,10 +1,24 @@
-<mat-card>
-  <div>"Great news! 🎉 We've just sent a link to your email.
-    Simply click on it to activate your profile and unlock all
-    the amazing features waiting for you. Let's get started on this exciting journey together!"
+<div
+  class="activation-card-wrapper"
+  xmlns="http://www.w3.org/1999/html">
+  <div class="activation-card-wrapper__header">
+    Activate account
   </div>
-  <button
-    (click)="onOKClick()"
-    mat-button>OK
-  </button>
-</mat-card>
+  <div class="activation-card-wrapper__container">
+    <div>
+      <div class="great-news-text">Great news! 🎉</div>
+      <div>
+        We've just sent a link to your email.
+        Simply click on it to activate your profile and unlock all
+        the amazing features waiting for you. Let's get started on this exciting journey together!
+      </div>
+    </div>
+    <div class="button-wrapper">
+      <button
+        (click)="onOKClick()"
+        class="button-save"
+        mat-button>OK
+      </button>
+    </div>
+  </div>
+</div>
