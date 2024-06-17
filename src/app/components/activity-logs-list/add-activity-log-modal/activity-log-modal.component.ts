@@ -12,10 +12,10 @@ export interface ActivityLogModalData {
 
 @Component({
   selector: 'app-add-activity-log-details-modal',
-  templateUrl: './add-activity-log-modal.component.html',
-  styleUrls: ['./add-activity-log-modal.component.scss']
+  templateUrl: './activity-log-modal.component.html',
+  styleUrls: ['./activity-log-modal.component.scss']
 })
-export class AddActivityLogModalComponent implements OnInit {
+export class ActivityLogModalComponent implements OnInit {
   activityLogForm: FormGroup;
   activityLogRequest: ActivityLogRequest;
   userId: number;
@@ -28,7 +28,7 @@ export class AddActivityLogModalComponent implements OnInit {
 
   constructor(private _userStoreService: UserStoreService,
               private _activityLogService: ActivityLogService,
-              private dialogRef: MatDialogRef<AddActivityLogModalComponent>,
+              private dialogRef: MatDialogRef<ActivityLogModalComponent>,
               @Inject(MAT_DIALOG_DATA) public data: ActivityLogModalData) {
   }
 

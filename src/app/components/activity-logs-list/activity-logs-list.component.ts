@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { EMPTY, Subscription, switchMap } from "rxjs";
 import { MatDialog } from "@angular/material/dialog";
-import { AddActivityLogModalComponent } from "./add-activity-log-modal/add-activity-log-modal.component";
+import { ActivityLogModalComponent } from "./add-activity-log-modal/activity-log-modal.component";
 import { ActivityLog } from "../../models/ActivityLogRequest";
 import { ActivityLogService } from "../../services/activity-log.service";
 import { UserStoreService } from "../../services/user-store.service";
@@ -42,7 +42,7 @@ export class ActivityLogsListComponent implements OnInit, OnDestroy {
   }
 
   onAddNewActivityLogClick(): void {
-    this.dialog.open(AddActivityLogModalComponent, {
+    this.dialog.open(ActivityLogModalComponent, {
       hasBackdrop: true,
       backdropClass: 'fitness-app-backdrop'
     }).afterClosed().subscribe(result => {
@@ -89,7 +89,7 @@ export class ActivityLogsListComponent implements OnInit, OnDestroy {
   }
 
   onEditActivityLogClick(activityLog: ActivityLog): void {
-    this.dialog.open(AddActivityLogModalComponent, {
+    this.dialog.open(ActivityLogModalComponent, {
       data: {
         activityLog: activityLog
       },

@@ -55,8 +55,8 @@ import {
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import {
-  AddActivityLogModalComponent
-} from './components/activity-logs-list/add-activity-log-modal/add-activity-log-modal.component';
+  ActivityLogModalComponent
+} from './components/activity-logs-list/add-activity-log-modal/activity-log-modal.component';
 import { AtivityLogCardComponent } from './components/ativity-log-card/ativity-log-card.component';
 import { MatTableModule } from "@angular/material/table";
 import { StatisticsComponent } from './components/statistics/statistics.component';
@@ -125,7 +125,7 @@ export const ANGULAR_MATERIAL_MODULES = [
     AdviceMessageModalComponent,
     ActivityLogsListComponent,
     ActivityLogDetailsComponent,
-    AddActivityLogModalComponent,
+    ActivityLogModalComponent,
     AtivityLogCardComponent,
     StatisticsComponent,
     RssFeedNewsListComponent,
@@ -148,9 +148,9 @@ export const ANGULAR_MATERIAL_MODULES = [
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ANGULAR_MATERIAL_MODULES,
     NgOptimizedImage,
     GoogleChartsModule,
+    ANGULAR_MATERIAL_MODULES
   ],
   providers: [HttpClient, DatePipe],
   bootstrap: [AppComponent]
