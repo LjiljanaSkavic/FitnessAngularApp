@@ -17,7 +17,7 @@ export class LoginCardComponent implements OnInit, OnDestroy {
   hidePassword = true;
   loginForm: FormGroup;
   invalidCredentials = false;
-  subs = new Subscription();
+  subscriptions = new Subscription();
 
   constructor(public dialog: MatDialog,
               private readonly _formBuilder: UntypedFormBuilder,
@@ -34,8 +34,8 @@ export class LoginCardComponent implements OnInit, OnDestroy {
       password: new FormControl(null, Validators.required)
     });
 
-    this.subs.add(this.loginForm.get('username')?.valueChanges.subscribe(value => this.invalidCredentials = false));
-    this.subs.add(this.loginForm.get('password')?.valueChanges.subscribe(value => this.invalidCredentials = false));
+    this.subscriptions.add(this.loginForm.get('username')?.valueChanges.subscribe(value => this.invalidCredentials = false));
+    this.subscriptions.add(this.loginForm.get('password')?.valueChanges.subscribe(value => this.invalidCredentials = false));
   }
 
   buildForm() {
@@ -48,7 +48,7 @@ export class LoginCardComponent implements OnInit, OnDestroy {
   onLoginClick($event: MouseEvent) {
     const username = this.loginForm.get('username').value;
     const password = this.getPasswordHash(this.loginForm.get('password').value);
-    this.subs.add(this._userService.findUserByUsernameAndPassword(username, password).subscribe(
+    this.subscriptions.add(this._userService.findUserByUsernameAndPassword(username, password).subscribe(
       (user) => {
         if (user.activated) {
           this._userStoreService.setUserAsLoggedIn(user);
@@ -87,6 +87,6 @@ export class LoginCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subs.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

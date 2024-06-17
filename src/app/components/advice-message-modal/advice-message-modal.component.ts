@@ -53,7 +53,6 @@ export class AdviceMessageModalComponent {
             isImage: file.name.endsWith('.png') || file.name.endsWith('.jpg') || file.name.endsWith('.jpeg')
           });
           this.filesControl.setValue([...this.files]);
-          console.log(this.files);
         };
         reader.readAsDataURL(file);
       });

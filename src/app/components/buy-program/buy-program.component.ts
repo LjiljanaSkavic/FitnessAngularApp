@@ -16,14 +16,10 @@ export class BuyProgramComponent implements OnInit, OnDestroy {
   creditCardPayingForm: FormGroup;
   selectPayingForm: FormGroup;
   purchase: FitnessProgramPurchaseRequest;
-  subs = new Subscription();
+  subscriptions = new Subscription();
 
   constructor(private _sharedService: SharedService,
               @Inject(MAT_DIALOG_DATA) public data: any) {
-  }
-
-  get selectedFormValid(): boolean {
-    return this.codPayingSelected ? !this.codPayingForm.valid : !this.creditCardPayingForm.valid;
   }
 
   ngOnInit(): void {
@@ -47,7 +43,7 @@ export class BuyProgramComponent implements OnInit, OnDestroy {
       confirmProcessing: new FormControl(1, [Validators.required]),
     });
 
-    this.subs.add(this.selectPayingForm.get('payingOption')?.valueChanges.subscribe(selectedOption => {
+    this.subscriptions.add(this.selectPayingForm.get('payingOption')?.valueChanges.subscribe(selectedOption => {
       const option = parseInt(selectedOption);
       this.codPayingSelected = option === 0;
     }));
@@ -62,6 +58,6 @@ export class BuyProgramComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subs.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

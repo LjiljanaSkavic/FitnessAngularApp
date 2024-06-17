@@ -10,7 +10,7 @@ import { MatPaginator } from "@angular/material/paginator";
   styleUrls: ['./exercise-list.component.scss']
 })
 export class ExerciseListComponent implements OnInit, OnDestroy {
-  subs = new Subscription();
+  subscriptions = new Subscription();
   exercises: Exercise[] = [];
   pagedExercises: Exercise[] = [];
   isLoading = true;
@@ -23,7 +23,7 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subs.add(this._exercisesService.getExercises().subscribe(res => {
+    this.subscriptions.add(this._exercisesService.getExercises().subscribe(res => {
       this.exercises = res;
       this.displayPage(0);
       this.isLoading = false;
@@ -41,6 +41,6 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subs.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

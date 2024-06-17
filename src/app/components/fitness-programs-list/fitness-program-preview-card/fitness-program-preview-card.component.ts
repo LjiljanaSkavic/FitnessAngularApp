@@ -13,7 +13,7 @@ export class FitnessProgramPreviewCardComponent implements OnInit, OnDestroy {
 
   @Input() fitnessProgramCard: FitnessProgramCard = {} as FitnessProgramCard;
   fileUrl: any;
-  subs = new Subscription();
+  subscriptions = new Subscription();
 
   constructor(private _router: Router,
               private _fileService: FileService) {
@@ -24,7 +24,7 @@ export class FitnessProgramPreviewCardComponent implements OnInit, OnDestroy {
   }
 
   getFile(): void {
-    this.subs.add(this._fileService.getFileById(this.fitnessProgramCard.image.id).subscribe(
+    this.subscriptions.add(this._fileService.getFileById(this.fitnessProgramCard.image.id).subscribe(
       (data: Blob) => {
         const reader = new FileReader();
         reader.readAsDataURL(data);
@@ -44,6 +44,6 @@ export class FitnessProgramPreviewCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subs.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

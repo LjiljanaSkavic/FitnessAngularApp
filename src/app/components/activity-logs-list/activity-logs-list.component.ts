@@ -21,7 +21,7 @@ export class ActivityLogsListComponent implements OnInit, OnDestroy {
   userId: number;
   activityLogs: ActivityLog[] = [];
   displayedColumns: string[] = ['date', 'duration', 'type', 'currentWeight', 'kcalIntake', 'edit', 'delete'];
-  subs = new Subscription();
+  subscriptions = new Subscription();
   pageSize = 5;
   pageIndex = 0;
   totalItems = 0;
@@ -62,7 +62,7 @@ export class ActivityLogsListComponent implements OnInit, OnDestroy {
 
   displayActivityLogs(): void {
     this.isLoading = true;
-    this.subs.add(this._activityLogService.search(this.userId, this.pageIndex, this.pageSize).subscribe(res => {
+    this.subscriptions.add(this._activityLogService.search(this.userId, this.pageIndex, this.pageSize).subscribe(res => {
       this.activityLogs = res.activityLogs;
       this.totalItems = res.totalElements;
       this.isLoading = false;
@@ -125,6 +125,6 @@ export class ActivityLogsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subs.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

@@ -49,7 +49,7 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
   filterForm: FormGroup;
   isLoading = true;
   categoriesLoading = true;
-  subs = new Subscription();
+  subscriptions = new Subscription();
   pageSize = 5;
   pageIndex = 0;
   totalItems = 0;
@@ -69,7 +69,7 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subs.add(this._categoryService.getAll().subscribe(res => {
+    this.subscriptions.add(this._categoryService.getAll().subscribe(res => {
       this.categories = res;
       this.categoriesLoading = false;
       this.buildFilterForm();
@@ -120,7 +120,7 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
     }
     const difficultyLevel = this.filterForm.get('difficultyLevel').value;
 
-    this.subs.add(this._fitnessProgramService.search(keyword,
+    this.subscriptions.add(this._fitnessProgramService.search(keyword,
       categoryId,
       showPrograms === SHOW_PROGRAMS.ALL ? null : this.userId,
       isCompleted,
@@ -167,6 +167,6 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subs.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

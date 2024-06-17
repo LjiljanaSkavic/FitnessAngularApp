@@ -15,7 +15,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 })
 export class ManagePasswordComponent implements OnInit, OnDestroy {
   passwordForm: FormGroup;
-  subs = new Subscription();
+  subscriptions = new Subscription();
   userId: number;
   disableSave = false;
   hasPasswordsMatchError = false;
@@ -80,6 +80,6 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subs.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

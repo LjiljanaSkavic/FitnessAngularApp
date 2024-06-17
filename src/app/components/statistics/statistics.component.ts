@@ -46,7 +46,6 @@ export class StatisticsComponent implements OnInit, OnDestroy {
         month: 'short',
         year: 'numeric'
       });
-      console.log(formattedDate); // Output the formatted
       return formattedDate;
     })
     dates.map(log => log.toString());

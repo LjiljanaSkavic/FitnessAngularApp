@@ -30,7 +30,7 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
   fitnessProgramForm: FormGroup;
   userId: number;
 
-  subs = new Subscription();
+  subscriptions = new Subscription();
 
   location = '';
   fileUrl: string | ArrayBuffer | null = null;
@@ -70,7 +70,7 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
   }
 
   getFitnessProgram(): void {
-    this.subs.add(this._activatedRoute.params.pipe(
+    this.subscriptions.add(this._activatedRoute.params.pipe(
       switchMap(params => {
         this.id = params['id'];
         return this._fitnessProgramService.getById(this.id);
@@ -118,9 +118,10 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
   }
 
   getInstructorImageUrl(): void {
-    this._fileService.getFileById(this.fitnessProgram.instructor.image.id).subscribe(res => {
-      this.instructorImageUrl = URL.createObjectURL(res);
-    });
+    this.subscriptions.add(
+      this._fileService.getFileById(this.fitnessProgram.instructor.image.id).subscribe(res => {
+        this.instructorImageUrl = URL.createObjectURL(res);
+      }));
   }
 
   onBuyProgramClick(): void {
@@ -153,7 +154,7 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
       appUserId: this.userId
     }
 
-    this.subs.add(
+    this.subscriptions.add(
       this._commentService.createComment(commentRequest).subscribe(
         newComment => {
           this.fitnessProgram.comments.push(newComment);
@@ -235,6 +236,6 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subs.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

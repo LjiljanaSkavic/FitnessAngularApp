@@ -1,26 +1,39 @@
 import { Injectable } from '@angular/core';
-import { Observable } from "rxjs";
+import { catchError, Observable, shareReplay, throwError } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { IFile } from "../models/IFile";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class FileService {
+  baseUrl = "http://localhost:9000/files";
+  private cache = new Map<number, Observable<Blob>>();
 
-    baseUrl = "http://localhost:9000/files";
+  constructor(private _httpClient: HttpClient) {
+  }
 
-    constructor(private _httpClient: HttpClient) {
+  getFileById(id: number): Observable<Blob> {
+    if (this.cache.has(id)) {
+      return this.cache.get(id)!;
     }
 
-    getFileById(id: number): Observable<Blob> {
-        return this._httpClient.get(`${this.baseUrl}/${id}`, {responseType: 'blob'});
-    }
+    const request = this._httpClient.get(`${this.baseUrl}/${id}`, {responseType: 'blob'}).pipe(
+      shareReplay(1),
+      catchError(err => {
+        this.cache.delete(id);
+        return throwError(err);
+      })
+    );
 
-    uploadFile(file: any): Observable<IFile> {
-        const formData = new FormData();
-        formData.append('file', file);
+    this.cache.set(id, request);
+    return request;
+  }
 
-        return this._httpClient.post<IFile>(`${this.baseUrl}/upload`, formData);
-    }
+  uploadFile(file: any): Observable<IFile> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this._httpClient.post<IFile>(`${this.baseUrl}/upload`, formData);
+  }
 }

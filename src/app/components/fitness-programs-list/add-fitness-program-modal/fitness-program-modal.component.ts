@@ -38,7 +38,7 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
   categoriesLoading = true;
   categories: Category[] = [];
 
-  subs = new Subscription();
+  subscriptions = new Subscription();
 
   fitnessProgramDTO = {} as FitnessProgramRequest;
   uploadedImages: IFile[] = [];
@@ -76,7 +76,7 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
       this.location = this.data.fitnessProgram.online ? 'Youtube link' : 'Location';
     }
 
-    this.subs.add(this._categoryService.getAll().subscribe(res => {
+    this.subscriptions.add(this._categoryService.getAll().subscribe(res => {
       this.categories = res;
       this.categoriesLoading = false;
       this.categoryDisabled = this.data !== null;
@@ -298,7 +298,7 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
   }
 
   trackIsOnlineChange(): void {
-    this.subs.add(
+    this.subscriptions.add(
       this.fitnessProgramForm.get('isOnline').valueChanges.subscribe(res => {
         this.showLocation = res !== null;
 
@@ -345,6 +345,6 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subs.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

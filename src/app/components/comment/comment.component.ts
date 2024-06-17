@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Comment } from "../../models/Comment";
 import { UserStoreService } from "../../services/user-store.service";
 import { ConfirmationModalComponent } from "../../confirmation-modal/confirmation-modal.component";
-import { EMPTY, switchMap } from "rxjs";
+import { EMPTY, Subscription, switchMap } from "rxjs";
 import { CommentService } from "../../services/comment.service";
 import { MatDialog } from "@angular/material/dialog";
 import { FormControl, FormGroup } from "@angular/forms";
@@ -21,6 +21,7 @@ export class CommentComponent implements OnInit {
   commentForm: FormGroup;
   isEditMode = false;
   imageURL: string;
+  subscriptions = new Subscription();
 
   constructor(private _userStoreService: UserStoreService,
               private _commentService: CommentService,
@@ -38,9 +39,10 @@ export class CommentComponent implements OnInit {
     this.commentForm.disable();
 
     if (!this.imageURL) {
-      this._fileService.getFileById(this.comment.appUser.image.id).subscribe(imageBlob => {
-        this.imageURL = URL.createObjectURL(imageBlob);
-      });
+      this.subscriptions.add(
+        this._fileService.getFileById(this.comment.appUser.image.id).subscribe(imageBlob => {
+          this.imageURL = URL.createObjectURL(imageBlob);
+        }));
     }
   }
 

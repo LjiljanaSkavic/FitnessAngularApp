@@ -16,10 +16,10 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   styleUrls: ['./profile-details.component.scss']
 })
 export class ProfileDetailsComponent implements OnInit, OnDestroy {
-  
+
   profileForm: FormGroup;
   user: AppUser = null;
-  subs = new Subscription();
+  subscriptions = new Subscription();
   selectedFile: File | null = null;
   selectedFileName = '';
   fileUrl: string | ArrayBuffer | null = null;
@@ -49,7 +49,7 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
   }
 
   getFile(): void {
-    this.subs.add(this._fileService.getFileById(this.user.image.id).subscribe(
+    this.subscriptions.add(this._fileService.getFileById(this.user.image.id).subscribe(
       (data: Blob) => {
         const reader = new FileReader();
         reader.readAsDataURL(data);
@@ -147,6 +147,6 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy(): void {
-    this.subs.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }
