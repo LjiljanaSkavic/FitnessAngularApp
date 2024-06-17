@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FitnessProgramPurchase } from "../../../models/fitness-program-purchase";
-import { ConfirmationModalComponent } from "../../../confirmation-modal/confirmation-modal.component";
+import { ConfirmationModalComponent } from "../../confirmation-modal/confirmation-modal.component";
 import { EMPTY, Subscription, switchMap } from "rxjs";
 import { MatDialog } from "@angular/material/dialog";
 import { FitnessProgramPurchaseService } from "../../../services/fitness-program-purchase.service";

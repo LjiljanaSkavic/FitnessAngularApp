@@ -13,7 +13,7 @@ import { CommentRequest } from "../../../models/dto/comment-request";
 import { ERROR_HAS_OCCURRED_MESSAGE, snackBarConfig } from "../../../shared/contants";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { CommentService } from "../../../services/comment.service";
-import { ConfirmationModalComponent } from "../../../confirmation-modal/confirmation-modal.component";
+import { ConfirmationModalComponent } from "../../confirmation-modal/confirmation-modal.component";
 import { FitnessProgramModalComponent } from "../add-fitness-program-modal/fitness-program-modal.component";
 import { DatePipe } from "@angular/common";
 

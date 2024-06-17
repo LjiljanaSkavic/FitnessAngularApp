@@ -6,7 +6,7 @@ import { ActivityLog } from "../../models/activity-log-request";
 import { ActivityLogService } from "../../services/activity-log.service";
 import { UserStoreService } from "../../services/user-store.service";
 import { MatPaginator, PageEvent } from "@angular/material/paginator";
-import { ConfirmationModalComponent } from "../../confirmation-modal/confirmation-modal.component";
+import { ConfirmationModalComponent } from "../confirmation-modal/confirmation-modal.component";
 
 @Component({
   selector: 'app-activity-logs-list',
