@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from "rxjs";
 import { FeedService } from "../../services/feed.service";
-import { RssFeedItem } from "../../models/Rss-feed";
+import { RssFeedItem } from "../../models/rss-feed";
 import { MatPaginator } from "@angular/material/paginator";
 
 @Component({

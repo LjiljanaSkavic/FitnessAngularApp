@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ExercisesService } from "../../services/exercises.service";
 import { Subscription } from "rxjs";
-import { Exercise } from "../../models/Exercise";
+import { Exercise } from "../../models/exercise";
 import { MatPaginator } from "@angular/material/paginator";
 
 @Component({

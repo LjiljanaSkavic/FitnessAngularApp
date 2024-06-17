@@ -2,17 +2,17 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { FileService } from "../../../services/file.service";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { FitnessProgram, FitnessProgramRequest } from "../../../models/FitnessProgram";
+import { FitnessProgram, FitnessProgramRequest } from "../../../models/fitness-program";
 import { CategoryService } from "../../../services/category.service";
 import { forkJoin, of, Subscription } from "rxjs";
-import { Category } from "../../../models/dto/Category";
+import { Category } from "../../../models/dto/category";
 import { UserStoreService } from "../../../services/user-store.service";
-import { IFile } from "../../../models/IFile";
+import { FitnessAppFile } from "../../../models/fitness-app-file";
 import { doubleValidator } from "../../../validators/DoubleValidator";
 import { FitnessProgramService } from "../../../services/fitness-program.service";
-import { InstructorDTO } from "../../../models/Instructor";
+import { InstructorDTO } from "../../../models/instructor";
 import { DIFFICULTY_LEVELS } from "../../../constants/difficulty-levels";
-import { Attribute } from "../../../models/dto/Attribute";
+import { Attribute } from "../../../models/dto/attribute";
 import { AttributeService } from "../../../services/attribute.service";
 
 interface ModalData {
@@ -41,11 +41,11 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
   subscriptions = new Subscription();
 
   fitnessProgramDTO = {} as FitnessProgramRequest;
-  uploadedImages: IFile[] = [];
+  uploadedImages: FitnessAppFile[] = [];
 
   instructorImage: File;
   instructorImagePreview: string;
-  uploadedInstructorImage: IFile;
+  uploadedInstructorImage: FitnessAppFile;
 
   attributes: Attribute[] = [];
   dynamicFormControls: string[] = [];

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FitnessProgram } from "../../../models/FitnessProgram";
+import { FitnessProgram } from "../../../models/fitness-program";
 import { EMPTY, filter, forkJoin, Subscription, switchMap } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FitnessProgramService } from "../../../services/fitness-program.service";
@@ -9,7 +9,7 @@ import { BuyProgramComponent } from "../../buy-program/buy-program.component";
 import { MatDialog } from "@angular/material/dialog";
 import { UserStoreService } from "../../../services/user-store.service";
 import { FitnessProgramPurchaseService } from "../../../services/fitness-program-purchase.service";
-import { CommentRequest } from "../../../models/dto/CommentRequest";
+import { CommentRequest } from "../../../models/dto/comment-request";
 import { ERROR_HAS_OCCURRED_MESSAGE, snackBarConfig } from "../../../shared/contants";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { CommentService } from "../../../services/comment.service";

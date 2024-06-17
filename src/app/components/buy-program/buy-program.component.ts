@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
-import { FitnessProgramPurchaseRequest } from "../../models/FitnessProgramPurchaseRequest";
+import { FitnessProgramPurchaseRequest } from "../../models/fitness-program-purchase-request";
 import { SharedService } from "../../services/shared.service";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 

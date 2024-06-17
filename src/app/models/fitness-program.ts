@@ -1,8 +1,8 @@
-import { Category } from "./dto/Category";
-import { Instructor, InstructorDTO } from "./Instructor";
-import { IFile } from "./IFile"
-import { Comment } from "./Comment"
-import { Attribute } from "./dto/Attribute";
+import { Category } from "./dto/category";
+import { Instructor, InstructorDTO } from "./instructor";
+import { FitnessAppFile } from "./fitness-app-file"
+import { Comment } from "./comment"
+import { Attribute } from "./dto/attribute";
 
 export interface FitnessProgram {
   id: number;
@@ -19,7 +19,7 @@ export interface FitnessProgram {
   creationDate: Date;
   category: Category;
   instructor: Instructor;
-  images: IFile[]
+  images: FitnessAppFile[]
   comments: Comment[];
   attributes: Attribute[];
   appUserCreatorId: number;

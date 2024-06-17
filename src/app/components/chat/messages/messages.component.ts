@@ -1,9 +1,9 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { AppUserShort } from "../../../models/AppUser";
+import { AppUserShort } from "../../../models/app-user";
 import { UserStoreService } from "../../../services/user-store.service";
 import { ChatService } from "../../../services/chat.service";
 import { Subscription, switchMap } from "rxjs";
-import { ChatMessage } from "../../../models/dto/ChatMessage";
+import { ChatMessage } from "../../../models/dto/chat-message";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { FitnessProgramCard } from "../../../models/FitnessProgramCard";
+import { FitnessProgramCard } from "../../../models/fitness-program-card";
 import { FileService } from "../../../services/file.service";
 import { Subscription } from "rxjs";
 

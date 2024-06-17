@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map, Observable } from "rxjs";
-import { ActivityLog, ActivityLogRequest } from "../models/ActivityLogRequest";
-import { ActivityLogSearchResult } from "../models/ActivityLogSearchResult";
+import { ActivityLog, ActivityLogRequest } from "../models/activity-log-request";
+import { ActivityLogSearchResult } from "../models/activity-log-search-result";
 
 @Injectable({
   providedIn: 'root'

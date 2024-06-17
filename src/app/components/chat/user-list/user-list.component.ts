@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { AppUser, AppUserShort, AppUserShortWithUnreadMessages } from "../../../models/AppUser";
+import { AppUser, AppUserShort, AppUserShortWithUnreadMessages } from "../../../models/app-user";
 import { Subscription } from "rxjs";
 import { UserService } from "../../../services/user.service";
 import { UserStoreService } from "../../../services/user-store.service";

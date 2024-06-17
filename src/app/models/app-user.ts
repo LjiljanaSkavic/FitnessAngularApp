@@ -1,4 +1,4 @@
-import { IFile } from "./IFile";
+import { FitnessAppFile } from "./fitness-app-file";
 
 export interface AppUser {
   id: number;
@@ -8,13 +8,13 @@ export interface AppUser {
   email: string;
   city: string;
   activated: boolean;
-  image: IFile;
+  image: FitnessAppFile;
 }
 
 export interface AppUserShort {
   id: number;
   username: string;
-  image: IFile;
+  image: FitnessAppFile;
   loggedIn: boolean;
 }
 

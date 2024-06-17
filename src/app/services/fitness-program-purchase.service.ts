@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { FitnessProgramPurchaseRequest } from "../models/FitnessProgramPurchaseRequest";
+import { FitnessProgramPurchaseRequest } from "../models/fitness-program-purchase-request";
 import { Observable } from "rxjs";
-import { FitnessProgramPurchase } from "../models/FitnessProgramPurchase";
-import { FitnessProgramPurchaseSearchResult } from "../models/ActivityLogSearchResult";
+import { FitnessProgramPurchase } from "../models/fitness-program-purchase";
+import { FitnessProgramPurchaseSearchResult } from "../models/activity-log-search-result";
 
 @Injectable({
   providedIn: 'root'

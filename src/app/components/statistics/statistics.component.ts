@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserStoreService } from "../../services/user-store.service";
 import { ActivityLogService } from "../../services/activity-log.service";
-import { ActivityLog } from "../../models/ActivityLogRequest";
+import { ActivityLog } from "../../models/activity-log-request";
 import { Subscription } from "rxjs";
 import { Chart, registerables } from "chart.js";
 import 'chartjs-adapter-date-fns'; // Import the required adapter

@@ -7,7 +7,7 @@ import { UserStoreService } from "./services/user-store.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ERROR_HAS_OCCURRED_MESSAGE, MESSAGE_SUCCESS, snackBarConfig } from "./shared/contants";
 import { Subscription } from "rxjs";
-import { AppUser } from "./models/AppUser";
+import { AppUser } from "./models/app-user";
 import { AdviceMessageModalComponent } from "./components/advice-message-modal/advice-message-modal.component";
 import { AdviceMessageService } from "./services/advice-message.service";
 import { ProfileDetailsComponent } from "./components/profile-details/profile-details.component";

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from "rxjs";
 import { LocalStoreService } from "./local-store.service";
-import { AppUser } from "../models/AppUser";
+import { AppUser } from "../models/app-user";
 
 @Injectable({
   providedIn: 'root'

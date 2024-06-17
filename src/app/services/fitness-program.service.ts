@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { FitnessProgram, FitnessProgramRequest } from "../models/FitnessProgram";
-import { FitnessProgramSearchResult } from "../models/FitnessProgramSearchResult";
+import { FitnessProgram, FitnessProgramRequest } from "../models/fitness-program";
+import { FitnessProgramSearchResult } from "../models/fitness-program-search-result";
 
 @Injectable({
   providedIn: 'root'

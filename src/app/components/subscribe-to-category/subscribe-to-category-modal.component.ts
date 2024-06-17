@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatSelectChange } from "@angular/material/select";
-import { Category } from "../../models/dto/Category";
+import { Category } from "../../models/dto/category";
 import { Subscription } from "rxjs";
 import { CategoryService } from "../../services/category.service";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";

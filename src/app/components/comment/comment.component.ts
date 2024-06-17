@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Comment } from "../../models/Comment";
+import { Comment } from "../../models/comment";
 import { UserStoreService } from "../../services/user-store.service";
 import { ConfirmationModalComponent } from "../../confirmation-modal/confirmation-modal.component";
 import { EMPTY, Subscription, switchMap } from "rxjs";
 import { CommentService } from "../../services/comment.service";
 import { MatDialog } from "@angular/material/dialog";
 import { FormControl, FormGroup } from "@angular/forms";
-import { CommentEditRequest } from "../../models/dto/CommentRequest";
+import { CommentEditRequest } from "../../models/dto/comment-request";
 import { FileService } from "../../services/file.service";
 
 @Component({

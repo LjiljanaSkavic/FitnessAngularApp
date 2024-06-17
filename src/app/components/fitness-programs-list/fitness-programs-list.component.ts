@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FitnessProgramService } from "../../services/fitness-program.service";
 import { CategoryService } from "../../services/category.service";
-import { Category } from "../../models/dto/Category";
+import { Category } from "../../models/dto/category";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Subscription } from "rxjs";
-import { FitnessProgramCard } from "../../models/FitnessProgramCard";
+import { FitnessProgramCard } from "../../models/fitness-program-card";
 import { FitnessProgramModalComponent } from "./add-fitness-program-modal/fitness-program-modal.component";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";

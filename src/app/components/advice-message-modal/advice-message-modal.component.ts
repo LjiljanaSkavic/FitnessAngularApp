@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { FileService } from "../../services/file.service";
 import { AdviceMessageService } from "../../services/advice-message.service";
-import { AdviceMessage } from "../../models/AdviceMessage";
+import { AdviceMessage } from "../../models/advice-message";
 import { forkJoin, switchMap } from "rxjs";
 
 interface FilePreview {

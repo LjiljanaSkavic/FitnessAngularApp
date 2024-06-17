@@ -1,4 +1,4 @@
-import { AppUserShort } from "./AppUser";
+import { AppUserShort } from "./app-user";
 
 export interface Comment {
   id: number;

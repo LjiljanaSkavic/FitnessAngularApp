@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AdviceMessage } from "../models/AdviceMessage";
+import { AdviceMessage } from "../models/advice-message";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 

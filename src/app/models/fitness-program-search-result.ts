@@ -1,4 +1,4 @@
-import { FitnessProgramCard } from "./FitnessProgramCard";
+import { FitnessProgramCard } from "./fitness-program-card";
 
 export interface FitnessProgramSearchResult {
   fitnessPrograms: FitnessProgramCard[];

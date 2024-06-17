@@ -1,4 +1,4 @@
-import { IFile } from "./IFile";
+import { FitnessAppFile } from "./fitness-app-file";
 
 export interface Instructor {
   id: number;
@@ -8,7 +8,7 @@ export interface Instructor {
   sex: string;
   height: number;
   weight: number;
-  image: IFile;
+  image: FitnessAppFile;
 }
 
 export interface InstructorDTO {

@@ -1,4 +1,4 @@
-export interface IFile {
+export interface FitnessAppFile {
   id: number;
   name: string;
   type: string;

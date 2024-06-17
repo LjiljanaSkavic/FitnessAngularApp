@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { UserService } from "../../services/user.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import * as sha512 from "js-sha512";
-import { UserDTO } from "../../models/dto/UserDTO";
+import { UserDto } from "../../models/dto/user-dto";
 import { FileService } from "../../services/file.service";
 import { ActivationCardComponent } from "../activation-card/activation-card.component";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
@@ -59,7 +59,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   onSignUpClick($event: MouseEvent) {
     if (this.signUpForm.valid) {
 
-      const user: UserDTO = {
+      const user: UserDto = {
         id: null,
         email: this.signUpForm.get('email')?.value,
         firstName: this.signUpForm.get('firstName')?.value,
@@ -106,7 +106,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  createUserWithImage(user: UserDTO) {
+  createUserWithImage(user: UserDto) {
     this._fileService.uploadFile(this.selectedFile).pipe(
       switchMap((response: any) => {
         return this._userService.createUser({...user, imageId: response.id});
@@ -132,7 +132,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     );
   }
 
-  createUserWithoutImage(user: UserDTO) {
+  createUserWithoutImage(user: UserDto) {
     this._userService.createUser(user).subscribe(res => {
         this._dialogRef.close();
         this.dialog.open(ActivationCardComponent, {

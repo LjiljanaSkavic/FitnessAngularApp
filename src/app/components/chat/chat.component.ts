@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AppUserShort } from "../../models/AppUser";
+import { AppUserShort } from "../../models/app-user";
 
 @Component({
   selector: 'app-chat',

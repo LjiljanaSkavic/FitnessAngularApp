@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef } from "@angular/material/dialog";
-import { AppUser } from "../../models/AppUser";
+import { AppUser } from "../../models/app-user";
 import { Subscription, switchMap } from "rxjs";
 import { UserStoreService } from "../../services/user-store.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { FileService } from "../../services/file.service";
 import { UserService } from "../../services/user.service";
-import { UserDTO } from "../../models/dto/UserDTO";
+import { UserDto } from "../../models/dto/user-dto";
 import { snackBarConfig } from "../../shared/contants";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
@@ -120,7 +120,7 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
     reader.readAsDataURL(file);
   }
 
-  saveUser(user: UserDTO) {
+  saveUser(user: UserDto) {
     this._userService.editUser(user).subscribe(res => {
       this._userStoreService.setUserAsLoggedIn(res);
       this.user = this._userStoreService.getLoggedInUser();

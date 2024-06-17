@@ -1,11 +1,11 @@
-import { IFile } from "./IFile"
+import { FitnessAppFile } from "./fitness-app-file"
 
 export interface FitnessProgramCard {
   id: number;
   name: string;
   price: number;
   difficultyLevel: number;
-  image: IFile;
+  image: FitnessAppFile;
   isOnline: boolean;
   location: string;
 }

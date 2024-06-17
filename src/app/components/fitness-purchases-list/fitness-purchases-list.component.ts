@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
 import { FitnessProgramPurchaseService } from "../../services/fitness-program-purchase.service";
-import { FitnessProgramPurchase } from "../../models/FitnessProgramPurchase";
+import { FitnessProgramPurchase } from "../../models/fitness-program-purchase";
 import { MatPaginator, PageEvent } from "@angular/material/paginator";
 
 @Component({

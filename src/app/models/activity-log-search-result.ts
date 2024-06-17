@@ -1,5 +1,5 @@
-import { ActivityLog } from "./ActivityLogRequest";
-import { FitnessProgramPurchase } from "./FitnessProgramPurchase";
+import { ActivityLog } from "./activity-log-request";
+import { FitnessProgramPurchase } from "./fitness-program-purchase";
 
 //TODO: Add generic type
 export interface ActivityLogSearchResult {

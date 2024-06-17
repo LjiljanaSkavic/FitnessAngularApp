@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { catchError, Observable, shareReplay, throwError } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import { IFile } from "../models/IFile";
+import { FitnessAppFile } from "../models/fitness-app-file";
 
 @Injectable({
   providedIn: 'root'
@@ -30,10 +30,10 @@ export class FileService {
     return request;
   }
 
-  uploadFile(file: any): Observable<IFile> {
+  uploadFile(file: any): Observable<FitnessAppFile> {
     const formData = new FormData();
     formData.append('file', file);
 
-    return this._httpClient.post<IFile>(`${this.baseUrl}/upload`, formData);
+    return this._httpClient.post<FitnessAppFile>(`${this.baseUrl}/upload`, formData);
   }
 }

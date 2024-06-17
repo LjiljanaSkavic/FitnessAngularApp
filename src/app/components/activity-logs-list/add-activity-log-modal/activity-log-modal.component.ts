@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { ActivityLog, ActivityLogRequest } from "../../../models/ActivityLogRequest";
+import { ActivityLog, ActivityLogRequest } from "../../../models/activity-log-request";
 import { UserStoreService } from "../../../services/user-store.service";
 import { ActivityLogService } from "../../../services/activity-log.service";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
