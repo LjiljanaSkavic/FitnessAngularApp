@@ -70,18 +70,19 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
   }
 
   getFitnessProgram(): void {
-    this.subscriptions.add(this._activatedRoute.params.pipe(
-      switchMap(params => {
-        this.id = params['id'];
-        return this._fitnessProgramService.getById(this.id);
-      })).subscribe(res => {
-      this.fitnessProgram = res;
-      this.isMyFitnessProgram = this.userId === this.fitnessProgram.appUserCreatorId;
-      this.buildFitnessForm(this.fitnessProgram);
-      this.getAllImageUrls();
-      this.getInstructorImageUrl();
-      this.buildAttributes();
-    }));
+    this.subscriptions.add(
+      this._activatedRoute.params.pipe(
+        switchMap(params => {
+          this.id = params['id'];
+          return this._fitnessProgramService.getById(this.id);
+        })).subscribe(res => {
+        this.fitnessProgram = res;
+        this.isMyFitnessProgram = this.userId === this.fitnessProgram.appUserCreatorId;
+        this.buildFitnessForm(this.fitnessProgram);
+        this.getAllImageUrls();
+        this.getInstructorImageUrl();
+        this.buildAttributes();
+      }));
   }
 
   buildFitnessForm(fitnessProgram: FitnessProgram): void {

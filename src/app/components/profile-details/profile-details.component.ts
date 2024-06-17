@@ -49,20 +49,21 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
   }
 
   getFile(): void {
-    this.subscriptions.add(this._fileService.getFileById(this.user.image.id).subscribe(
-      (data: Blob) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(data);
-        reader.onloadend = () => {
-          this.fileUrl = reader.result;
-          this.fileUrlOriginal = reader.result;
-        };
-      },
-      error => {
-        //TODO: Handle error
-        console.error('Error retrieving file:', error);
-      }
-    ));
+    this.subscriptions.add(
+      this._fileService.getFileById(this.user.image.id).subscribe(
+        (data: Blob) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(data);
+          reader.onloadend = () => {
+            this.fileUrl = reader.result;
+            this.fileUrlOriginal = reader.result;
+          };
+        },
+        error => {
+          //TODO: Handle error
+          console.error('Error retrieving file:', error);
+        }
+      ));
   }
 
   buildProfileForm(user: AppUser): void {

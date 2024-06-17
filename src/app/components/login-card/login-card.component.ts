@@ -34,8 +34,12 @@ export class LoginCardComponent implements OnInit, OnDestroy {
       password: new FormControl(null, Validators.required)
     });
 
-    this.subscriptions.add(this.loginForm.get('username')?.valueChanges.subscribe(value => this.invalidCredentials = false));
-    this.subscriptions.add(this.loginForm.get('password')?.valueChanges.subscribe(value => this.invalidCredentials = false));
+    this.subscriptions.add(
+      this.loginForm.get('username')?.valueChanges.subscribe(value => this.invalidCredentials = false)
+    );
+    this.subscriptions.add(
+      this.loginForm.get('password')?.valueChanges.subscribe(value => this.invalidCredentials = false)
+    );
   }
 
   buildForm() {
@@ -48,28 +52,29 @@ export class LoginCardComponent implements OnInit, OnDestroy {
   onLoginClick($event: MouseEvent) {
     const username = this.loginForm.get('username').value;
     const password = this.getPasswordHash(this.loginForm.get('password').value);
-    this.subscriptions.add(this._userService.findUserByUsernameAndPassword(username, password).subscribe(
-      (user) => {
-        if (user.activated) {
-          this._userStoreService.setUserAsLoggedIn(user);
-          this._userStoreService.isLoggedIn$.next(true);
-          this._dialogRef.close();
-        } else {
-          this._dialogRef.close();
-          this.dialog.open(ActivationCardComponent, {
-              data: {
-                userId: user.id
-              },
-              hasBackdrop: true,
-              backdropClass: 'fitness-app-backdrop'
-            }
-          ).afterClosed().subscribe(() => {
-          });
-        }
-      },
-      (error) => {
-        this.invalidCredentials = true;
-      }));
+    this.subscriptions.add(
+      this._userService.findUserByUsernameAndPassword(username, password).subscribe(
+        (user) => {
+          if (user.activated) {
+            this._userStoreService.setUserAsLoggedIn(user);
+            this._userStoreService.isLoggedIn$.next(true);
+            this._dialogRef.close();
+          } else {
+            this._dialogRef.close();
+            this.dialog.open(ActivationCardComponent, {
+                data: {
+                  userId: user.id
+                },
+                hasBackdrop: true,
+                backdropClass: 'fitness-app-backdrop'
+              }
+            ).afterClosed().subscribe(() => {
+            });
+          }
+        },
+        (error) => {
+          this.invalidCredentials = true;
+        }));
   }
 
   getPasswordHash(password: string): string {

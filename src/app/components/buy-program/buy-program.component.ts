@@ -43,10 +43,11 @@ export class BuyProgramComponent implements OnInit, OnDestroy {
       confirmProcessing: new FormControl(1, [Validators.required]),
     });
 
-    this.subscriptions.add(this.selectPayingForm.get('payingOption')?.valueChanges.subscribe(selectedOption => {
-      const option = parseInt(selectedOption);
-      this.codPayingSelected = option === 0;
-    }));
+    this.subscriptions.add(
+      this.selectPayingForm.get('payingOption')?.valueChanges.subscribe(selectedOption => {
+        const option = parseInt(selectedOption);
+        this.codPayingSelected = option === 0;
+      }));
 
     this.purchase = {
       dateTime: new Date(),

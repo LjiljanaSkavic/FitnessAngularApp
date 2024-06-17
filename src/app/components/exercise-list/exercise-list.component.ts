@@ -23,11 +23,12 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscriptions.add(this._exercisesService.getExercises().subscribe(res => {
-      this.exercises = res;
-      this.displayPage(0);
-      this.isLoading = false;
-    }));
+    this.subscriptions.add(
+      this._exercisesService.getExercises().subscribe(res => {
+        this.exercises = res;
+        this.displayPage(0);
+        this.isLoading = false;
+      }));
   }
 
   onPageChange(event: any): void {

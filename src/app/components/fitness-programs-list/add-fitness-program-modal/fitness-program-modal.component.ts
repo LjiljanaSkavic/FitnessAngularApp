@@ -76,15 +76,16 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
       this.location = this.data.fitnessProgram.online ? 'Youtube link' : 'Location';
     }
 
-    this.subscriptions.add(this._categoryService.getAll().subscribe(res => {
-      this.categories = res;
-      this.categoriesLoading = false;
-      this.categoryDisabled = this.data !== null;
+    this.subscriptions.add(
+      this._categoryService.getAll().subscribe(res => {
+        this.categories = res;
+        this.categoriesLoading = false;
+        this.categoryDisabled = this.data !== null;
 
-      this.initializeUserId();
-      this.buildFitnessForm();
-      this.buildInstructorForm();
-    }));
+        this.initializeUserId();
+        this.buildFitnessForm();
+        this.buildInstructorForm();
+      }));
   }
 
   initializeUserId() {

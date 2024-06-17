@@ -62,11 +62,12 @@ export class ActivityLogsListComponent implements OnInit, OnDestroy {
 
   displayActivityLogs(): void {
     this.isLoading = true;
-    this.subscriptions.add(this._activityLogService.search(this.userId, this.pageIndex, this.pageSize).subscribe(res => {
-      this.activityLogs = res.activityLogs;
-      this.totalItems = res.totalElements;
-      this.isLoading = false;
-    }));
+    this.subscriptions.add(
+      this._activityLogService.search(this.userId, this.pageIndex, this.pageSize).subscribe(res => {
+        this.activityLogs = res.activityLogs;
+        this.totalItems = res.totalElements;
+        this.isLoading = false;
+      }));
   }
 
   ondDownloadMyActivityLogs(): void {

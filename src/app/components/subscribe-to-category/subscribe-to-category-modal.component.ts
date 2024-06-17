@@ -32,10 +32,11 @@ export class SubscribeToCategoryModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscriptions.add(this._categoryService.getAll().subscribe(res => {
-      this.categories = res;
-      this.categoriesLoading = false;
-    }));
+    this.subscriptions.add(
+      this._categoryService.getAll().subscribe(res => {
+        this.categories = res;
+        this.categoriesLoading = false;
+      }));
 
     this.categoryForm = new FormGroup({
       category: new FormControl(null, Validators.required),
@@ -48,14 +49,15 @@ export class SubscribeToCategoryModalComponent implements OnInit, OnDestroy {
   }
 
   onSubscribeToCategoryClick(): void {
-    this.subscriptions.add(this._userService.subscribeToCategory(this.data.userId, this.selectedCategoryId)
-      .subscribe(
-        () => {
-          this._dialogRef.close(true);
-        },
-        () => {
-          this._dialogRef.close(false);
-        }));
+    this.subscriptions.add(
+      this._userService.subscribeToCategory(this.data.userId, this.selectedCategoryId)
+        .subscribe(
+          () => {
+            this._dialogRef.close(true);
+          },
+          () => {
+            this._dialogRef.close(false);
+          }));
   }
 
   onCategoryChange($event: MatSelectChange): void {

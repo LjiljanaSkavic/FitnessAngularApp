@@ -69,13 +69,14 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscriptions.add(this._categoryService.getAll().subscribe(res => {
-      this.categories = res;
-      this.categoriesLoading = false;
-      this.buildFilterForm();
-      this.displayCards();
-      this.addShowProgramsAndStatusSubscriptions();
-    }));
+    this.subscriptions.add(
+      this._categoryService.getAll().subscribe(res => {
+        this.categories = res;
+        this.categoriesLoading = false;
+        this.buildFilterForm();
+        this.displayCards();
+        this.addShowProgramsAndStatusSubscriptions();
+      }));
     if (this._userStoreService.getIsLoggedIn()) {
       this.userId = this._userStoreService.getLoggedInUser().id;
     }
@@ -120,19 +121,20 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
     }
     const difficultyLevel = this.filterForm.get('difficultyLevel').value;
 
-    this.subscriptions.add(this._fitnessProgramService.search(keyword,
-      categoryId,
-      showPrograms === SHOW_PROGRAMS.ALL ? null : this.userId,
-      isCompleted,
-      difficultyLevel,
-      minPrice,
-      maxPrice,
-      this.pageIndex,
-      this.pageSize).subscribe(res => {
-      this.fitnessProgramCards = res.fitnessPrograms;
-      this.totalItems = res.totalElements;
-      this.isLoading = false;
-    }));
+    this.subscriptions.add(
+      this._fitnessProgramService.search(keyword,
+        categoryId,
+        showPrograms === SHOW_PROGRAMS.ALL ? null : this.userId,
+        isCompleted,
+        difficultyLevel,
+        minPrice,
+        maxPrice,
+        this.pageIndex,
+        this.pageSize).subscribe(res => {
+        this.fitnessProgramCards = res.fitnessPrograms;
+        this.totalItems = res.totalElements;
+        this.isLoading = false;
+      }));
   }
 
   buildFilterForm(): void {

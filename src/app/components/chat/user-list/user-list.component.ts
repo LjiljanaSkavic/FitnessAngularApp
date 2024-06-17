@@ -35,9 +35,10 @@ export class UserListComponent {
         })
       );
     }
-    this.subscriptions.add(this._userService.getActiveUsers(this.user.id).subscribe(res => {
-      this.activatedUsers = res.filter(user => user.id !== this.user.id);
-    }));
+    this.subscriptions.add(
+      this._userService.getActiveUsers(this.user.id).subscribe(res => {
+        this.activatedUsers = res.filter(user => user.id !== this.user.id);
+      }));
   }
 
   getUrl(user: AppUserShort | AppUser): string {
