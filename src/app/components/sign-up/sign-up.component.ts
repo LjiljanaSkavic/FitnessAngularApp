@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, switchMap } from "rxjs";
-import { Router } from "@angular/router";
 import { UserService } from "../../services/user.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import * as sha512 from "js-sha512";
-import { UserDto } from "../../models/dto/user-dto";
+import { UserRequest } from "../../models/dto/user-request";
 import { FileService } from "../../services/file.service";
 import { ActivationCardModalComponent } from "../activation-card-modal/activation-card-modal.component";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
@@ -16,18 +15,16 @@ import { LoginCardModalComponent } from "../login-card-modal/login-card-modal.co
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit, OnDestroy {
-  subscription = new Subscription();
-
   signUpForm: FormGroup;
   selectedFile: File | null = null;
   selectedFileName = '';
   fileUrl: string | ArrayBuffer | null = null;
+  subscriptions = new Subscription();
 
-  constructor(private dialog: MatDialog,
-              private _router: Router,
-              private _userService: UserService,
+  constructor(private _userService: UserService,
               private _fileService: FileService,
-              private _dialogRef: MatDialogRef<SignUpComponent>) {
+              private _dialogRef: MatDialogRef<SignUpComponent>,
+              public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -59,7 +56,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   onSignUpClick($event: MouseEvent) {
     if (this.signUpForm.valid) {
 
-      const user: UserDto = {
+      const user: UserRequest = {
         id: null,
         email: this.signUpForm.get('email')?.value,
         firstName: this.signUpForm.get('firstName')?.value,
@@ -102,11 +99,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     reader.readAsDataURL(file);
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
-  createUserWithImage(user: UserDto) {
+  createUserWithImage(user: UserRequest) {
     this._fileService.uploadFile(this.selectedFile).pipe(
       switchMap((response: any) => {
         return this._userService.createUser({...user, imageId: response.id});
@@ -132,24 +125,28 @@ export class SignUpComponent implements OnInit, OnDestroy {
     );
   }
 
-  createUserWithoutImage(user: UserDto) {
-    this._userService.createUser(user).subscribe(res => {
-        this._dialogRef.close();
-        this.dialog.open(ActivationCardModalComponent, {
-            data: {
-              userId: res.id
-            },
-            hasBackdrop: true,
-            backdropClass: 'fitness-app-backdrop'
-          }
-        ).afterClosed().subscribe(() => {
-        });
-        // this._router.navigate(['profile-activation'], {queryParams: {id: res.id}}).catch(err => console.log(err));
-      },
-      error => {
-        //TODO: Error message
-        console.error('Error uploading file or saving user data:', error);
-      }
-    );
+  createUserWithoutImage(user: UserRequest): void {
+    this.subscriptions.add(
+      this._userService.createUser(user).subscribe(res => {
+          this._dialogRef.close();
+          this.dialog.open(ActivationCardModalComponent, {
+              data: {
+                userId: res.id
+              },
+              hasBackdrop: true,
+              backdropClass: 'fitness-app-backdrop'
+            }
+          ).afterClosed().subscribe(() => {
+          });
+        },
+        error => {
+          //TODO: Error message
+          console.error('Error uploading file or saving user data:', error);
+        }
+      ));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

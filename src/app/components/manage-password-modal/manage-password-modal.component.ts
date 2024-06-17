@@ -15,10 +15,10 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 })
 export class ManagePasswordModalComponent implements OnInit, OnDestroy {
   passwordForm: FormGroup;
-  subscriptions = new Subscription();
   userId: number;
   disableSave = false;
   hasPasswordsMatchError = false;
+  subscriptions = new Subscription();
 
   constructor(private _userService: UserService,
               private _userStoreService: UserStoreService,

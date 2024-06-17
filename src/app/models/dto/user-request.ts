@@ -1,4 +1,4 @@
-export interface UserDto {
+export interface UserRequest {
   id: number;
   username: string;
   firstName: string;

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { AppUser, AppUserShort, AppUserShortWithUnreadMessages } from "../../../models/app-user";
 import { Subscription } from "rxjs";
 import { UserService } from "../../../services/user.service";
@@ -10,7 +10,7 @@ import { FileService } from "../../../services/file.service";
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
 })
-export class UserListComponent {
+export class UserListComponent implements OnDestroy {
 
   @Output() selectedUserEmitter = new EventEmitter<AppUserShort>();
   user: AppUser;
@@ -56,5 +56,9 @@ export class UserListComponent {
     user.unreadMessages = 0;
     this.selectedUserEmitter.emit(user);
     this.selectedUserId = user.id;
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

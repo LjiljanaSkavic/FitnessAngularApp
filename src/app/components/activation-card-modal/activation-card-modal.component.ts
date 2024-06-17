@@ -16,8 +16,8 @@ interface DialogData {
 })
 export class ActivationCardModalComponent implements OnInit, OnDestroy {
   dialogData: DialogData
-  subscription = new Subscription();
   userId: number;
+  subscriptions = new Subscription();
 
   constructor(private _userService: UserService,
               private _snackBar: MatSnackBar,
@@ -27,12 +27,13 @@ export class ActivationCardModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription.add(this._userService.sendEmail(this.dialogData.userId).subscribe(res => {
-      },
-      error => {
-        this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
-      }
-    ));
+    this.subscriptions.add(
+      this._userService.sendEmail(this.dialogData.userId).subscribe(res => {
+        },
+        error => {
+          this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
+        }
+      ));
   }
 
   onOKClick(): void {
@@ -40,6 +41,6 @@ export class ActivationCardModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

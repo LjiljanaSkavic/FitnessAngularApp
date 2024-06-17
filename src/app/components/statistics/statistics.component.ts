@@ -17,10 +17,11 @@ export class StatisticsComponent implements OnInit, OnDestroy {
   isLoading = false;
   userId: number;
   activityLogs: ActivityLog[] = [];
-  subscription = new Subscription();
 
   kcalChart: any;
   weightLossChart: any;
+
+  subscriptions = new Subscription();
 
   constructor(private _userStoreService: UserStoreService,
               private _activityLogService: ActivityLogService) {
@@ -29,11 +30,12 @@ export class StatisticsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this._userStoreService.getIsLoggedIn()) {
       this.userId = this._userStoreService.getLoggedInUser().id;
-      this.subscription.add(this._activityLogService.getAll(this.userId).subscribe(res => {
-        this.activityLogs = res;
-        this.isLoading = false;
-        this.processActivityLogs();
-      }));
+      this.subscriptions.add(
+        this._activityLogService.getAll(this.userId).subscribe(res => {
+          this.activityLogs = res;
+          this.isLoading = false;
+          this.processActivityLogs();
+        }));
     }
   }
 
@@ -60,7 +62,7 @@ export class StatisticsComponent implements OnInit, OnDestroy {
     this.kcalChart = new Chart('kcalChart', {
       type: 'line',
       data: {
-        labels: dates, // Use provided dates directly
+        labels: dates,
         datasets: [{
           label: 'Kcal Intake Progress',
           data: kcalIntake,
@@ -72,7 +74,7 @@ export class StatisticsComponent implements OnInit, OnDestroy {
         responsive: true,
         scales: {
           x: {
-            type: 'category', // Change type to category if your x-axis data is not in time format
+            type: 'category',
             title: {
               display: true,
               text: 'Date'
@@ -106,7 +108,7 @@ export class StatisticsComponent implements OnInit, OnDestroy {
         responsive: true,
         scales: {
           x: {
-            type: 'category', // Change type to category if your x-axis data is not in time format
+            type: 'category',
             title: {
               display: true,
               text: 'Date'
@@ -124,6 +126,6 @@ export class StatisticsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

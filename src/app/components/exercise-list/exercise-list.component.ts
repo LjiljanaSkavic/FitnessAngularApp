@@ -10,12 +10,12 @@ import { MatPaginator } from "@angular/material/paginator";
   styleUrls: ['./exercise-list.component.scss']
 })
 export class ExerciseListComponent implements OnInit, OnDestroy {
-  subscriptions = new Subscription();
   exercises: Exercise[] = [];
   pagedExercises: Exercise[] = [];
   isLoading = true;
   pageSizeOptions: any;
   pageSize = 5;
+  subscriptions = new Subscription();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

@@ -14,7 +14,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 export class ActivateComponent implements OnInit, OnDestroy {
   userId: number;
   link: string;
-  subscription = new Subscription();
+  subscriptions = new Subscription();
 
   constructor(private _activatedRoute: ActivatedRoute,
               private _userService: UserService,
@@ -24,24 +24,25 @@ export class ActivateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription.add(this._activatedRoute.queryParams.pipe(switchMap(params => {
-      this.userId = params['id'];
-      this.link = params['link']
-      return this._userService.activateUser(this.userId, this.link);
-    })).subscribe(user => {
-        this._userStoreService.setUserAsLoggedIn(user);
-        this._userStoreService.isLoggedIn$.next(true);
-        this._router.navigateByUrl('exercises').catch(err => console.log(err));
-        this._snackBar.open("You successfully logged in. Enjoy with GymGuru!", "OK", snackBarConfig);
-      },
-      error => {
-        this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
-      }
-    ));
+    this.subscriptions.add(
+      this._activatedRoute.queryParams.pipe(switchMap(params => {
+        this.userId = params['id'];
+        this.link = params['link']
+        return this._userService.activateUser(this.userId, this.link);
+      })).subscribe(user => {
+          this._userStoreService.setUserAsLoggedIn(user);
+          this._userStoreService.isLoggedIn$.next(true);
+          this._router.navigateByUrl('exercises').catch(err => console.log(err));
+          this._snackBar.open("You successfully logged in. Enjoy with GymGuru!", "OK", snackBarConfig);
+        },
+        error => {
+          this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
+        }
+      ));
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
 }

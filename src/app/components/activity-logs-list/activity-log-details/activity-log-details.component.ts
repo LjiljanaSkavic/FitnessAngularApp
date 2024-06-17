@@ -18,18 +18,6 @@ export class ActivityLogDetailsComponent implements OnInit {
     this.buildActivityLogForm();
   }
 
-  // prepareActivityLog() {
-  //     this.activityLog = {
-  //         id: this.userId,
-  //         currentWeightLbs: +this.activityLogForm.get('currentWeightLbs').value,
-  //         date: this.activityLogForm.get('date').value,
-  //         duration: this.activityLogForm.get('duration').value,
-  //         kcalIntake: +this.activityLogForm.get('kcalIntake').value,
-  //         notes: this.activityLogForm.get('notes').value,
-  //         type: +this.activityLogForm.get('type').value
-  //     }
-  // }
-
   buildActivityLogForm() {
     this.activityLogForm = new FormGroup({
       date: new FormControl(this.activityLog.date, Validators.required),

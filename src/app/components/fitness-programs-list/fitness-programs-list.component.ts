@@ -161,7 +161,6 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
       backdropClass: 'fitness-app-backdrop'
     }).afterClosed().subscribe(result => {
       if (result) {
-        //TODO: http call to save fitness program
         this._snackBar.open("Fitness program successfully added.", "OK", snackBarConfig)
         this._router.navigateByUrl(`fitness-program/${result.id}`).catch(err => console.log(err));
       }

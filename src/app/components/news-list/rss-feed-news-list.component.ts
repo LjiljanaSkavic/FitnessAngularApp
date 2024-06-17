@@ -16,7 +16,7 @@ export class RssFeedNewsListComponent implements OnInit, OnDestroy {
   isLoading = true;
   pageSizeOptions: any;
   pageSize = 5;
-  subscription = new Subscription();
+  subscriptions = new Subscription();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -24,7 +24,7 @@ export class RssFeedNewsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription.add(this._rssFeed.getRssFeedNews().subscribe(res => {
+    this.subscriptions.add(this._rssFeed.getRssFeedNews().subscribe(res => {
       this.rssFeedNews = res;
       this.displayPage(0);
       this.isLoading = false;
@@ -42,6 +42,6 @@ export class RssFeedNewsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

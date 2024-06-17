@@ -1,10 +1,10 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { FileService } from "../../services/file.service";
 import { AdviceMessageService } from "../../services/advice-message.service";
 import { AdviceMessage } from "../../models/advice-message";
-import { forkJoin, switchMap } from "rxjs";
+import { forkJoin, Subscription, switchMap } from "rxjs";
 
 interface FilePreview {
   name: string;
@@ -22,7 +22,7 @@ interface DialogData {
   templateUrl: './advice-message-modal.component.html',
   styleUrls: ['./advice-message-modal.component.scss']
 })
-export class AdviceMessageModalComponent {
+export class AdviceMessageModalComponent implements OnDestroy {
 
   messageControl = new FormControl('');
   filesControl = new FormControl([]);
@@ -32,6 +32,8 @@ export class AdviceMessageModalComponent {
   });
   files: FilePreview[] = [];
   dialogData: DialogData;
+
+  subscriptions = new Subscription();
 
   constructor(private _dialogRef: MatDialogRef<AdviceMessageModalComponent>,
               private _fileService: FileService,
@@ -74,23 +76,27 @@ export class AdviceMessageModalComponent {
       return this._fileService.uploadFile(file);
     });
 
+    this.subscriptions.add(
+      forkJoin(...uploadAdviceMessageFilesObservable).pipe(switchMap((result => {
+        const fileIds = result.map(file => file.id);
+        const adviceMessage: AdviceMessage = {
+          text: this.messageControl.value,
+          isRead: false,
+          dateTime: new Date(),
+          appUserSender: this.dialogData.userId,
+          fileIds: fileIds
+        }
+        return this._adviceMessageService.sendMessage(adviceMessage)
+      }))).subscribe(
+        () => {
+          this._dialogRef.close(true);
+        },
+        () => {
+          this._dialogRef.close(false);
+        }));
+  }
 
-    forkJoin(...uploadAdviceMessageFilesObservable).pipe(switchMap((result => {
-      const fileIds = result.map(file => file.id);
-      const adviceMessage: AdviceMessage = {
-        text: this.messageControl.value,
-        isRead: false,
-        dateTime: new Date(),
-        appUserSender: this.dialogData.userId,
-        fileIds: fileIds
-      }
-      return this._adviceMessageService.sendMessage(adviceMessage)
-    }))).subscribe(
-      () => {
-        this._dialogRef.close(true);
-      },
-      () => {
-        this._dialogRef.close(false);
-      });
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

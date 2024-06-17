@@ -1,10 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivityLog, ActivityLogRequest } from "../../../models/activity-log-request";
 import { UserStoreService } from "../../../services/user-store.service";
 import { ActivityLogService } from "../../../services/activity-log.service";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { IntensityType } from "../../../models/intensity-type";
+import { Subscription } from "rxjs";
 
 export interface ActivityLogModalData {
   activityLog: ActivityLog;
@@ -15,7 +16,7 @@ export interface ActivityLogModalData {
   templateUrl: './activity-log-modal.component.html',
   styleUrls: ['./activity-log-modal.component.scss']
 })
-export class ActivityLogModalComponent implements OnInit {
+export class ActivityLogModalComponent implements OnInit, OnDestroy {
   activityLogForm: FormGroup;
   activityLogRequest: ActivityLogRequest;
   userId: number;
@@ -25,6 +26,7 @@ export class ActivityLogModalComponent implements OnInit {
     {id: 2, name: 'Moderate'},
     {id: 3, name: 'High'}
   ];
+  subscriptions = new Subscription();
 
   constructor(private _userStoreService: UserStoreService,
               private _activityLogService: ActivityLogService,
@@ -57,13 +59,15 @@ export class ActivityLogModalComponent implements OnInit {
 
     if (this.isEditMode) {
       this.activityLogRequest.id = this.data.activityLog.id;
-      this._activityLogService.updateActivityLog(this.activityLogRequest).subscribe(res => {
-        this.dialogRef.close(res);
-      });
+      this.subscriptions.add(
+        this._activityLogService.updateActivityLog(this.activityLogRequest).subscribe(res => {
+          this.dialogRef.close(res);
+        }));
     } else {
-      this._activityLogService.createActivityLog(this.activityLogRequest).subscribe(res => {
-        this.dialogRef.close(res);
-      });
+      this.subscriptions.add(
+        this._activityLogService.createActivityLog(this.activityLogRequest).subscribe(res => {
+          this.dialogRef.close(res);
+        }));
     }
   }
 
@@ -87,5 +91,9 @@ export class ActivityLogModalComponent implements OnInit {
         kcalIntake: new FormControl(null, Validators.required),
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

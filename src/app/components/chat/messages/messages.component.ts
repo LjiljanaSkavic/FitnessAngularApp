@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { AppUserShort } from "../../../models/app-user";
 import { UserStoreService } from "../../../services/user-store.service";
 import { ChatService } from "../../../services/chat.service";
@@ -11,7 +11,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.scss']
 })
-export class MessagesComponent implements OnInit, OnChanges {
+export class MessagesComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() selectedUser: AppUserShort = {} as AppUserShort;
   @ViewChild('messagesWrapper') messagesWrapper: ElementRef;
@@ -91,6 +91,10 @@ export class MessagesComponent implements OnInit, OnChanges {
         console.log(err);
       }
     })
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
 }

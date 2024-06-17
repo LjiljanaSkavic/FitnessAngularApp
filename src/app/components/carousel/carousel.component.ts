@@ -24,25 +24,25 @@ export class CarouselComponent {
 
   nextSlide(): void {
     if (this.images.length <= 1) {
-      return; // Don't proceed if there's only one image
+      return;
     }
 
     if (this.activeIndex < this.images.length - 1) {
       this.activeIndex++;
     } else {
-      this.activeIndex = 0; // Go to the first image if it's the last one
+      this.activeIndex = 0;
     }
   }
 
   prevSlide(): void {
     if (this.images.length <= 1) {
-      return; // Don't proceed if there's only one image
+      return;
     }
 
     if (this.activeIndex > 0) {
       this.activeIndex--;
     } else {
-      this.activeIndex = this.images.length - 1; // Go to the last image if it's the first one
+      this.activeIndex = this.images.length - 1;
     }
   }
 }

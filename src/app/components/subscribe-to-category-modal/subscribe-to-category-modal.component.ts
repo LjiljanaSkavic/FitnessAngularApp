@@ -12,17 +12,17 @@ interface DialogData {
 }
 
 @Component({
-  selector: 'app-subscribe-to-category',
+  selector: 'app-subscribe-to-category-modal',
   templateUrl: './subscribe-to-category-modal.component.html',
   styleUrls: ['./subscribe-to-category-modal.component.scss']
 })
 export class SubscribeToCategoryModalComponent implements OnInit, OnDestroy {
   categories: Category[] = [];
-  subscriptions = new Subscription();
   categoriesLoading = true;
   dialogData: DialogData;
   categoryForm: FormGroup;
   selectedCategoryId: number | null = null;
+  subscriptions = new Subscription();
 
   constructor(private _dialogRef: MatDialogRef<SubscribeToCategoryModalComponent>,
               private _categoryService: CategoryService,

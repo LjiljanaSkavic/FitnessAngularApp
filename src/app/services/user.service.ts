@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { AppUser, AppUserShortWithUnreadMessages } from "../models/app-user";
 import { Observable } from "rxjs";
-import { UserDto } from "../models/dto/user-dto";
+import { UserRequest } from "../models/dto/user-request";
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +48,7 @@ export class UserService {
     return this._httpClient.post<AppUser>(activateUrl, link);
   }
 
-  editUser(user: UserDto): Observable<AppUser> {
+  editUser(user: UserRequest): Observable<AppUser> {
     const editUserUrl = `${this.baseUrl}/${user.id}`;
     return this._httpClient.put<AppUser>(editUserUrl, user);
   }
@@ -58,7 +58,7 @@ export class UserService {
     return this._httpClient.post<AppUser>(logoutUrl, {});
   }
 
-  createUser(user: UserDto) {
+  createUser(user: UserRequest) {
     return this._httpClient.post<AppUser>(this.baseUrl, user);
   }
 

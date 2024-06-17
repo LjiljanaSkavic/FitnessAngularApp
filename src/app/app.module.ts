@@ -75,7 +75,7 @@ import { ActivityLogTypePipe } from "./pipes/activity-log-type.pipe";
 import { DifficultyLevelPipe } from "./pipes/difficulty-level.pipe";
 import {
   SubscribeToCategoryModalComponent
-} from './components/subscribe-to-category/subscribe-to-category-modal.component';
+} from './components/subscribe-to-category-modal/subscribe-to-category-modal.component';
 import { MatSliderModule } from "@angular/material/slider";
 import { NoDataComponent } from './components/no-data/no-data.component';
 import { MatBadgeModule } from "@angular/material/badge";

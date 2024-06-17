@@ -6,7 +6,7 @@ import { UserStoreService } from "../../services/user-store.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { FileService } from "../../services/file.service";
 import { UserService } from "../../services/user.service";
-import { UserDto } from "../../models/dto/user-dto";
+import { UserRequest } from "../../models/dto/user-request";
 import { snackBarConfig } from "../../shared/contants";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
@@ -19,11 +19,11 @@ export class ProfileDetailsModalComponent implements OnInit, OnDestroy {
 
   profileForm: FormGroup;
   user: AppUser = null;
-  subscriptions = new Subscription();
   selectedFile: File | null = null;
   selectedFileName = '';
   fileUrl: string | ArrayBuffer | null = null;
   fileUrlOriginal = null;
+  subscriptions = new Subscription();
 
   constructor(private _userStoreService: UserStoreService,
               private _fileService: FileService,
@@ -120,7 +120,7 @@ export class ProfileDetailsModalComponent implements OnInit, OnDestroy {
     reader.readAsDataURL(file);
   }
 
-  saveUser(user: UserDto) {
+  saveUser(user: UserRequest) {
     this._userService.editUser(user).subscribe(res => {
       this._userStoreService.setUserAsLoggedIn(res);
       this.user = this._userStoreService.getLoggedInUser();

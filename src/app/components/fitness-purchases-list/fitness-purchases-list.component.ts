@@ -13,12 +13,12 @@ import { MatPaginator, PageEvent } from "@angular/material/paginator";
 export class FitnessPurchasesListComponent implements OnInit, OnDestroy {
 
   userId: number;
-  subscription = new Subscription();
   purchases: FitnessProgramPurchase[] = [];
   pageSize = 5;
   pageIndex = 0;
   totalItems = 0;
   isLoading = false;
+  subscriptions = new Subscription();
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
@@ -27,10 +27,11 @@ export class FitnessPurchasesListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription.add(this._activatedRoute.params.subscribe(params => {
-      this.userId = +params['id'];
-      this.displayPurchases();
-    }));
+    this.subscriptions.add(
+      this._activatedRoute.params.subscribe(params => {
+        this.userId = +params['id'];
+        this.displayPurchases();
+      }));
   }
 
   onPageChange(event: PageEvent): void {
@@ -41,16 +42,17 @@ export class FitnessPurchasesListComponent implements OnInit, OnDestroy {
 
   displayPurchases(): void {
     this.isLoading = true;
-    this.subscription.add(this._fitnessProgramPurchaseService.search(this.userId, this.pageIndex, this.pageSize).subscribe(res => {
-      this.purchases = res.fitnessProgramPurchases.map(purchase => {
-        return {
-          ...purchase,
-          paymentType: +purchase.paymentType
-        };
-      });
-      this.totalItems = res.totalElements;
-      this.isLoading = false;
-    }));
+    this.subscriptions.add(
+      this._fitnessProgramPurchaseService.search(this.userId, this.pageIndex, this.pageSize).subscribe(res => {
+        this.purchases = res.fitnessProgramPurchases.map(purchase => {
+          return {
+            ...purchase,
+            paymentType: +purchase.paymentType
+          };
+        });
+        this.totalItems = res.totalElements;
+        this.isLoading = false;
+      }));
   }
 
 
@@ -62,6 +64,6 @@ export class FitnessPurchasesListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

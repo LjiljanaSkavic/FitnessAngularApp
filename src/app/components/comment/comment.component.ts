@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Comment } from "../../models/comment";
 import { UserStoreService } from "../../services/user-store.service";
 import { ConfirmationModalComponent } from "../confirmation-modal/confirmation-modal.component";
@@ -14,7 +14,7 @@ import { FileService } from "../../services/file.service";
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })
-export class CommentComponent implements OnInit {
+export class CommentComponent implements OnInit, OnDestroy {
   @Input() comment: Comment;
   @Output() commentDeletedEmitter = new EventEmitter<number>();
   isMyComment = false;
@@ -65,9 +65,10 @@ export class CommentComponent implements OnInit {
       date: new Date()
     }
 
-    this._commentService.editComment(this.comment.id, commentEditRequest).subscribe(res => {
-      //TODO: Success
-    });
+    this.subscriptions.add(
+      this._commentService.editComment(this.comment.id, commentEditRequest).subscribe(res => {
+        //TODO: Success
+      }));
   }
 
   onDeleteCommentClick() {
@@ -83,5 +84,9 @@ export class CommentComponent implements OnInit {
     })).subscribe(res => {
       this.commentDeletedEmitter.emit(this.comment.id);
     })
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

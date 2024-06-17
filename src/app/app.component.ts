@@ -14,7 +14,7 @@ import { ManagePasswordModalComponent } from "./components/manage-password-modal
 import { LoginCardModalComponent } from "./components/login-card-modal/login-card-modal.component";
 import {
   SubscribeToCategoryModalComponent
-} from "./components/subscribe-to-category/subscribe-to-category-modal.component";
+} from "./components/subscribe-to-category-modal/subscribe-to-category-modal.component";
 
 export const DEFAULT_ANIMATION_DURATION = 100;
 
@@ -35,16 +35,15 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'FitnessAngularApp';
   collapsed = true;
   user: AppUser = null;
-  subscription = new Subscription();
-  hasUnreadMessages = false;
+  subscriptions = new Subscription();
 
   constructor(private _userService: UserService,
               private _router: Router,
               private _elRef: ElementRef,
               private _snackBar: MatSnackBar,
               private _userStoreService: UserStoreService,
-              public dialog: MatDialog,
-              private _changeDetectorRef: ChangeDetectorRef,) {
+              private _changeDetectorRef: ChangeDetectorRef,
+              public dialog: MatDialog) {
   }
 
   @HostListener('document:click', ['$event'])
@@ -113,7 +112,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onLogOutClick(): void {
     if (this.user !== null) {
-      this.subscription.add(this._userService.logoutUser(this.user.id).subscribe(res => {
+      this.subscriptions.add(this._userService.logoutUser(this.user.id).subscribe(res => {
         this.collapsed = true;
         this._userStoreService.setUserAsLoggedOut();
         this._userStoreService.isLoggedIn$.next(false);
@@ -146,7 +145,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
   onSubscribeToCategoryClick() {

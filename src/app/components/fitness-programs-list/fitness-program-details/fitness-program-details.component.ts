@@ -31,9 +31,6 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
   fitnessProgram: FitnessProgram = {} as FitnessProgram;
   fitnessProgramForm: FormGroup;
   userId: number;
-
-  subscriptions = new Subscription();
-
   location = '';
   fileUrl: string | ArrayBuffer | null = null;
   isLoggedIn = false;
@@ -42,6 +39,7 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
   fitnessProgramImageUrls: string[] = [];
   instructorImageUrl: string = '';
   dynamicFormControls: string[] = [];
+  subscriptions = new Subscription();
 
 
   constructor(private _activatedRoute: ActivatedRoute,

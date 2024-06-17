@@ -15,8 +15,8 @@ export class FitnessProgramPurchaseCardComponent implements OnInit, OnDestroy {
 
   @Input() purchase: FitnessProgramPurchase;
   @Output() purchaseDeletedEmitter = new EventEmitter<number>();
-  subscription = new Subscription();
   fileUrl: any;
+  subscriptions = new Subscription();
 
   constructor(private _fitnessProgramPurchaseService: FitnessProgramPurchaseService,
               public dialog: MatDialog,
@@ -24,7 +24,7 @@ export class FitnessProgramPurchaseCardComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getFile();
   }
 
@@ -44,19 +44,20 @@ export class FitnessProgramPurchaseCardComponent implements OnInit, OnDestroy {
   }
 
   getFile(): void {
-    this.subscription.add(this._fileService.getFileById(this.purchase.fitnessProgramCard.image.id).subscribe(
-      (data: Blob) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(data);
-        reader.onloadend = () => {
-          this.fileUrl = reader.result;
-        };
-      },
-      error => {
-        //TODO: Handle error
-        console.error('Error retrieving file:', error);
-      }
-    ));
+    this.subscriptions.add(
+      this._fileService.getFileById(this.purchase.fitnessProgramCard.image.id).subscribe(
+        (data: Blob) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(data);
+          reader.onloadend = () => {
+            this.fileUrl = reader.result;
+          };
+        },
+        error => {
+          //TODO: Handle error
+          console.error('Error retrieving file:', error);
+        }
+      ));
   }
 
   openYouTubeVideo(): void {
@@ -64,6 +65,6 @@ export class FitnessProgramPurchaseCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }

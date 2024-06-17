@@ -21,13 +21,10 @@ export class ActivityLogsListComponent implements OnInit, OnDestroy {
   userId: number;
   activityLogs: ActivityLog[] = [];
   displayedColumns: string[] = ['date', 'duration', 'type', 'currentWeight', 'kcalIntake', 'edit', 'delete'];
-  subscriptions = new Subscription();
   pageSize = 5;
   pageIndex = 0;
   totalItems = 0;
-
-  subscription = new Subscription();
-  protected readonly localStorage = localStorage;
+  subscriptions = new Subscription();
 
   constructor(private _userStoreService: UserStoreService,
               private _activityLogService: ActivityLogService,
@@ -71,21 +68,22 @@ export class ActivityLogsListComponent implements OnInit, OnDestroy {
   }
 
   ondDownloadMyActivityLogs(): void {
-    this.subscription.add(this._activityLogService.downloadActivityLogs(this.userId).subscribe(
-      (data: Blob) => {
-        const blob = new Blob([data], {type: 'application/pdf'});
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        document.body.appendChild(a);
-        a.href = url;
-        a.download = 'activity_logs.pdf';
-        a.click();
-        window.URL.revokeObjectURL(url);
-      },
-      (error) => {
-        console.error('Error downloading activity logs:', error);
-      }
-    ));
+    this.subscriptions.add(
+      this._activityLogService.downloadActivityLogs(this.userId).subscribe(
+        (data: Blob) => {
+          const blob = new Blob([data], {type: 'application/pdf'});
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          document.body.appendChild(a);
+          a.href = url;
+          a.download = 'activity_logs.pdf';
+          a.click();
+          window.URL.revokeObjectURL(url);
+        },
+        (error) => {
+          console.error('Error downloading activity logs:', error);
+        }
+      ));
   }
 
   onEditActivityLogClick(activityLog: ActivityLog): void {
