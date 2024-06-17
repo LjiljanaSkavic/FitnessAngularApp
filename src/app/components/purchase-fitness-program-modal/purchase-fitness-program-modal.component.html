@@ -1,7 +1,9 @@
 <div class="buy-product-wrapper">
   <div class="buy-product-wrapper__header">Buy product</div>
   <div class="buy-product-wrapper__container">
-    <form [formGroup]="selectPayingForm">
+    <form
+      [formGroup]="selectPayingForm"
+      class="main-form">
       <mat-radio-group
         aria-label="Select paying option"
         formControlName="payingOption">
@@ -36,7 +38,8 @@
               <mat-label>Postal code</mat-label>
               <input
                 formControlName="postalCode"
-                matInput>
+                matInput
+                type="number">
             </mat-form-field>
             <mat-form-field class="form-field">
               <mat-label>Street address</mat-label>
@@ -48,7 +51,8 @@
               <mat-label>Street number</mat-label>
               <input
                 formControlName="streetNumber"
-                matInput>
+                matInput
+                type="number">
             </mat-form-field>
           </div>
         </form>
@@ -62,7 +66,8 @@
             <mat-label>Credit card number</mat-label>
             <input
               formControlName="creditCardNumber"
-              matInput>
+              matInput
+              type="number">
           </mat-form-field>
           <mat-form-field class="form-field">
             <mat-label>First and last name</mat-label>
@@ -74,7 +79,8 @@
             <mat-label>CVV2/CVC2</mat-label>
             <input
               formControlName="cvvNumber"
-              matInput>
+              matInput
+              type="number">
           </mat-form-field>
           <mat-radio-group formControlName="confirmProcessing">
             <mat-radio-button value="1">I confirm the processing of the credit
@@ -84,18 +90,19 @@
         </form>
       </ng-container>
     </div>
-    <div class="button-wrapper">
-      <button
-        [mat-dialog-close]="null"
-        class="button-discard"
-        mat-button>Discard
-      </button>
-      <button
-        [mat-dialog-close]="purchase"
-        class="button-save"
-        mat-button>
-        Save
-      </button>
-    </div>
+  </div>
+  <div class="button-wrapper">
+    <button
+      [mat-dialog-close]="null"
+      class="button-discard"
+      mat-button>Discard
+    </button>
+    <button
+      [disabled]="disableSave"
+      [mat-dialog-close]="purchase"
+      class="button-save"
+      mat-button>
+      Save
+    </button>
   </div>
 </div>

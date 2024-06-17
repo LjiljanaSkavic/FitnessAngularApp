@@ -16,6 +16,7 @@ export class PurchaseFitnessProgramModalComponent implements OnInit, OnDestroy {
   creditCardPayingForm: FormGroup;
   selectPayingForm: FormGroup;
   purchase: FitnessProgramPurchaseRequest;
+  disableSave = true;
   subscriptions = new Subscription();
 
   constructor(private _sharedService: SharedService,
@@ -47,7 +48,20 @@ export class PurchaseFitnessProgramModalComponent implements OnInit, OnDestroy {
       this.selectPayingForm.get('payingOption')?.valueChanges.subscribe(selectedOption => {
         const option = parseInt(selectedOption);
         this.codPayingSelected = option === 0;
+        this.updateDisableSave();
       }));
+
+    this.subscriptions.add(
+      this.codPayingForm.valueChanges.subscribe(() => {
+        this.updateDisableSave();
+      })
+    );
+
+    this.subscriptions.add(
+      this.creditCardPayingForm.valueChanges.subscribe(() => {
+        this.updateDisableSave();
+      })
+    );
 
     this.purchase = {
       dateTime: new Date(),
@@ -56,6 +70,11 @@ export class PurchaseFitnessProgramModalComponent implements OnInit, OnDestroy {
       fitnessProgramId: this.data.fitnessProgramId,
       appUserCustomerId: this.data.userId
     }
+  }
+
+  updateDisableSave(): void {
+    console.log(this.disableSave)
+    this.disableSave = this.codPayingSelected ? !this.codPayingForm.valid : !this.creditCardPayingForm.valid;
   }
 
   ngOnDestroy(): void {
