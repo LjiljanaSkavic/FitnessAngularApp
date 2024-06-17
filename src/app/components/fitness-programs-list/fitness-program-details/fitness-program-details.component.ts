@@ -5,7 +5,9 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { FitnessProgramService } from "../../../services/fitness-program.service";
 import { FileService } from "../../../services/file.service";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { BuyProgramComponent } from "../../buy-program/buy-program.component";
+import {
+  PurchaseFitnessProgramModalComponent
+} from "../../purchase-fitness-program-modal/purchase-fitness-program-modal.component";
 import { MatDialog } from "@angular/material/dialog";
 import { UserStoreService } from "../../../services/user-store.service";
 import { FitnessProgramPurchaseService } from "../../../services/fitness-program-purchase.service";
@@ -14,7 +16,7 @@ import { ERROR_HAS_OCCURRED_MESSAGE, snackBarConfig } from "../../../shared/cont
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { CommentService } from "../../../services/comment.service";
 import { ConfirmationModalComponent } from "../../confirmation-modal/confirmation-modal.component";
-import { FitnessProgramModalComponent } from "../add-fitness-program-modal/fitness-program-modal.component";
+import { FitnessProgramModalComponent } from "../fitness-program-modal/fitness-program-modal.component";
 import { DatePipe } from "@angular/common";
 
 @Component({
@@ -126,7 +128,7 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
   }
 
   onBuyProgramClick(): void {
-    this.dialog.open(BuyProgramComponent, {
+    this.dialog.open(PurchaseFitnessProgramModalComponent, {
       data: {
         userId: this.userId,
         fitnessProgramId: this.id

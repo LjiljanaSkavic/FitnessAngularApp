@@ -9,10 +9,9 @@ import { ERROR_HAS_OCCURRED_MESSAGE, MESSAGE_SUCCESS, snackBarConfig } from "./s
 import { Subscription } from "rxjs";
 import { AppUser } from "./models/app-user";
 import { AdviceMessageModalComponent } from "./components/advice-message-modal/advice-message-modal.component";
-import { AdviceMessageService } from "./services/advice-message.service";
-import { ProfileDetailsComponent } from "./components/profile-details/profile-details.component";
-import { ManagePasswordComponent } from "./components/manage-password/manage-password.component";
-import { LoginCardComponent } from "./components/login-card/login-card.component";
+import { ProfileDetailsModalComponent } from "./components/profile-details-modal/profile-details-modal.component";
+import { ManagePasswordModalComponent } from "./components/manage-password-modal/manage-password-modal.component";
+import { LoginCardModalComponent } from "./components/login-card-modal/login-card-modal.component";
 import {
   SubscribeToCategoryModalComponent
 } from "./components/subscribe-to-category/subscribe-to-category-modal.component";
@@ -44,14 +43,13 @@ export class AppComponent implements OnInit, OnDestroy {
               private _elRef: ElementRef,
               private _snackBar: MatSnackBar,
               private _userStoreService: UserStoreService,
-              private _adviceMessageService: AdviceMessageService,
               public dialog: MatDialog,
               private _changeDetectorRef: ChangeDetectorRef,) {
   }
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
-    const clickedToggleProfile = this._elRef.nativeElement.querySelector('.profile-details').contains(event.target);
+    const clickedToggleProfile = this._elRef.nativeElement.querySelector('.profile-details-modal').contains(event.target);
     const clickedInsideProfileCard = this._elRef.nativeElement.querySelector('.quick-profile-view-card').contains(event.target);
 
     if (!clickedToggleProfile && !clickedInsideProfileCard && !this.collapsed) {
@@ -78,7 +76,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onToggleAccountMenuClick(): void {
     if (this.user === null) {
-      this.dialog.open(LoginCardComponent, {
+      this.dialog.open(LoginCardModalComponent, {
           hasBackdrop: true,
           backdropClass: 'fitness-app-backdrop'
         }
@@ -95,7 +93,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onProfileDetailsClick(): void {
     this.collapsed = true;
-    this.dialog.open(ProfileDetailsComponent, {
+    this.dialog.open(ProfileDetailsModalComponent, {
         hasBackdrop: true,
         backdropClass: 'fitness-app-backdrop'
       }
@@ -105,7 +103,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onChangePasswordClick(): void {
     this.collapsed = true;
-    this.dialog.open(ManagePasswordComponent, {
+    this.dialog.open(ManagePasswordModalComponent, {
         hasBackdrop: true,
         backdropClass: 'fitness-app-backdrop'
       }

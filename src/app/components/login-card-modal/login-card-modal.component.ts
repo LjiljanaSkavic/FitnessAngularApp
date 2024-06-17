@@ -6,14 +6,14 @@ import { UserService } from "../../services/user.service";
 import { UserStoreService } from "../../services/user-store.service";
 import { SignUpComponent } from "../sign-up/sign-up.component";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
-import { ActivationCardComponent } from "../activation-card/activation-card.component";
+import { ActivationCardModalComponent } from "../activation-card-modal/activation-card-modal.component";
 
 @Component({
-  selector: 'app-login-card',
-  templateUrl: './login-card.component.html',
-  styleUrls: ['./login-card.component.scss']
+  selector: 'app-login-card-modal',
+  templateUrl: './login-card-modal.component.html',
+  styleUrls: ['./login-card-modal.component.scss']
 })
-export class LoginCardComponent implements OnInit, OnDestroy {
+export class LoginCardModalComponent implements OnInit, OnDestroy {
   hidePassword = true;
   loginForm: FormGroup;
   invalidCredentials = false;
@@ -23,7 +23,7 @@ export class LoginCardComponent implements OnInit, OnDestroy {
               private readonly _formBuilder: UntypedFormBuilder,
               private _userService: UserService,
               private _userStoreService: UserStoreService,
-              private _dialogRef: MatDialogRef<LoginCardComponent>) {
+              private _dialogRef: MatDialogRef<LoginCardModalComponent>) {
   }
 
   ngOnInit(): void {
@@ -61,7 +61,7 @@ export class LoginCardComponent implements OnInit, OnDestroy {
             this._dialogRef.close();
           } else {
             this._dialogRef.close();
-            this.dialog.open(ActivationCardComponent, {
+            this.dialog.open(ActivationCardModalComponent, {
                 data: {
                   userId: user.id
                 },

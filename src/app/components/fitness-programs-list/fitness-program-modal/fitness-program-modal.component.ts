@@ -22,7 +22,7 @@ interface ModalData {
 }
 
 @Component({
-  selector: 'app-add-fitness-program-modal',
+  selector: 'app-fitness-program-modal',
   templateUrl: './fitness-program-modal.component.html',
   styleUrls: ['./fitness-program-modal.component.scss']
 })

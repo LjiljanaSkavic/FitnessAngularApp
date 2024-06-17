@@ -10,17 +10,17 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { ExerciseCardComponent } from './components/exercise-list/exercise-card/exercise-card.component';
 import { ExerciseListComponent } from './components/exercise-list/exercise-list.component';
-import { LoginCardComponent } from './components/login-card/login-card.component';
+import { LoginCardModalComponent } from './components/login-card-modal/login-card-modal.component';
 import { MatCardModule } from "@angular/material/card";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatSelectModule } from "@angular/material/select";
-import { ActivationCardComponent } from './components/activation-card/activation-card.component';
+import { ActivationCardModalComponent } from './components/activation-card-modal/activation-card-modal.component';
 import { ActivateComponent } from './components/activate/activate.component';
 import { MatSnackBarModule } from "@angular/material/snack-bar";
-import { ProfileDetailsComponent } from './components/profile-details/profile-details.component';
+import { ProfileDetailsModalComponent } from './components/profile-details-modal/profile-details-modal.component';
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MatListModule } from "@angular/material/list";
@@ -34,8 +34,10 @@ import {
 } from './components/fitness-programs-list/fitness-program-details/fitness-program-details.component';
 import { MatRadioModule } from "@angular/material/radio";
 import { MatPaginatorModule } from "@angular/material/paginator";
-import { ManagePasswordComponent } from './components/manage-password/manage-password.component';
-import { BuyProgramComponent } from './components/buy-program/buy-program.component';
+import { ManagePasswordModalComponent } from './components/manage-password-modal/manage-password-modal.component';
+import {
+  PurchaseFitnessProgramModalComponent
+} from './components/purchase-fitness-program-modal/purchase-fitness-program-modal.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 import { DatePipe, NgOptimizedImage } from "@angular/common";
@@ -46,7 +48,7 @@ import {
 import { PaymentTypePipe } from "./pipes/payment-type.pipe";
 import {
   FitnessProgramModalComponent
-} from './components/fitness-programs-list/add-fitness-program-modal/fitness-program-modal.component';
+} from './components/fitness-programs-list/fitness-program-modal/fitness-program-modal.component';
 import { AdviceMessageModalComponent } from './components/advice-message-modal/advice-message-modal.component';
 import { ActivityLogsListComponent } from './components/activity-logs-list/activity-logs-list.component';
 import {
@@ -56,8 +58,7 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import {
   ActivityLogModalComponent
-} from './components/activity-logs-list/add-activity-log-modal/activity-log-modal.component';
-import { AtivityLogCardComponent } from './components/ativity-log-card/ativity-log-card.component';
+} from './components/activity-logs-list/activity-log-modal/activity-log-modal.component';
 import { MatTableModule } from "@angular/material/table";
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { GoogleChartsModule } from 'angular-google-charts';
@@ -106,16 +107,16 @@ export const ANGULAR_MATERIAL_MODULES = [
     AppComponent,
     ExerciseCardComponent,
     ExerciseListComponent,
-    LoginCardComponent,
-    ActivationCardComponent,
+    LoginCardModalComponent,
+    ActivationCardModalComponent,
     ActivateComponent,
-    ProfileDetailsComponent,
+    ProfileDetailsModalComponent,
     SignUpComponent,
     FitnessProgramsList,
     FitnessProgramPreviewCardComponent,
     FitnessProgramDetailsComponent,
-    ManagePasswordComponent,
-    BuyProgramComponent,
+    ManagePasswordModalComponent,
+    PurchaseFitnessProgramModalComponent,
     CommentComponent,
     ConfirmationModalComponent,
     FitnessPurchasesListComponent,
@@ -126,7 +127,6 @@ export const ANGULAR_MATERIAL_MODULES = [
     ActivityLogsListComponent,
     ActivityLogDetailsComponent,
     ActivityLogModalComponent,
-    AtivityLogCardComponent,
     StatisticsComponent,
     RssFeedNewsListComponent,
     RssFeedNewsItemComponent,

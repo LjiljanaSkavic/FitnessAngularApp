@@ -6,11 +6,11 @@ import { SharedService } from "../../services/shared.service";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 
 @Component({
-  selector: 'app-buy-program',
-  templateUrl: './buy-program.component.html',
-  styleUrls: ['./buy-program.component.scss']
+  selector: 'app-purchase-fitness-program-modal',
+  templateUrl: './purchase-fitness-program-modal.component.html',
+  styleUrls: ['./purchase-fitness-program-modal.component.scss']
 })
-export class BuyProgramComponent implements OnInit, OnDestroy {
+export class PurchaseFitnessProgramModalComponent implements OnInit, OnDestroy {
   codPayingSelected = true;
   codPayingForm: FormGroup;
   creditCardPayingForm: FormGroup;

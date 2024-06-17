@@ -5,7 +5,7 @@ import { Category } from "../../models/dto/category";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { FitnessProgramCard } from "../../models/fitness-program-card";
-import { FitnessProgramModalComponent } from "./add-fitness-program-modal/fitness-program-modal.component";
+import { FitnessProgramModalComponent } from "./fitness-program-modal/fitness-program-modal.component";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { snackBarConfig } from "../../shared/contants";

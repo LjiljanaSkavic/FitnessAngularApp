@@ -10,18 +10,18 @@ interface DialogData {
 }
 
 @Component({
-  selector: 'app-activation-card',
-  templateUrl: './activation-card.component.html',
-  styleUrls: ['./activation-card.component.scss']
+  selector: 'app-activation-card-modal',
+  templateUrl: './activation-card-modal.component.html',
+  styleUrls: ['./activation-card-modal.component.scss']
 })
-export class ActivationCardComponent implements OnInit, OnDestroy {
+export class ActivationCardModalComponent implements OnInit, OnDestroy {
   dialogData: DialogData
   subscription = new Subscription();
   userId: number;
 
   constructor(private _userService: UserService,
               private _snackBar: MatSnackBar,
-              private _dialogRef: MatDialogRef<ActivationCardComponent>,
+              private _dialogRef: MatDialogRef<ActivationCardModalComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData) {
     this.dialogData = data;
   }

@@ -9,11 +9,11 @@ import { snackBarConfig } from "../../shared/contants";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
-  selector: 'app-manage-password',
-  templateUrl: './manage-password.component.html',
-  styleUrls: ['./manage-password.component.scss']
+  selector: 'app-manage-password-modal',
+  templateUrl: './manage-password-modal.component.html',
+  styleUrls: ['./manage-password-modal.component.scss']
 })
-export class ManagePasswordComponent implements OnInit, OnDestroy {
+export class ManagePasswordModalComponent implements OnInit, OnDestroy {
   passwordForm: FormGroup;
   subscriptions = new Subscription();
   userId: number;
@@ -23,7 +23,7 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
   constructor(private _userService: UserService,
               private _userStoreService: UserStoreService,
               private _snackBar: MatSnackBar,
-              private _dialogRef: MatDialogRef<ManagePasswordComponent>,) {
+              private _dialogRef: MatDialogRef<ManagePasswordModalComponent>,) {
   }
 
   ngOnInit(): void {

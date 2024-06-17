@@ -11,11 +11,11 @@ import { snackBarConfig } from "../../shared/contants";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
-  selector: 'app-profile-details',
-  templateUrl: './profile-details.component.html',
-  styleUrls: ['./profile-details.component.scss']
+  selector: 'app-profile-details-modal',
+  templateUrl: './profile-details-modal.component.html',
+  styleUrls: ['./profile-details-modal.component.scss']
 })
-export class ProfileDetailsComponent implements OnInit, OnDestroy {
+export class ProfileDetailsModalComponent implements OnInit, OnDestroy {
 
   profileForm: FormGroup;
   user: AppUser = null;
@@ -29,7 +29,7 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
               private _fileService: FileService,
               private _userService: UserService,
               private _snackBar: MatSnackBar,
-              private _dialogRef: MatDialogRef<ProfileDetailsComponent>) {
+              private _dialogRef: MatDialogRef<ProfileDetailsModalComponent>) {
   }
 
 

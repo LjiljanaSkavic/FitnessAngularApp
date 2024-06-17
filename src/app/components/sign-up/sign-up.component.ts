@@ -6,9 +6,9 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import * as sha512 from "js-sha512";
 import { UserDto } from "../../models/dto/user-dto";
 import { FileService } from "../../services/file.service";
-import { ActivationCardComponent } from "../activation-card/activation-card.component";
+import { ActivationCardModalComponent } from "../activation-card-modal/activation-card-modal.component";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
-import { LoginCardComponent } from "../login-card/login-card.component";
+import { LoginCardModalComponent } from "../login-card-modal/login-card-modal.component";
 
 @Component({
   selector: 'app-sign-up',
@@ -49,7 +49,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   onLogInClick($event: Event) {
     this._dialogRef.close();
-    this.dialog.open(LoginCardComponent, {
+    this.dialog.open(LoginCardModalComponent, {
       hasBackdrop: true,
       backdropClass: 'fitness-app-backdrop'
     }).afterClosed().subscribe();
@@ -114,7 +114,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     ).subscribe(
       res => {
         this._dialogRef.close();
-        this.dialog.open(ActivationCardComponent, {
+        this.dialog.open(ActivationCardModalComponent, {
             data: {
               userId: res.id
             },
@@ -135,7 +135,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   createUserWithoutImage(user: UserDto) {
     this._userService.createUser(user).subscribe(res => {
         this._dialogRef.close();
-        this.dialog.open(ActivationCardComponent, {
+        this.dialog.open(ActivationCardModalComponent, {
             data: {
               userId: res.id
             },

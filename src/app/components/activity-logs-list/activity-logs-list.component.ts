@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { EMPTY, Subscription, switchMap } from "rxjs";
 import { MatDialog } from "@angular/material/dialog";
-import { ActivityLogModalComponent } from "./add-activity-log-modal/activity-log-modal.component";
+import { ActivityLogModalComponent } from "./activity-log-modal/activity-log-modal.component";
 import { ActivityLog } from "../../models/activity-log-request";
 import { ActivityLogService } from "../../services/activity-log.service";
 import { UserStoreService } from "../../services/user-store.service";
