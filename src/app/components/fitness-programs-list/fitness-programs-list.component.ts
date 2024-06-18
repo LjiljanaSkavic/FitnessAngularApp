@@ -101,6 +101,7 @@ export class FitnessProgramsList implements OnInit, OnDestroy {
 
   onResetFiltersClick(): void {
     this.pageIndex = 0;
+    this.myProgramsFilterOn = false;
     this.buildFilterForm();
     this.displayCards();
     this.filtersVisible = false;

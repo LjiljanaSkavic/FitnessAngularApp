@@ -37,10 +37,9 @@
 
 .filter-form {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  justify-content: center;
+  gap: 24px;
 }
-
 
 .filter-wrapper {
   height: 16px;
@@ -69,10 +68,20 @@
 }
 
 
-.form-row {
+.form-column {
   display: flex;
-  gap: 16px;
-  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+
+  &__wide {
+    min-width: 20vw;
+  }
+
+  &__bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
 }
 
 .price-wrapper {
@@ -82,10 +91,22 @@
   flex: 1;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+
 .price-slider {
   width: 100%;
 }
 
 .mat-mdc-form-field {
   flex: 1;
+}
+
+.filter-button {
+  align-self: flex-end;
 }

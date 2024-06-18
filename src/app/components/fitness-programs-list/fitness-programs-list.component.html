@@ -14,7 +14,7 @@
       <form
         [formGroup]="filterForm"
         class="filter-form">
-        <div class="form-row">
+        <div class="form-column">
           <button
             (click)="onAddNewFitnessProgramClick()"
             [matTooltip]="'Add fitness program'"
@@ -23,7 +23,9 @@
           >
             <mat-icon class="button-icon">add</mat-icon>
           </button>
+        </div>
 
+        <div class="form-column form-column__wide">
           <mat-form-field *ngIf="!categoriesLoading">
             <mat-label>Choose category</mat-label>
             <mat-select formControlName="category">
@@ -46,25 +48,17 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <mat-form-field *ngIf="userId">
-            <mat-label>Show programs</mat-label>
-            <mat-select formControlName="showPrograms">
-              <mat-option value="all">All</mat-option>
-              <mat-option value="myPrograms">My programs</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field *ngIf="myProgramsFilterOn">
-            <mat-label>Choose status</mat-label>
-            <mat-select formControlName="status">
-              <mat-option [value]=0>Active</mat-option>
-              <mat-option [value]=1>Completed</mat-option>
-            </mat-select>
-          </mat-form-field>
         </div>
 
-        <div class="form-row">
+        <div class="form-column  form-column__wide">
+          <mat-form-field appearance="fill">
+            <mat-label>Search</mat-label>
+            <input
+              formControlName="search"
+              matInput
+              placeholder="Type to search">
+          </mat-form-field>
+
           <div class="price-wrapper">
             <label>Price {{ filterForm.get('minPrice').value }} - {{ filterForm.get('maxPrice').value }}</label>
             <mat-slider class="price-slider">
@@ -76,29 +70,41 @@
                 matSliderEndThumb>
             </mat-slider>
           </div>
+        </div>
 
-          <mat-form-field appearance="fill">
-            <mat-label>Search</mat-label>
-            <input
-              formControlName="search"
-              matInput
-              placeholder="Type to search">
+        <div class="form-column  form-column__wide">
+          <mat-form-field *ngIf="userId">
+            <mat-label>Show programs</mat-label>
+            <mat-select formControlName="showPrograms">
+              <mat-option value="all">All</mat-option>
+              <mat-option value="myPrograms">My programs</mat-option>
+            </mat-select>
           </mat-form-field>
 
+          <mat-form-field [ngClass]="myProgramsFilterOn ? 'visible' : 'hidden'">
+            <mat-label>Choose status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option [value]=0>Active</mat-option>
+              <mat-option [value]=1>Completed</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-column form-column__bottom">
           <button
             (click)="onFilterClick()"
-            class="button-save"
+            class="button-save filter-button"
             mat-button>
             <mat-icon>filter_alt</mat-icon>
-            Apply filters
+            Filter
           </button>
           <button
             (click)="onResetFiltersClick()"
-            class="button-discard"
+            class="button-discard filter-button"
             mat-button>
             <mat-icon>filter_alt_off
             </mat-icon>
-            Reset filters
+            Reset
           </button>
         </div>
       </form>
