@@ -139,3 +139,15 @@
 .full-height {
   height: 100%;
 }
+
+.read-more {
+  color: $color-blue-2;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+  align-self: flex-end;
+}
+
+.read-more:hover {
+  color: $color-orange-1;
+}

@@ -27,37 +27,37 @@ import { MatListModule } from "@angular/material/list";
 import { MatTreeModule } from "@angular/material/tree";
 import { FitnessProgramsList } from './components/fitness-programs-list/fitness-programs-list.component';
 import {
-  FitnessProgramPreviewCardComponent
+    FitnessProgramPreviewCardComponent
 } from './components/fitness-programs-list/fitness-program-preview-card/fitness-program-preview-card.component';
 import {
-  FitnessProgramDetailsComponent
+    FitnessProgramDetailsComponent
 } from './components/fitness-programs-list/fitness-program-details/fitness-program-details.component';
 import { MatRadioModule } from "@angular/material/radio";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { ManagePasswordModalComponent } from './components/manage-password-modal/manage-password-modal.component';
 import {
-  PurchaseFitnessProgramModalComponent
+    PurchaseFitnessProgramModalComponent
 } from './components/purchase-fitness-program-modal/purchase-fitness-program-modal.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 import { DatePipe, NgOptimizedImage } from "@angular/common";
 import { FitnessPurchasesListComponent } from './components/fitness-purchases-list/fitness-purchases-list.component';
 import {
-  FitnessProgramPurchaseCardComponent
+    FitnessProgramPurchaseCardComponent
 } from './components/fitness-purchases-list/fitness-program-purchase-card/fitness-program-purchase-card.component';
 import { PaymentTypePipe } from "./pipes/payment-type.pipe";
 import {
-  FitnessProgramModalComponent
+    FitnessProgramModalComponent
 } from './components/fitness-programs-list/fitness-program-modal/fitness-program-modal.component';
 import { AdviceMessageModalComponent } from './components/advice-message-modal/advice-message-modal.component';
 import { ActivityLogsListComponent } from './components/activity-logs-list/activity-logs-list.component';
 import {
-  ActivityLogDetailsComponent
+    ActivityLogDetailsComponent
 } from './components/activity-logs-list/activity-log-details/activity-log-details.component';
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import {
-  ActivityLogModalComponent
+    ActivityLogModalComponent
 } from './components/activity-logs-list/activity-log-modal/activity-log-modal.component';
 import { MatTableModule } from "@angular/material/table";
 import { StatisticsComponent } from './components/statistics/statistics.component';
@@ -74,86 +74,88 @@ import { TruncatePipe } from "./pipes/truncate.pipe";
 import { ActivityLogTypePipe } from "./pipes/activity-log-type.pipe";
 import { DifficultyLevelPipe } from "./pipes/difficulty-level.pipe";
 import {
-  SubscribeToCategoryModalComponent
+    SubscribeToCategoryModalComponent
 } from './components/subscribe-to-category-modal/subscribe-to-category-modal.component';
 import { MatSliderModule } from "@angular/material/slider";
 import { NoDataComponent } from './components/no-data/no-data.component';
 import { MatBadgeModule } from "@angular/material/badge";
+import { ExerciseDetailsComponent } from './components/exercise-list/exercise-details/exercise-details.component';
 
 export const ANGULAR_MATERIAL_MODULES = [
-  MatIconModule,
-  MatButtonModule,
-  MatInputModule,
-  MatToolbarModule,
-  MatCardModule,
-  MatDialogModule,
-  MatSidenavModule,
-  MatSelectModule,
-  MatSnackBarModule,
-  MatTooltipModule,
-  MatListModule,
-  MatTreeModule,
-  MatRadioModule,
-  MatPaginatorModule,
-  MatDatepickerModule,
-  MatNativeDateModule,
-  MatTableModule,
-  MatSliderModule,
-  MatBadgeModule
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatDialogModule,
+    MatSidenavModule,
+    MatSelectModule,
+    MatSnackBarModule,
+    MatTooltipModule,
+    MatListModule,
+    MatTreeModule,
+    MatRadioModule,
+    MatPaginatorModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatTableModule,
+    MatSliderModule,
+    MatBadgeModule
 ]
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ExerciseCardComponent,
-    ExerciseListComponent,
-    LoginCardModalComponent,
-    ActivationCardModalComponent,
-    ActivateComponent,
-    ProfileDetailsModalComponent,
-    SignUpComponent,
-    FitnessProgramsList,
-    FitnessProgramPreviewCardComponent,
-    FitnessProgramDetailsComponent,
-    ManagePasswordModalComponent,
-    PurchaseFitnessProgramModalComponent,
-    CommentComponent,
-    ConfirmationModalComponent,
-    FitnessPurchasesListComponent,
-    FitnessProgramPurchaseCardComponent,
-    PaymentTypePipe,
-    FitnessProgramModalComponent,
-    AdviceMessageModalComponent,
-    ActivityLogsListComponent,
-    ActivityLogDetailsComponent,
-    ActivityLogModalComponent,
-    StatisticsComponent,
-    RssFeedNewsListComponent,
-    RssFeedNewsItemComponent,
-    CarouselComponent,
-    LoaderComponent,
-    ChatComponent,
-    UserListComponent,
-    MessagesComponent,
-    ChatMessageComponent,
-    TruncatePipe,
-    ActivityLogTypePipe,
-    DifficultyLevelPipe,
-    SubscribeToCategoryModalComponent,
-    NoDataComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    NgOptimizedImage,
-    GoogleChartsModule,
-    ANGULAR_MATERIAL_MODULES
-  ],
-  providers: [HttpClient, DatePipe],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        ExerciseCardComponent,
+        ExerciseListComponent,
+        LoginCardModalComponent,
+        ActivationCardModalComponent,
+        ActivateComponent,
+        ProfileDetailsModalComponent,
+        SignUpComponent,
+        FitnessProgramsList,
+        FitnessProgramPreviewCardComponent,
+        FitnessProgramDetailsComponent,
+        ManagePasswordModalComponent,
+        PurchaseFitnessProgramModalComponent,
+        CommentComponent,
+        ConfirmationModalComponent,
+        FitnessPurchasesListComponent,
+        FitnessProgramPurchaseCardComponent,
+        PaymentTypePipe,
+        FitnessProgramModalComponent,
+        AdviceMessageModalComponent,
+        ActivityLogsListComponent,
+        ActivityLogDetailsComponent,
+        ActivityLogModalComponent,
+        StatisticsComponent,
+        RssFeedNewsListComponent,
+        RssFeedNewsItemComponent,
+        CarouselComponent,
+        LoaderComponent,
+        ChatComponent,
+        UserListComponent,
+        MessagesComponent,
+        ChatMessageComponent,
+        TruncatePipe,
+        ActivityLogTypePipe,
+        DifficultyLevelPipe,
+        SubscribeToCategoryModalComponent,
+        NoDataComponent,
+        ExerciseDetailsComponent
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        NgOptimizedImage,
+        GoogleChartsModule,
+        ANGULAR_MATERIAL_MODULES
+    ],
+    providers: [HttpClient, DatePipe],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

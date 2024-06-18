@@ -1,7 +1,7 @@
 <div
   *ngIf="!isLoading; else loading">
   <div
-    *ngIf="activityLogs; else noData"
+    *ngIf="activityLogs.length; else noData"
     class="statistics-wrapper">
     <div class="chart">
       <canvas id="kcalChart"></canvas>
