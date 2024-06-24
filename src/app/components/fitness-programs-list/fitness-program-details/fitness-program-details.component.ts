@@ -126,8 +126,6 @@ export class FitnessProgramDetailsComponent implements OnInit, OnDestroy {
   }
 
   onBuyProgramClick(): void {
-    console.log(this.userId);
-    console.log(this.id);
     this.dialog.open(PurchaseFitnessProgramModalComponent, {
       data: {
         userId: this.userId,

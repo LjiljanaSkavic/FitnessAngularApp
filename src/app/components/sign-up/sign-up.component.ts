@@ -50,7 +50,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
       hasBackdrop: true,
       backdropClass: 'fitness-app-backdrop'
     }).afterClosed().subscribe();
-    // this._router.navigateByUrl('login').catch(err => console.log(err));
   }
 
   onSignUpClick($event: MouseEvent) {
@@ -116,7 +115,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
           }
         ).afterClosed().subscribe(() => {
         });
-        // this._router.navigate(['profile-activation'], {queryParams: {id: res.id}}).catch(err => console.log(err));
       },
       error => {
         //TODO: Error message
