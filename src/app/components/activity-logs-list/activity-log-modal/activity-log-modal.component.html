@@ -24,6 +24,9 @@
         <input
           formControlName="duration"
           matInput>
+        <mat-error *ngIf="activityLogForm.get('duration').hasError('timeFormat')">
+          Invalid time format. Please use hh:mm:ss.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field>

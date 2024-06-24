@@ -8,12 +8,13 @@ import { forkJoin, of, Subscription } from "rxjs";
 import { Category } from "../../../models/dto/category";
 import { UserStoreService } from "../../../services/user-store.service";
 import { FitnessAppFile } from "../../../models/fitness-app-file";
-import { doubleValidator } from "../../../validators/DoubleValidator";
+import { doubleValidator } from "../../../validators/double-validator";
 import { FitnessProgramService } from "../../../services/fitness-program.service";
 import { InstructorDTO } from "../../../models/instructor";
 import { DIFFICULTY_LEVELS } from "../../../constants/difficulty-levels";
 import { Attribute } from "../../../models/dto/attribute";
 import { AttributeService } from "../../../services/attribute.service";
+import { timeFormatValidator } from "../../../validators/time-format.validator";
 
 interface ModalData {
   fitnessProgram: FitnessProgram;
@@ -102,7 +103,7 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
         name: new FormControl(null, Validators.required),
         price: new FormControl(null, Validators.required),
         difficultyLevel: new FormControl(null, Validators.required),
-        duration: new FormControl(null, Validators.required),
+        duration: new FormControl(null, [Validators.required, timeFormatValidator()]),
         description: new FormControl(null, Validators.required),
         isOnline: new FormControl(null, Validators.required),
         location: new FormControl(null, Validators.required),
@@ -114,7 +115,7 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
         name: new FormControl(this.data.fitnessProgram.name, Validators.required),
         price: new FormControl(this.data.fitnessProgram.price, Validators.required),
         difficultyLevel: new FormControl(this.data.fitnessProgram.difficultyLevel, Validators.required),
-        duration: new FormControl(this.data.fitnessProgram.duration, Validators.required),
+        duration: new FormControl(this.data.fitnessProgram.duration, [Validators.required, timeFormatValidator()]),
         description: new FormControl(this.data.fitnessProgram.description, Validators.required),
         isOnline: new FormControl(this.data.fitnessProgram.online ? 'online' : 'location', Validators.required),
         location: new FormControl(this.data.fitnessProgram.location, Validators.required),

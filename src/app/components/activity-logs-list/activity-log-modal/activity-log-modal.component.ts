@@ -6,6 +6,7 @@ import { ActivityLogService } from "../../../services/activity-log.service";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { IntensityType } from "../../../models/intensity-type";
 import { Subscription } from "rxjs";
+import { timeFormatValidator } from "../../../validators/time-format.validator";
 
 export interface ActivityLogModalData {
   activityLog: ActivityLog;
@@ -75,7 +76,7 @@ export class ActivityLogModalComponent implements OnInit, OnDestroy {
     if (this.isEditMode) {
       this.activityLogForm = new FormGroup({
         date: new FormControl(this.data.activityLog.date, Validators.required),
-        duration: new FormControl(this.data.activityLog.duration, Validators.required),
+        duration: new FormControl(this.data.activityLog.duration, [Validators.required, timeFormatValidator()]),
         type: new FormControl(this.data.activityLog.type, Validators.required),
         currentWeightLbs: new FormControl(this.data.activityLog.currentWeightLbs, Validators.required),
         notes: new FormControl(this.data.activityLog.notes, Validators.required),
@@ -84,7 +85,7 @@ export class ActivityLogModalComponent implements OnInit, OnDestroy {
     } else {
       this.activityLogForm = new FormGroup({
         date: new FormControl(null, Validators.required),
-        duration: new FormControl(null, Validators.required),
+        duration: new FormControl(null, [Validators.required, timeFormatValidator()]),
         type: new FormControl(null, Validators.required),
         currentWeightLbs: new FormControl(null, Validators.required),
         notes: new FormControl(null, Validators.required),
