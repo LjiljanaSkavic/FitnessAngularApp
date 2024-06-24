@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { UserStoreService } from "../../services/user-store.service";
 import { ActivityLogService } from "../../services/activity-log.service";
 import { ActivityLog } from "../../models/activity-log-request";
@@ -12,7 +12,7 @@ Chart.register(...registerables);
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.scss']
 })
-export class StatisticsComponent implements OnInit, OnDestroy {
+export class StatisticsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   isLoading = false;
   userId: number;
@@ -34,12 +34,20 @@ export class StatisticsComponent implements OnInit, OnDestroy {
         this._activityLogService.getAll(this.userId).subscribe(res => {
           this.activityLogs = res;
           this.isLoading = false;
-          this.processActivityLogs();
+          // this.processActivityLogs();
         }));
     }
   }
 
-  processActivityLogs() {
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.activityLogs.length) {
+        this.processActivityLogs();
+      }
+    }, 100);
+  }
+
+  processActivityLogs(): void {
     let dates = this.activityLogs.map(log => new Date(log.date));
     dates.sort((a, b) => a.getDate() - b.getDate());
     const stringDates = dates.map(date => {
