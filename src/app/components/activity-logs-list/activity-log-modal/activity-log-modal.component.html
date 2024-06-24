@@ -1,14 +1,14 @@
-<div
-  class="add-activity-log-container">
+<div class="add-activity-log-container">
   <div
     class="add-activity-log-container__header"
-    mat-dialog-title> {{ this.isEditMode ? 'Edit activity' : 'Add activity'}}
+    mat-dialog-title>
+    {{ this.isEditMode ? 'Edit activity' : 'Add activity'}}
   </div>
   <form
     [formGroup]="activityLogForm"
     class="form-wrapper">
-    <div class="form-wrapper__field">
-      <mat-form-field>
+    <div class="form-wrapper__group">
+      <mat-form-field class="form-field">
         <input
           [matDatepicker]="picker"
           formControlName="date"
@@ -19,7 +19,7 @@
           matSuffix></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field class="form-field">
         <mat-label>Duration (hh:mm:ss)</mat-label>
         <input
           formControlName="duration"
@@ -28,11 +28,11 @@
           Invalid time format. Please use hh:mm:ss.
         </mat-error>
       </mat-form-field>
-
-      <mat-form-field>
+    </div>
+    <div class="form-wrapper__group">
+      <mat-form-field class="form-field">
         <mat-label>Intensity</mat-label>
-        <mat-select
-          formControlName="type">
+        <mat-select formControlName="type">
           <mat-option
             *ngFor="let intensityType of intensityTypes"
             [value]="intensityType.id">
@@ -40,28 +40,28 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
-
-    <div class="form-wrapper__field">
-      <mat-form-field>
+      <mat-form-field class="form-field">
         <mat-label>Current Weight (lbs)</mat-label>
         <input
           formControlName="currentWeightLbs"
           matInput
           type="number">
       </mat-form-field>
-      <mat-form-field>
+    </div>
+    <div class="form-wrapper__group">
+      <mat-form-field class="form-field">
         <mat-label>Kcal Intake</mat-label>
         <input
           formControlName="kcalIntake"
           matInput
           type="number">
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field class="form-field">
         <mat-label>Notes</mat-label>
-        <textarea
+        <input
           formControlName="notes"
-          matInput></textarea>
+          matInput
+          type="text">
       </mat-form-field>
     </div>
   </form>
