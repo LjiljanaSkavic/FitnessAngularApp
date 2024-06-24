@@ -6,6 +6,6 @@ export interface FitnessProgramCard {
   price: number;
   difficultyLevel: number;
   image: FitnessAppFile;
-  isOnline: boolean;
+  online: boolean
   location: string;
 }

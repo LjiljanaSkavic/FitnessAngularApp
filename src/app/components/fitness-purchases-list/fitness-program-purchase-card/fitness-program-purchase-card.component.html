@@ -21,6 +21,7 @@
         class="avatar-image">
       <button
         (click)="openYouTubeVideo()"
+        *ngIf="purchase.fitnessProgramCard.online"
         class="button-icon"
         mat-icon-button
         matTooltip="Watch">
