@@ -8,7 +8,6 @@ import { forkJoin, of, Subscription } from "rxjs";
 import { Category } from "../../../models/dto/category";
 import { UserStoreService } from "../../../services/user-store.service";
 import { FitnessAppFile } from "../../../models/fitness-app-file";
-import { doubleValidator } from "../../../validators/double-validator";
 import { FitnessProgramService } from "../../../services/fitness-program.service";
 import { InstructorDTO } from "../../../models/instructor";
 import { DIFFICULTY_LEVELS } from "../../../constants/difficulty-levels";
@@ -70,6 +69,7 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log(this.data);
     this.isEditMode = !!this.data;
     this.showLocation = !!this.data;
 
@@ -89,7 +89,7 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
       }));
   }
 
-  initializeUserId() {
+  initializeUserId(): void {
     const user = this._userStoreService.getLoggedInUser();
     if (user !== null) {
       this.userId = user.id;
@@ -133,22 +133,24 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
   }
 
   buildAttributes(): void {
+    //TODO: Check this dynamicFormControls
     this.dynamicFormControls = this.data.fitnessProgram.attributes.map(attribute => attribute.name);
     for (const controlName of this.dynamicFormControls) {
+      console.log(controlName);
       const attribute = this.data.fitnessProgram.attributes.find(attribute => attribute.name === controlName);
       this.fitnessProgramForm.addControl(controlName,
         this._formBuilder.control(attribute.value, Validators.required));
     }
   }
 
-  buildInstructorForm() {
+  buildInstructorForm(): void {
     if (!this.data) {
       this.instructorForm = new FormGroup({
         firstName: new FormControl(null, Validators.required),
         lastName: new FormControl(null, Validators.required),
         age: new FormControl(null, [Validators.required, Validators.min(18), Validators.max(100)]),
-        height: new FormControl(null, [Validators.required, doubleValidator()]),
-        weight: new FormControl(null, [Validators.required, doubleValidator()]),
+        height: new FormControl(null, [Validators.required]),
+        weight: new FormControl(null, [Validators.required]),
         sex: new FormControl(null, Validators.required),
       });
     } else {
@@ -157,8 +159,8 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
         firstName: new FormControl(this.data.fitnessProgram.instructor.firstName, Validators.required),
         lastName: new FormControl(this.data.fitnessProgram.instructor.lastName, Validators.required),
         age: new FormControl(this.data.fitnessProgram.instructor.age, [Validators.required, Validators.min(18), Validators.max(100)]),
-        height: new FormControl(this.data.fitnessProgram.instructor.height, [Validators.required, doubleValidator()]),
-        weight: new FormControl(this.data.fitnessProgram.instructor.weight, [Validators.required, doubleValidator()]),
+        height: new FormControl(this.data.fitnessProgram.instructor.height, [Validators.required]),
+        weight: new FormControl(this.data.fitnessProgram.instructor.weight, [Validators.required]),
         sex: new FormControl(this.data.fitnessProgram.instructor.sex, Validators.required),
       });
     }
@@ -180,7 +182,7 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
     }
   }
 
-  removeFitnessProgramImage(index: number) {
+  removeFitnessProgramImage(index: number): void {
     if (this.data !== null) {
       this.currentFitnessProgramIds.splice(index, 1);
     }
@@ -217,6 +219,9 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
   }
 
   uploadImagesAndSave(): void {
+    console.log(this.fitnessProgramForm);
+    console.log(this.instructorForm);
+
     const uploadFitnessProgramObservables = this.selectedImages.map(image => {
       return this._fileService.uploadFile(image);
     });
@@ -245,7 +250,7 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
   }
 
   onDialogClose(): void {
-    if (this.data === null) {
+    if (!this.data) {
       this.uploadImagesAndSave();
     } else {
       this.uploadEditedImagesAndSave();
@@ -285,18 +290,31 @@ export class FitnessProgramModalComponent implements OnInit, OnDestroy {
   }
 
   getAttributes(): Attribute[] {
-    const attributes: Attribute[] = [];
-    for (const attribute of this.attributes) {
-      const control = this.fitnessProgramForm.get(attribute.name);
-      if (control) {
+    if (this.data === null) {
+      const attributes: Attribute[] = [];
+      for (const attribute of this.attributes) {
+        const control = this.fitnessProgramForm.get(attribute.name);
         attributes.push({
           id: attribute.id,
           name: attribute.name,
           value: control.value
         });
       }
+      return attributes;
+    } else {
+      const attributes: Attribute[] = [];
+      for (const dynamicControlName of this.dynamicFormControls) {
+        const control = this.fitnessProgramForm.get(dynamicControlName);
+        const attributeIndex = this.data.fitnessProgram.attributes.findIndex(attribute => attribute.name === dynamicControlName);
+        const attributeOriginal = this.data.fitnessProgram.attributes[attributeIndex];
+        attributes.push({
+          id: attributeOriginal.id,
+          name: dynamicControlName,
+          value: control.value
+        });
+      }
+      return attributes;
     }
-    return attributes;
   }
 
   trackIsOnlineChange(): void {
