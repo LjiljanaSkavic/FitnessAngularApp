@@ -152,3 +152,71 @@
 .read-more:hover {
   color: $color-orange-1;
 }
+
+.card-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  height: 60vh;
+  max-width: 20vw;
+  background-color: $color-blue-1;
+  color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.card-title {
+  color: $color-white;
+  font-size: 24px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.card-description {
+  margin-bottom: 15px;
+  font-size: 12px;
+}
+
+.level {
+  color: orange;
+  font-size: 12px;
+}
+
+@media (max-width: 1104px) {
+  .card-title {
+    color: $color-white;
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  .card-description {
+    font-size: 8px;
+    line-height: 1.5;
+    max-height: calc(5 * 1.5em);
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+  }
+
+  .read-more {
+    font-size: 8px;
+  }
+
+  .level {
+    color: orange;
+    font-size: 8px;
+  }
+}

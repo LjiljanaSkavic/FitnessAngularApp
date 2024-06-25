@@ -1,15 +1,15 @@
-<div [ngClass]="isCard ? 'exercise-card' : 'exercise-card__wide'">
-    <h2>{{ exercise.name }}</h2>
-    <p class="level">{{ exercise.difficulty }}</p>
-    <p
-        *ngIf="isCard"
-        class="description"> {{ exercise.instructions | truncate:280 }}</p>
-    <p
-        *ngIf="!isCard"
-        class="description"> {{ exercise.instructions }}</p>
-    <a
-        (click)="openExerciseDetails()"
-        *ngIf="isCard"
-        class="read-more"
-        target="_blank">Read more</a>
+<div [ngClass]="isCard ? 'card-wrapper' : 'card-wrapper__wide'">
+  <p class="card-title">{{ exercise.name }}</p>
+  <p class="level">{{ exercise.difficulty }}</p>
+  <p
+    *ngIf="isCard"
+    class="card-description"> {{ exercise.instructions | truncate:280 }}</p>
+  <p
+    *ngIf="!isCard"
+    class="description-wide"> {{ exercise.instructions }}</p>
+  <a
+    (click)="openExerciseDetails()"
+    *ngIf="isCard"
+    class="read-more"
+    target="_blank">Read more</a>
 </div>

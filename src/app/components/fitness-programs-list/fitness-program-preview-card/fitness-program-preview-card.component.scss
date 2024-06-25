@@ -69,3 +69,21 @@
 .expert {
   background-color: $color-red-1;
 }
+
+@media (max-width: 1104px) {
+  .fitness-program-card {
+    width: 17.5vw;
+  }
+}
+
+@media (max-width: 880px) {
+  .fitness-program-card {
+    width: 17vw;
+  }
+}
+
+@media (max-width: 712px) {
+  .fitness-program-card {
+    width: 16.5vw;
+  }
+}
